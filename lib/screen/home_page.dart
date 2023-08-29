@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wordle/components/grid.dart';
@@ -7,6 +6,7 @@ import 'package:wordle/components/keyboard_row.dart';
 import 'package:wordle/constants/words.dart';
 import 'package:wordle/controller.dart';
 import 'package:wordle/data/key_map.dart';
+import 'package:wordle/providers/theme_provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -36,26 +36,35 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('Wordle'),
         centerTitle: true,
+
+        actions: [
+          IconButton(
+              onPressed: (){
+                Provider.of<ThemeProvider>(context, listen: false).setTheme();
+              },
+              icon: const Icon(Icons.settings)
+          )
+        ],
       ),
-      body: Column(
+      body: const Column(
         children: [
+          Divider(
+            height: 1,
+            thickness: 2,
+          ),
+
           Expanded(
             flex: 7,
-              child: Container(
-                color: Colors.yellow,
-                child: const Grid(),
-              )
+              child: Grid()
           ),
           Expanded(
             flex: 4,
-              child: Container(color: Colors.green,
-              child: const Column(
+              child: Column(
                 children: [
                   KeyboardRow(min: 1, max: 10,),
                   KeyboardRow(min: 11,max: 19,),
                   KeyboardRow(min: 20, max: 29,),
                 ],
-              ),
               )
           ),
         ],
