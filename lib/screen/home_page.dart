@@ -7,6 +7,7 @@ import 'package:wordle/constants/words.dart';
 import 'package:wordle/controller.dart';
 import 'package:wordle/data/key_map.dart';
 import 'package:wordle/providers/theme_provider.dart';
+import 'package:wordle/screen/settings.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -40,7 +41,8 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
               onPressed: (){
-                Provider.of<ThemeProvider>(context, listen: false).setTheme();
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => Settings()
+                ));
               },
               icon: const Icon(Icons.settings)
           )

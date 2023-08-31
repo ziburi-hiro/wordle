@@ -4,8 +4,8 @@ class ThemeProvider extends ChangeNotifier {
 
   bool isDark = false;
 
-  setTheme(){
-    isDark = !isDark;
+  setTheme({required bool turnOn}){
+    isDark = turnOn;
     notifyListeners();
   }
 }
