@@ -7,6 +7,8 @@ import 'models/tile_model.dart';
 class Controller extends ChangeNotifier {
 
   bool checkLine = false;
+  bool isBackOrEnterTapped = false;
+  bool gameWon = false;
   String correctWord = "";
   int currentTile = 0;
   int currentRow = 0;
@@ -18,6 +20,7 @@ class Controller extends ChangeNotifier {
 
     if(value == 'ENTER'){
       if(currentTile == 4 * (currentRow + 1)){
+        isBackOrEnterTapped = true;
         checkWord();
       }
 
@@ -25,12 +28,14 @@ class Controller extends ChangeNotifier {
       if(currentTile > 4 * (currentRow + 1) - 4){
         currentTile--;
         tilesEntered.removeLast();
+        isBackOrEnterTapped = true;
       }
 
     }else{
       if(currentTile < 4 * (currentRow + 1)){
         tilesEntered.add(TileModel(letter: value, answerStage: AnswerStage.notAnswered));
         currentTile++;
+        isBackOrEnterTapped = false;
       }
     }
     notifyListeners();
@@ -52,6 +57,7 @@ class Controller extends ChangeNotifier {
       for (int i = currentRow * 4; i < (currentRow * 4) + 4; i++) {
         tilesEntered[i].answerStage = AnswerStage.correct;
         keyMap.update(tilesEntered[i].letter, (value) => AnswerStage.correct);
+        gameWon = true;
       }
     } else {
       for (int i = 0; i < 4; i++) {
@@ -86,13 +92,17 @@ class Controller extends ChangeNotifier {
       for (int i = currentRow * 4; i < (currentRow * 4) + 4; i++) {
         if (tilesEntered[i].answerStage == AnswerStage.notAnswered) {
           tilesEntered[i].answerStage = AnswerStage.incorrect;
-          keyMap.update(
-              tilesEntered[i].letter, (value) => AnswerStage.incorrect);
+
+          final results = keyMap.entries.where((element) => element.key == tilesEntered[i].letter);
+          if(results.single.value == AnswerStage.notAnswered){
+            keyMap.update(
+                tilesEntered[i].letter, (value) => AnswerStage.incorrect);
+          }
         }
       }
-      currentRow++;
     }
     checkLine = true;
+    currentRow++;
     notifyListeners();
   }
 }

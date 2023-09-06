@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wordle/components/grid.dart';
 import 'package:wordle/components/keyboard_row.dart';
+import 'package:wordle/components/stats.dart';
 import 'package:wordle/constants/words.dart';
 import 'package:wordle/controller.dart';
 import 'package:wordle/data/key_map.dart';
@@ -39,6 +40,12 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
 
         actions: [
+          IconButton(
+              onPressed: (){
+                showDialog(context: context, builder: (_) => StatsBox());
+              },
+              icon: Icon(Icons.bar_chart_outlined)
+          ),
           IconButton(
               onPressed: (){
                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => Settings()
