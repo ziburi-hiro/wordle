@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:wordle/calculate_stats.dart';
 import 'package:wordle/constants/answer_stages.dart';
 import 'package:wordle/data/key_map.dart';
 
@@ -9,6 +10,7 @@ class Controller extends ChangeNotifier {
   bool checkLine = false;
   bool isBackOrEnterTapped = false;
   bool gameWon = false;
+  bool gameCompleted = false;
   String correctWord = "";
   int currentTile = 0;
   int currentRow = 0;
@@ -58,6 +60,7 @@ class Controller extends ChangeNotifier {
         tilesEntered[i].answerStage = AnswerStage.correct;
         keyMap.update(tilesEntered[i].letter, (value) => AnswerStage.correct);
         gameWon = true;
+        gameCompleted = true;
       }
     } else {
       for (int i = 0; i < 4; i++) {
@@ -103,6 +106,15 @@ class Controller extends ChangeNotifier {
     }
     checkLine = true;
     currentRow++;
+
+    if(currentRow == 5){
+      gameCompleted = true;
+    }
+
+    if(gameCompleted){
+      calculateStats(gameWon: gameWon);
+    }
+
     notifyListeners();
   }
 }
