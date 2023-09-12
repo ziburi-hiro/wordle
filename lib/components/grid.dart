@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:wordle/animations/bounce.dart';
 import 'package:wordle/animations/dance.dart';
 import 'package:wordle/components/tile.dart';
-import 'package:wordle/controller.dart';
+import 'package:wordle/providers/controller.dart';
 
 class Grid extends StatelessWidget {
   const Grid({

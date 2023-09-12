@@ -45,7 +45,9 @@ class _DanceState extends State<Dance> with SingleTickerProviderStateMixin{
   void didUpdateWidget(covariant Dance oldWidget) {
     if(widget.animate){
       Future.delayed(Duration(milliseconds: widget.delay), (){
-        _controller.forward();
+        if(mounted){
+          _controller.forward();
+        }
       });
     }
     super.didUpdateWidget(oldWidget);

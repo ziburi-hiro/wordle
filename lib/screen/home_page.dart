@@ -5,10 +5,11 @@ import 'package:wordle/components/grid.dart';
 import 'package:wordle/components/keyboard_row.dart';
 import 'package:wordle/components/stats.dart';
 import 'package:wordle/constants/words.dart';
-import 'package:wordle/controller.dart';
+import 'package:wordle/providers/controller.dart';
 import 'package:wordle/data/key_map.dart';
 import 'package:wordle/providers/theme_provider.dart';
 import 'package:wordle/screen/settings.dart';
+import 'package:wordle/utils/quick_box.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -40,15 +41,37 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
 
         actions: [
-          IconButton(
-              onPressed: (){
-                showDialog(context: context, builder: (_) => StatsBox());
-              },
-              icon: Icon(Icons.bar_chart_outlined)
+          Consumer<Controller>(
+            builder: (_, notifier, __) {
+              if(notifier.notEnoughLetters){
+                runQuickBox(context: context, message: 'Not Enough Letters');
+              }
+              if(notifier.gameCompleted){
+                if(notifier.gameWon){
+                  if(notifier.currentRow == 5){
+                    runQuickBox(context: context, message: 'Phew!');
+                  }else{
+                    runQuickBox(context: context, message: 'Splendid!');
+                  }
+                }else{
+                  runQuickBox(context: context, message: notifier.correctWord);
+                }
+                Future.delayed(const Duration(milliseconds: 4000), (){
+                  if(mounted){
+                    showDialog(context: context, builder: (_) => const StatsBox());
+                  }
+                });
+              }
+              return IconButton(
+                  onPressed: () async {
+                    showDialog(context: context, builder: (_) => const StatsBox());
+                  },
+                  icon: const Icon(Icons.bar_chart_outlined));
+            }
           ),
           IconButton(
               onPressed: (){
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => Settings()
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Settings()
                 ));
               },
               icon: const Icon(Icons.settings)

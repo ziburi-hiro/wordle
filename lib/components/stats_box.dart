@@ -15,11 +15,12 @@ class StatsTile extends StatelessWidget {
         children: [
           Expanded(
               child: FittedBox(
+                fit: BoxFit.scaleDown,
                 alignment: const Alignment(0,1.0),
                   child: Padding(
-                    padding: const EdgeInsets.all(2.0),
+                    padding: const EdgeInsets.all(1.0),
                     child: Text(value.toString(),style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      fontSize: 80,
+                      fontSize: 40,
                     ),
                       textAlign: TextAlign.center,
                     ),

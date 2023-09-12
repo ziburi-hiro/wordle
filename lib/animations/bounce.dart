@@ -19,7 +19,7 @@ class _BounceState extends State<Bounce> with SingleTickerProviderStateMixin{
   void initState() {
 
     _animationController = AnimationController(
-      duration: Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 200),
       vsync: this
     );
 
@@ -42,8 +42,12 @@ class _BounceState extends State<Bounce> with SingleTickerProviderStateMixin{
   @override
   void didUpdateWidget(covariant Bounce oldWidget) {
     if(widget.animate){
-      _animationController.reset();
-      _animationController.forward();
+      WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+        if(mounted){
+          _animationController.reset();
+          _animationController.forward();
+        }
+      });
     }
     super.didUpdateWidget(oldWidget);
   }

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wordle/constants/colors.dart';
-import 'package:wordle/controller.dart';
+import 'package:wordle/providers/controller.dart';
 import 'package:wordle/providers/theme_provider.dart';
 import 'package:wordle/screen/home_page.dart';
-import 'package:wordle/screen/settings.dart';
-import 'package:wordle/themes/theme_preferences.dart';
-import 'package:wordle/themes/themes.dart';
+import 'package:wordle/utils/theme_preferences.dart';
+import 'package:wordle/constants/themes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,7 +26,7 @@ class MyApp extends StatelessWidget {
         future: ThemePreferences.getTheme(),
         builder:(context,snapshot) {
           if(snapshot.hasData){
-            WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+            WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
               Provider.of<ThemeProvider>(context, listen: false).setTheme(turnOn: snapshot.data as bool);
             });
           }

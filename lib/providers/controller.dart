@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
-import 'package:wordle/calculate_stats.dart';
+import 'package:wordle/utils/calculate_chart_stats.dart';
+import 'package:wordle/utils/calculate_stats.dart';
 import 'package:wordle/constants/answer_stages.dart';
 import 'package:wordle/data/key_map.dart';
 
-import 'models/tile_model.dart';
+import '../models/tile_model.dart';
 
 class Controller extends ChangeNotifier {
 
@@ -11,6 +12,7 @@ class Controller extends ChangeNotifier {
   bool isBackOrEnterTapped = false;
   bool gameWon = false;
   bool gameCompleted = false;
+  bool notEnoughLetters = false;
   String correctWord = "";
   int currentTile = 0;
   int currentRow = 0;
@@ -21,23 +23,26 @@ class Controller extends ChangeNotifier {
   setKeyTapped({required String value}) {
 
     if(value == 'ENTER'){
+      isBackOrEnterTapped = true;
       if(currentTile == 4 * (currentRow + 1)){
-        isBackOrEnterTapped = true;
         checkWord();
+      }else{
+        notEnoughLetters = true;
       }
-
     }else if(value == 'BACK'){
+      isBackOrEnterTapped = true;
+      notEnoughLetters = false;
       if(currentTile > 4 * (currentRow + 1) - 4){
         currentTile--;
         tilesEntered.removeLast();
-        isBackOrEnterTapped = true;
       }
 
     }else{
+      isBackOrEnterTapped = false;
+      notEnoughLetters = false;
       if(currentTile < 4 * (currentRow + 1)){
         tilesEntered.add(TileModel(letter: value, answerStage: AnswerStage.notAnswered));
         currentTile++;
-        isBackOrEnterTapped = false;
       }
     }
     notifyListeners();
@@ -100,6 +105,8 @@ class Controller extends ChangeNotifier {
           if(results.single.value == AnswerStage.notAnswered){
             keyMap.update(
                 tilesEntered[i].letter, (value) => AnswerStage.incorrect);
+          }else{
+            return false;
           }
         }
       }
@@ -113,6 +120,9 @@ class Controller extends ChangeNotifier {
 
     if(gameCompleted){
       calculateStats(gameWon: gameWon);
+      if(gameWon){
+        setChartStats(currentRow: currentRow);
+      }
     }
 
     notifyListeners();

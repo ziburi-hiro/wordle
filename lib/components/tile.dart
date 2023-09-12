@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wordle/constants/answer_stages.dart';
 import 'package:wordle/constants/colors.dart';
-import 'package:wordle/controller.dart';
+import 'package:wordle/providers/controller.dart';
 
 class Tile extends StatefulWidget {
   const Tile({required this.index, super.key,
@@ -27,16 +27,18 @@ class _TileState extends State<Tile> with SingleTickerProviderStateMixin {
   
   @override
   void initState() {
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-      _borderColor = Theme.of(context).primaryColorLight;
-    });
-    
     _animationController = AnimationController(
       duration: Duration(milliseconds: 500),
         vsync: this
     );
     
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    _borderColor = Theme.of(context).primaryColorLight;
+    super.didChangeDependencies();
   }
 
   @override
@@ -58,7 +60,9 @@ class _TileState extends State<Tile> with SingleTickerProviderStateMixin {
             if(notifier.checkLine) {
               final delay = widget.index - (notifier.currentRow - 1) * 4;
               Future.delayed(Duration(milliseconds: 300 * delay),(){
-                _animationController.forward();
+                if(mounted){
+                  _animationController.forward();
+                }
                 notifier.checkLine = false;
               });
 
