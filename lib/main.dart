@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wordle/providers/controller.dart';
 import 'package:wordle/providers/theme_provider.dart';
+import 'package:wordle/screen/game_page.dart';
 import 'package:wordle/screen/home_page.dart';
 import 'package:wordle/utils/theme_preferences.dart';
 import 'package:wordle/constants/themes.dart';
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => Controller()),
