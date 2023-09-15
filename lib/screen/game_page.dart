@@ -86,15 +86,15 @@ class _GamePageState extends State<GamePage> {
 
           Expanded(
             flex: 7,
-              child: Grid()
+              child: Grid(itemCount: 20, space: 3, axisCount: 4,)
           ),
           Expanded(
             flex: 4,
               child: Column(
                 children: [
-                  KeyboardRow(min: 1, max: 10,),
-                  KeyboardRow(min: 11,max: 19,),
-                  KeyboardRow(min: 20, max: 29,),
+                  KeyboardRow(min: 1, max: 10, length: 4,),
+                  KeyboardRow(min: 11,max: 19, length: 4,),
+                  KeyboardRow(min: 20, max: 29, length: 4,),
                 ],
               )
           ),

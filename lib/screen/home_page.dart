@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wordle/providers/theme_provider.dart';
+import 'package:wordle/screen/five_words_wordle.dart';
 import 'package:wordle/screen/game_page.dart';
 import 'package:wordle/screen/settings.dart';
 
@@ -90,8 +91,7 @@ class _HomePageState extends State<HomePage> {
                       )
                   ),
                   onPressed: (){
-                    //Navigator.of(context).push(MaterialPageRoute(builder: (context) => const GamePage()));
-                    print('now implement');
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const FiveWordsWordle()));
                   },
                   child: const Text('5WORDS WORDLE',style: TextStyle(
                       fontSize: 20,

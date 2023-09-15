@@ -2,7 +2,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 setChartStats({required int currentRow}) async {
 
-  List<int> distribution = [0,0,0,0,0];
+  List<int> distribution = [0,0,0,0,0,0];
   List<String> distributionString = [];
 
   final stats = await getStats();
@@ -11,7 +11,7 @@ setChartStats({required int currentRow}) async {
     distribution = stats;
   }
 
-  for(int i = 0;i < 5;i++){
+  for(int i = 0;i < 6;i++){
     if(currentRow - 1 == i){
       distribution[i]++;
     }

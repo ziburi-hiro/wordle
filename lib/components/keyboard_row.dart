@@ -6,10 +6,11 @@ import 'package:wordle/providers/controller.dart';
 import 'package:wordle/data/key_map.dart';
 
 class KeyboardRow extends StatelessWidget {
-  const KeyboardRow({required this.min, required this.max, super.key,
+  const KeyboardRow({required this.min, required this.max, super.key, required this.length,
   });
 
   final int min,max;
+  final int length;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +51,7 @@ class KeyboardRow extends StatelessWidget {
                         child: InkWell(
                           onTap: (){
                             Provider.of<Controller>(context, listen: false)
-                                .setKeyTapped(value: e.key);
+                                .setKeyTapped(value: e.key, length: length);
                           },
                             child: Center(child:
                             e.key == 'BACK' ? const Icon(Icons.backspace_outlined) :

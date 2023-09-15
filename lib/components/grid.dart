@@ -7,19 +7,22 @@ import 'package:wordle/providers/controller.dart';
 
 class Grid extends StatelessWidget {
   const Grid({
-    super.key,
+    super.key, required this.itemCount, required this.space, required this.axisCount,
   });
+  final int itemCount;
+  final double space;
+  final int axisCount;
 
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
         physics: const NeverScrollableScrollPhysics(),
         padding: const EdgeInsets.fromLTRB(36, 20, 36, 20),
-        itemCount: 20,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          mainAxisSpacing: 3,
-          crossAxisSpacing: 3,
-          crossAxisCount: 4,
+        itemCount: itemCount,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          mainAxisSpacing: space,
+          crossAxisSpacing: space,
+          crossAxisCount: axisCount,
         ),
         itemBuilder: (context, index){
           return Consumer<Controller>(
@@ -31,10 +34,10 @@ class Grid extends StatelessWidget {
                 animate = true;
               }
               if(notifier.gameWon){
-                for(int i = notifier.tilesEntered.length - 4; i < notifier.tilesEntered.length; i++){
+                for(int i = notifier.tilesEntered.length - axisCount; i < notifier.tilesEntered.length; i++){
                   if(index == i){
                     animateDance = true;
-                    danceDelay += 150 * (i - ((notifier.currentRow - 1) * 4));
+                    danceDelay += 150 * (i - ((notifier.currentRow - 1) * axisCount));
                   }
                 }
               }
