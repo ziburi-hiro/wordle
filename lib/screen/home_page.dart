@@ -26,11 +26,17 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
               onPressed: (){
+                print('show statics');
+              },
+              icon: const Icon(Icons.bar_chart_outlined)
+          ),
+          IconButton(
+              onPressed: (){
                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Settings()
                 ));
               },
               icon: const Icon(Icons.settings)
-          )
+          ),
         ],
       ),
       body: Consumer<ThemeProvider>(
@@ -38,26 +44,35 @@ class _HomePageState extends State<HomePage> {
           return Center(
           child: Column(
             children: [
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: notifier.isDark ? Colors.transparent : Colors.transparent,
-                  fixedSize: Size(size.width * 0.7, size.height * 0.1),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)
+              SizedBox(
+                height: size.height*0.35,
+              ),
+              const Text('---Single Play---',style: TextStyle(
+                fontSize: 24
+              ),),
+              Padding(
+                padding: const EdgeInsets.only(top: 8),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: notifier.isDark ? Colors.transparent : Colors.transparent,
+                    fixedSize: Size(size.width * 0.7, size.height * 0.1),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)
+                    ),
+                    side: BorderSide(
+                      width: 5,
+                      color: notifier.isDark ? Colors.white : Colors.grey,
+                    )
                   ),
-                  side: BorderSide(
-                    width: 5,
-                    color: notifier.isDark ? Colors.white : Colors.grey,
-                  )
+                  onPressed: (){
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const GamePage()));
+                  },
+                  child: const Text('4WORDS WORDLE',style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w900,
+                    fontStyle: FontStyle.italic
+                  ),),
                 ),
-                onPressed: (){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const GamePage()));
-                },
-                child: const Text('4WORDS WORDLE',style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w900,
-                  fontStyle: FontStyle.italic
-                ),),
               ),
 
               Padding(
@@ -85,7 +100,34 @@ class _HomePageState extends State<HomePage> {
                   ),),
                 ),
               ),
-
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text('---VS Mode---',style: TextStyle(
+                    fontSize: 24
+                ),),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: notifier.isDark ? Colors.transparent : Colors.transparent,
+                    fixedSize: Size(size.width * 0.7, size.height * 0.1),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)
+                    ),
+                    side: BorderSide(
+                      width: 5,
+                      color: notifier.isDark ? Colors.white : Colors.grey,
+                    )
+                ),
+                onPressed: (){
+                  //Navigator.of(context).push(MaterialPageRoute(builder: (context) => const GamePage()));
+                  print('now implement');
+                },
+                child: const Text('4WORDS MODE',style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w900,
+                    fontStyle: FontStyle.italic
+                ),),
+              ),
             ],
           ),
         );
