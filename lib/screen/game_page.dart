@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wordle/components/grid.dart';
 import 'package:wordle/components/keyboard_row.dart';
+import 'package:wordle/components/result_box.dart';
 import 'package:wordle/components/stats.dart';
 import 'package:wordle/constants/words.dart';
 import 'package:wordle/providers/controller.dart';
@@ -63,9 +64,12 @@ class _GamePageState extends State<GamePage> {
               }
               return IconButton(
                   onPressed: () async {
-                    showDialog(context: context, builder: (_) => const StatsBox());
+                    // notifier.gameCompleted ? showDialog(context: context, builder: (_) => const ResultBox())
+                    //     :
+                    // showDialog(context: context, builder: (_) => const StatsBox());
+                    showDialog(context: context, builder: (_) => const ResultBox());
                   },
-                  icon: const Icon(Icons.bar_chart_outlined));
+                  icon: const Icon(Icons.replay_sharp));
             }
           ),
           IconButton(
