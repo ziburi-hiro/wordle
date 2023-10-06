@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wordle/components/stats_chart.dart';
+import 'package:wordle/screen/game_page.dart';
 import 'package:wordle/utils/calculate_stats.dart';
 import 'package:wordle/components/stats_box.dart';
 import 'package:wordle/constants/answer_stages.dart';
@@ -52,7 +53,7 @@ class StatsBox extends StatelessWidget {
             flex: 8,
             child: StatsChart(),
           ),
-          
+
           Expanded(
             flex: 2,
               child: ElevatedButton(
@@ -60,13 +61,13 @@ class StatsBox extends StatelessWidget {
                   backgroundColor: Colors.green
                 ),
                 onPressed: (){
-                  
                   keyMap.updateAll((key, value) => value = AnswerStage.notAnswered);
-                  
+
                   Navigator.pushAndRemoveUntil(context,
                       MaterialPageRoute(builder: (context) => const MyApp()),
                           (route) => false
                   );
+
                 },
                 child: const Text('Replay',style: TextStyle(
                   fontSize: 30,
