@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:wordle/constants/means.dart';
 import 'package:wordle/utils/calculate_chart_stats.dart';
 import 'package:wordle/utils/calculate_stats.dart';
 import 'package:wordle/constants/answer_stages.dart';
@@ -14,11 +15,25 @@ class Controller extends ChangeNotifier {
   bool gameCompleted = false;
   bool notEnoughLetters = false;
   String correctWord = "";
+  List<String> meanList = [];
+  String partsOfSpeech = "";
   int currentTile = 0;
   int currentRow = 0;
   List<TileModel> tilesEntered = [];
 
   setCorrectWord({required String word}) => correctWord = word;
+
+  setCorrectMean({required String word}){
+    meanList = Means[word]!;
+  }
+
+  gameReset(){
+    gameWon = false;
+    gameCompleted = false;
+    currentTile = 0;
+    currentRow = 0;
+    tilesEntered.clear();
+  }
 
   setKeyTapped({required String value, required int length}) {
 

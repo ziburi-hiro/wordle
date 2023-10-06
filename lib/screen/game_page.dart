@@ -29,6 +29,7 @@ class _GamePageState extends State<GamePage> {
 
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
       Provider.of<Controller>(context, listen: false).setCorrectWord(word: _word);
+      Provider.of<Controller>(context, listen: false).setCorrectMean(word: _word);
     });
     super.initState();
   }
