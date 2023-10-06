@@ -5,6 +5,7 @@ import 'package:wordle/data/key_map.dart';
 import 'package:wordle/main.dart';
 import 'package:wordle/providers/controller.dart';
 import 'package:wordle/screen/game_page.dart';
+import 'package:wordle/screen/home_page.dart';
 
 class ResultBox extends StatelessWidget {
   const ResultBox({Key? key}) : super(key: key);
@@ -37,6 +38,7 @@ class ResultBox extends StatelessWidget {
             ),
 
             Expanded(
+              flex: 4,
               child: Column(
                 children: [
                   const Text('Correct Word',
@@ -63,12 +65,25 @@ class ResultBox extends StatelessWidget {
                       fontSize: 22,
                       fontWeight: FontWeight.bold
                   ),),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const Text('Parts of Speech',
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold
+                    ),),
+                  Text(notifier.meanList[1],
+                    style: const TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold
+                    ),),
                 ],
               ),
             ),
 
             Expanded(
-                flex: 1,
+                flex: 2,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green
@@ -84,7 +99,28 @@ class ResultBox extends StatelessWidget {
                     fontSize: 30,
                   ),),
                 )
-            )
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Expanded(
+                flex: 2,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green
+                  ),
+                  onPressed: (){
+                    keyMap.updateAll((key, value) => value = AnswerStage.notAnswered);
+                    notifier.gameReset();
+
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()));
+                  },
+                  child: const Text('To Title',style: TextStyle(
+                    fontSize: 30,
+                  ),),
+                )
+            ),
           ],
           );
           },
