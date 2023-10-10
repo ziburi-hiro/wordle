@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:wordle/constants/five_words_means.dart';
 import 'package:wordle/constants/means.dart';
 import 'package:wordle/utils/calculate_chart_stats.dart';
 import 'package:wordle/utils/calculate_stats.dart';
@@ -16,7 +17,9 @@ class Controller extends ChangeNotifier {
   bool notEnoughLetters = false;
   String correctWord = "";
   List<String> meanList = [];
+  List<String> meanList_5words = [];
   String partsOfSpeech = "";
+  String partsOfSpeech_5words = "";
   int currentTile = 0;
   int currentRow = 0;
   List<TileModel> tilesEntered = [];
@@ -25,6 +28,10 @@ class Controller extends ChangeNotifier {
 
   setCorrectMean({required String word}){
     meanList = Means[word]!;
+  }
+
+  setCorrectMeanFiveWords({required String word}){
+    meanList_5words = FiveWordsMeans[word]!;
   }
 
   gameReset(){

@@ -4,10 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:wordle/components/grid.dart';
 import 'package:wordle/components/keyboard_row.dart';
 import 'package:wordle/components/result_box.dart';
-import 'package:wordle/components/stats.dart';
+import 'package:wordle/components/title_back_box.dart';
 import 'package:wordle/constants/words.dart';
 import 'package:wordle/providers/controller.dart';
-
 import 'package:wordle/screen/settings.dart';
 import 'package:wordle/utils/quick_box.dart';
 
@@ -38,7 +37,7 @@ class _GamePageState extends State<GamePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Wordle'),
+        title: const Text('4 WORDS WORDLE'),
         centerTitle: true,
 
         actions: [
@@ -57,20 +56,20 @@ class _GamePageState extends State<GamePage> {
                 }else{
                   runQuickBox(context: context, message: notifier.correctWord);
                 }
-                Future.delayed(const Duration(milliseconds: 4000), (){
+                Future.delayed(const Duration(milliseconds: 3000), (){
                   if(mounted){
-                    showDialog(context: context, builder: (_) => const StatsBox());
+                    showDialog(context: context, builder: (_) => const ResultBox());
                   }
                 });
               }
               return IconButton(
                   onPressed: () async {
-                    // notifier.gameCompleted ? showDialog(context: context, builder: (_) => const ResultBox())
-                    //     :
-                    // showDialog(context: context, builder: (_) => const StatsBox());
-                    showDialog(context: context, builder: (_) => const ResultBox());
+                    notifier.gameCompleted ? showDialog(context: context, builder: (_) => const ResultBox())
+                        :
+                    showDialog(context: context, builder: (_) => const TitleBackBox());
                   },
-                  icon: const Icon(Icons.replay_sharp));
+                  icon: notifier.gameCompleted ? const Icon(Icons.description) : const Icon(Icons.reply)
+              );
             }
           ),
           IconButton(

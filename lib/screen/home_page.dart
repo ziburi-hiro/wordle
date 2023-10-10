@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                       )
                   ),
                   onPressed: (){
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const FiveWordsWordle()));
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const FiveWordsWordle()));
                   },
                   child: const Text('5WORDS WORDLE',style: TextStyle(
                       fontSize: 20,

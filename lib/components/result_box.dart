@@ -100,9 +100,11 @@ class ResultBox extends StatelessWidget {
                   ),),
                 )
             ),
-            SizedBox(
+
+            const SizedBox(
               height: 10,
             ),
+            
             Expanded(
                 flex: 2,
                 child: ElevatedButton(

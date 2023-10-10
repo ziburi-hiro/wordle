@@ -697,7 +697,3 @@ const List<String> words = [
   'ZOOM',
 
 ];
-
-const List<String> five_words =[
-  'PIZZA',
-];

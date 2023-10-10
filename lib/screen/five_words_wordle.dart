@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wordle/components/grid.dart';
 import 'package:wordle/components/keyboard_row.dart';
+import 'package:wordle/components/result_box.dart';
+import 'package:wordle/components/result_box_fivewords.dart';
 import 'package:wordle/components/stats.dart';
+import 'package:wordle/components/title_back_box.dart';
+import 'package:wordle/constants/five_words.dart';
 import 'package:wordle/constants/words.dart';
 import 'package:wordle/providers/controller.dart';
 import 'package:wordle/screen/settings.dart';
@@ -27,6 +31,7 @@ class _FiveWordsWordleState extends State<FiveWordsWordle> {
 
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
       Provider.of<Controller>(context, listen: false).setCorrectWord(word: _word);
+      Provider.of<Controller>(context, listen: false).setCorrectMeanFiveWords(word: _word);
     });
     super.initState();
   }
@@ -35,7 +40,7 @@ class _FiveWordsWordleState extends State<FiveWordsWordle> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('5 words Wordle'),
+        title: const Text('5 WORDS WORDLE'),
         centerTitle: true,
 
         actions: [
@@ -54,17 +59,20 @@ class _FiveWordsWordleState extends State<FiveWordsWordle> {
                   }else{
                     runQuickBox(context: context, message: notifier.correctWord);
                   }
-                  Future.delayed(const Duration(milliseconds: 4000), (){
+                  Future.delayed(const Duration(milliseconds: 3000), (){
                     if(mounted){
-                      showDialog(context: context, builder: (_) => const StatsBox());
+                      showDialog(context: context, builder: (_) => const ResultBoxFiveWords());
                     }
                   });
                 }
                 return IconButton(
                     onPressed: () async {
-                      showDialog(context: context, builder: (_) => const StatsBox());
+                      notifier.gameCompleted ? showDialog(context: context, builder: (_) => const ResultBoxFiveWords())
+                          :
+                      showDialog(context: context, builder: (_) => const TitleBackBox());
                     },
-                    icon: const Icon(Icons.bar_chart_outlined));
+                    icon: notifier.gameCompleted ? const Icon(Icons.description) : const Icon(Icons.reply)
+                );
               }
           ),
           IconButton(
