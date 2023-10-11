@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:wordle/components/stats_chart.dart';
-import 'package:wordle/screen/game_page.dart';
 import 'package:wordle/utils/calculate_stats.dart';
 import 'package:wordle/components/stats_box.dart';
 import 'package:wordle/constants/answer_stages.dart';

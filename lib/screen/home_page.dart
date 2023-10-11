@@ -4,6 +4,7 @@ import 'package:wordle/providers/theme_provider.dart';
 import 'package:wordle/screen/five_words_wordle.dart';
 import 'package:wordle/screen/game_page.dart';
 import 'package:wordle/screen/settings.dart';
+import 'package:wordle/screen/statics_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -27,7 +28,7 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
               onPressed: (){
-                print('show statics');
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const StaticsPage()));
               },
               icon: const Icon(Icons.bar_chart_outlined)
           ),
