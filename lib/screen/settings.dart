@@ -49,6 +49,9 @@ class Settings extends StatelessWidget {
               prefs.remove('stats');
               prefs.remove('chart');
               prefs.remove('row');
+              prefs.remove('stats_five_words');
+              prefs.remove('chart_five_words');
+              prefs.remove('row_five_words');
               runQuickBox(context: context, message: 'Statistics Reset');
             },
           )

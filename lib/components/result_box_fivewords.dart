@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wordle/constants/answer_stages.dart';
 import 'package:wordle/data/key_map.dart';
-import 'package:wordle/main.dart';
 import 'package:wordle/providers/controller.dart';
-import 'package:wordle/screen/game_page.dart';
+import 'package:wordle/screen/five_words_wordle.dart';
 import 'package:wordle/screen/home_page.dart';
 
 class ResultBoxFiveWords extends StatelessWidget {
@@ -93,7 +92,7 @@ class ResultBoxFiveWords extends StatelessWidget {
                       notifier.gameReset();
 
                       Navigator.of(context).pop();
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const GamePage()));
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const FiveWordsWordle()));
                     },
                     child: const Text('Replay',style: TextStyle(
                       fontSize: 30,

@@ -2,9 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:wordle/constants/five_words_means.dart';
 import 'package:wordle/constants/means.dart';
 import 'package:wordle/utils/calculate_chart_stats.dart';
+import 'package:wordle/utils/calculate_chart_stats_fivewords.dart';
 import 'package:wordle/utils/calculate_stats.dart';
 import 'package:wordle/constants/answer_stages.dart';
 import 'package:wordle/data/key_map.dart';
+import 'package:wordle/utils/calculate_stats_fivewords.dart';
 
 import '../models/tile_model.dart';
 
@@ -141,9 +143,21 @@ class Controller extends ChangeNotifier {
     }
 
     if(gameCompleted){
-      calculateStats(gameWon: gameWon);
+      if(length == 4){
+        calculateStats(gameWon: gameWon);
+      }else if(length == 5){
+        calculateStatsFiveWords(gameWon: gameWon);
+      }else{
+        return false;
+      }
       if(gameWon){
-        setChartStats(currentRow: currentRow);
+        if(length == 4){
+          setChartStats(currentRow: currentRow);
+        }else if(length == 5){
+          setChartStatsFiveWords(currentRow: currentRow);
+        }else{
+          return false;
+        }
       }
     }
 

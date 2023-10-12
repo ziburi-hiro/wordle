@@ -1,11 +1,11 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-setChartStats({required int currentRow}) async {
+setChartStatsFiveWords({required int currentRow}) async {
 
-  List<int> distribution = [0,0,0,0,0];
+  List<int> distribution = [0,0,0,0,0,0];
   List<String> distributionString = [];
 
-  final stats = await getChartStats();
+  final stats = await getChartStatsFiveWords();
 
   if(stats != null){
     distribution = stats;
@@ -22,14 +22,14 @@ setChartStats({required int currentRow}) async {
   }
 
   final prefs = await SharedPreferences.getInstance();
-  prefs.setInt('row', currentRow);
-  prefs.setStringList('chart', distributionString);
+  prefs.setInt('row_five_words', currentRow);
+  prefs.setStringList('chart_five_words', distributionString);
 }
 
 
-Future<List<int>?> getChartStats() async {
+Future<List<int>?> getChartStatsFiveWords() async {
   final prefs = await SharedPreferences.getInstance();
-  final stats = prefs.getStringList('chart');
+  final stats = prefs.getStringList('chart_five_words');
   if(stats != null){
     List<int> result = [];
     for(var e in stats){
