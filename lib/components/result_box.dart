@@ -47,7 +47,7 @@ class ResultBox extends StatelessWidget {
                         fontWeight: FontWeight.bold
                     ),
                   ),
-                  Text(notifier.correctWord,
+                  Text(notifier.correctWord.toLowerCase(),
                     style: const TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold

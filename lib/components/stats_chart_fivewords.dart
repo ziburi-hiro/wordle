@@ -59,11 +59,6 @@ class StatsChartFiveWords extends StatelessWidget {
                           color: color,
                         )
                     ),
-                    behaviors: [
-                      charts.ChartTitle(
-                          'GUESS DISTRIBUTION'
-                      )
-                    ],
                   );
                 },
               );

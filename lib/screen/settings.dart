@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wordle/components/reset_statistics_box.dart';
 import 'package:wordle/providers/theme_provider.dart';
 import 'package:wordle/utils/quick_box.dart';
 import 'package:wordle/utils/theme_preferences.dart';
@@ -45,14 +46,7 @@ class Settings extends StatelessWidget {
           ListTile(
             title: const Text('Reset Statistics'),
             onTap: () async {
-              final prefs = await SharedPreferences.getInstance();
-              prefs.remove('stats');
-              prefs.remove('chart');
-              prefs.remove('row');
-              prefs.remove('stats_five_words');
-              prefs.remove('chart_five_words');
-              prefs.remove('row_five_words');
-              runQuickBox(context: context, message: 'Statistics Reset');
+              showDialog(context: context, builder: (_) => const ResetStatisticsBox());
             },
           )
         ],
