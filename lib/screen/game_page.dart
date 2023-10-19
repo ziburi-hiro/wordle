@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wordle/components/grid.dart';
 import 'package:wordle/components/keyboard_row.dart';
+import 'package:wordle/components/quiz_box.dart';
 import 'package:wordle/components/result_box.dart';
 import 'package:wordle/components/title_back_box.dart';
 import 'package:wordle/constants/words.dart';
@@ -20,15 +21,29 @@ class GamePage extends StatefulWidget {
 class _GamePageState extends State<GamePage> {
 
   late String _word;
+  late String _choices1;
+  late String _choices2;
+  late String _choices3;
 
   @override
   void initState() {
     final r = Random().nextInt(words.length);
     _word = words[r];
+    final num1 = Random().nextInt(words.length);
+    final num2 = Random().nextInt(words.length);
+    final num3 = Random().nextInt(words.length);
+    _choices1 = words[num1];
+    _choices2 = words[num2];
+    _choices3 = words[num3];
+
+    final answerPositionNum = Random().nextInt(4);
 
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
       Provider.of<Controller>(context, listen: false).setCorrectWord(word: _word);
       Provider.of<Controller>(context, listen: false).setCorrectMean(word: _word);
+      Provider.of<Controller>(context, listen: false).setChoicesWord(choices1: _choices1, choices2: _choices2, choices3: _choices3);
+      Provider.of<Controller>(context, listen: false).setChoicesMean(choices1: _choices1, choices2: _choices2, choices3: _choices3);
+      Provider.of<Controller>(context, listen: false).setAnswerPositionNum(num: answerPositionNum);
     });
     super.initState();
   }
@@ -39,7 +54,12 @@ class _GamePageState extends State<GamePage> {
       appBar: AppBar(
         title: const Text('4 WORDS WORDLE'),
         centerTitle: true,
-
+        leading: IconButton(
+            onPressed: (){
+              showDialog(context: context, builder: (_) => const QuizBox());
+            },
+            icon: const Icon(Icons.question_answer)
+        ),
         actions: [
           Consumer<Controller>(
             builder: (_, notifier, __) {
@@ -74,6 +94,8 @@ class _GamePageState extends State<GamePage> {
           ),
           IconButton(
               onPressed: (){
+                print(Provider.of<Controller>(context, listen: false).choicesList);
+                print(Provider.of<Controller>(context, listen: false).choicesMean);
                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Settings()
                 ));
               },

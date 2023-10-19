@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wordle/providers/controller.dart';
+import 'package:wordle/providers/quiz_provider.dart';
 import 'package:wordle/providers/theme_provider.dart';
 import 'package:wordle/screen/game_page.dart';
 import 'package:wordle/screen/home_page.dart';
 import 'package:wordle/utils/theme_preferences.dart';
 import 'package:wordle/constants/themes.dart';
+
+final RouteObserver<ModalRoute> routeObserver = RouteObserver<ModalRoute>();
 
 void main() {
   runApp(const MyApp());
@@ -22,6 +25,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => Controller()),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(create: (_) => QuizProvider()),
       ],
       child: FutureBuilder(
         initialData: false,
@@ -35,6 +39,7 @@ class MyApp extends StatelessWidget {
           return Consumer<ThemeProvider>(
             builder: (_, notifier, __) => MaterialApp(
               debugShowCheckedModeBanner: false,
+              navigatorObservers: [routeObserver],
               title: 'Wordle demo',
               theme: notifier.isDark ? darkTheme : lightTheme,
               home: const HomePage(),

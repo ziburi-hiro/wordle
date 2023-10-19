@@ -19,11 +19,14 @@ class Controller extends ChangeNotifier {
   bool notEnoughLetters = false;
   String correctWord = "";
   List<String> meanList = [];
+  List<String> choicesList = [];
+  List<String> choicesMean = [];
   List<String> meanList_5words = [];
   String partsOfSpeech = "";
   String partsOfSpeech_5words = "";
   int currentTile = 0;
   int currentRow = 0;
+  int answerPositionNum = 0;
   List<TileModel> tilesEntered = [];
 
   setCorrectWord({required String word}) => correctWord = word;
@@ -32,8 +35,22 @@ class Controller extends ChangeNotifier {
     meanList = Means[word]!;
   }
 
+  setAnswerPositionNum({required int num}){
+    answerPositionNum = num;
+  }
+
   setCorrectMeanFiveWords({required String word}){
     meanList_5words = FiveWordsMeans[word]!;
+  }
+  
+  setChoicesWord({required String choices1, required String choices2, required String choices3}){
+    choicesList = [choices1,choices2,choices3];
+  }
+
+  setChoicesMean({required String choices1, required String choices2, required String choices3}){
+    choicesMean.add(Means[choices1]![0]);
+    choicesMean.add(Means[choices2]![0]);
+    choicesMean.add(Means[choices3]![0]);
   }
 
   gameReset(){
@@ -41,7 +58,9 @@ class Controller extends ChangeNotifier {
     gameCompleted = false;
     currentTile = 0;
     currentRow = 0;
+    answerPositionNum = 0;
     tilesEntered.clear();
+    choicesMean.clear();
   }
 
   setKeyTapped({required String value, required int length}) {

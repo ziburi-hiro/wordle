@@ -1,5 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:wordle/constants/answer_stages.dart';
+import 'package:wordle/data/key_map.dart';
+import 'package:wordle/providers/controller.dart';
 import 'package:wordle/screen/home_page.dart';
 
 class TitleBackBox extends StatelessWidget {
@@ -28,6 +32,9 @@ class TitleBackBox extends StatelessWidget {
         CupertinoDialogAction(
           child: const Text('YES'),
           onPressed: (){
+            keyMap.updateAll((key, value) => value = AnswerStage.notAnswered);
+            Provider.of<Controller>(context, listen: false).gameReset();
+
             Navigator.pop(context);
             Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()));
           },
