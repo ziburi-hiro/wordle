@@ -17,6 +17,10 @@ class Controller extends ChangeNotifier {
   bool gameWon = false;
   bool gameCompleted = false;
   bool notEnoughLetters = false;
+  bool tapButton = false;
+  bool answeredCorrect = false;
+  bool answeredFalse = false;
+  bool addListCheck = false;
   String correctWord = "";
   List<String> meanList = [];
   List<String> choicesList = [];
@@ -56,6 +60,9 @@ class Controller extends ChangeNotifier {
   gameReset(){
     gameWon = false;
     gameCompleted = false;
+    tapButton = false;
+    answeredCorrect = false;
+    answeredFalse = false;
     currentTile = 0;
     currentRow = 0;
     answerPositionNum = 0;

@@ -1,14 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wordle/constants/answer_stages.dart';
+import 'package:wordle/data/key_map.dart';
 import 'package:wordle/providers/controller.dart';
 import 'package:wordle/providers/theme_provider.dart';
+import 'package:wordle/screen/game_page.dart';
+import 'package:wordle/screen/home_page.dart';
 
-class QuizBox extends StatelessWidget {
+class QuizBox extends StatefulWidget {
   const QuizBox({Key? key}) : super(key: key);
 
   @override
+  State<QuizBox> createState() => _QuizBoxState();
+}
+
+class _QuizBoxState extends State<QuizBox> {
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
     return AlertDialog(
       content: Consumer<Controller>(
         builder: (_ , notifier, __){
@@ -51,197 +61,531 @@ class QuizBox extends StatelessWidget {
               ),
 
               const SizedBox(
-                height: 20,
+                height: 10,
               ),
 
-              Column(
+              Visibility(
+                visible: notifier.answeredCorrect,
+                child: const Text('○',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 50,
+                    fontWeight: FontWeight.w900,
+                    color: Colors.red,
+                ),),
+              ),
+
+              Visibility(
+                visible: notifier.answeredFalse,
+                child: Text('×',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 50,
+                    fontWeight: FontWeight.w900,
+                    color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.black,
+                  ),),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Column(
+                  children: [
+                    ///1番が正解のパターン
+                    if(notifier.answerPositionNum == 0) ...[
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: ElevatedButton(
+                              onPressed: (){
+                                notifier.tapButton = true;
+                                notifier.answeredCorrect = true;
+                                setState(() {});
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: notifier.tapButton ? Colors.green : Colors.transparent,
+                                  fixedSize: Size(size.width * 0.7, size.height * 0.06),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20)
+                                  ),
+                                  side: BorderSide(
+                                    width: 5,
+                                    color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
+                                  )
+                              ),
+                              child: Text(notifier.meanList[0],style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: ElevatedButton(
+                              onPressed: (){
+                                notifier.tapButton = true;
+                                notifier.answeredFalse = true;
+                                setState(() {});
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: notifier.tapButton ? Colors.redAccent : Colors.transparent,
+                                  fixedSize: Size(size.width * 0.7, size.height * 0.06),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20)
+                                  ),
+                                  side: BorderSide(
+                                    width: 5,
+                                    color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
+                                  )
+                              ),
+                              child: Text(notifier.choicesMean[0],style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: ElevatedButton(
+                              onPressed: (){
+                                notifier.tapButton = true;
+                                notifier.answeredFalse = true;
+                                setState(() {});
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: notifier.tapButton ? Colors.redAccent : Colors.transparent,
+                                  fixedSize: Size(size.width * 0.7, size.height * 0.06),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20)
+                                  ),
+                                  side: BorderSide(
+                                    width: 5,
+                                    color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
+                                  )
+                              ),
+                              child: Text(notifier.choicesMean[1],style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: ElevatedButton(
+                              onPressed: (){
+                                notifier.tapButton = true;
+                                notifier.answeredFalse = true;
+                                setState(() {});
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: notifier.tapButton ? Colors.redAccent : Colors.transparent,
+                                  fixedSize: Size(size.width * 0.7, size.height * 0.06),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20)
+                                  ),
+                                  side: BorderSide(
+                                    width: 5,
+                                    color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
+                                  )
+                              ),
+                              child: Text(notifier.choicesMean[2],style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),),
+                            ),
+                          ),
+                        ],
+                      )
+                      ///2番が正解のパターン
+                    ] else if(notifier.answerPositionNum == 1) ...[
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: ElevatedButton(
+                              onPressed: (){
+                                notifier.tapButton = true;
+                                notifier.answeredFalse = true;
+                                setState(() {});
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: notifier.tapButton ? Colors.redAccent : Colors.transparent,
+                                  fixedSize: Size(size.width * 0.7, size.height * 0.06),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20)
+                                  ),
+                                  side: BorderSide(
+                                    width: 5,
+                                    color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
+                                  )
+                              ),
+                              child: Text(notifier.choicesMean[0],style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: ElevatedButton(
+                              onPressed: (){
+                                notifier.tapButton = true;
+                                notifier.answeredCorrect = true;
+                                setState(() {});
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: notifier.tapButton ? Colors.green : Colors.transparent,
+                                  fixedSize: Size(size.width * 0.7, size.height * 0.06),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20)
+                                  ),
+                                  side: BorderSide(
+                                    width: 5,
+                                    color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
+                                  )
+                              ),
+                              child: Text(notifier.meanList[0],style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: ElevatedButton(
+                              onPressed: (){
+                                notifier.tapButton = true;
+                                notifier.answeredFalse = true;
+                                setState(() {});
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: notifier.tapButton ? Colors.redAccent : Colors.transparent,
+                                  fixedSize: Size(size.width * 0.7, size.height * 0.06),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20)
+                                  ),
+                                  side: BorderSide(
+                                    width: 5,
+                                    color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
+                                  )
+                              ),
+                              child: Text(notifier.choicesMean[1],style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: ElevatedButton(
+                              onPressed: (){
+                                notifier.tapButton = true;
+                                notifier.answeredFalse = true;
+                                setState(() {});
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: notifier.tapButton ? Colors.redAccent : Colors.transparent,
+                                  fixedSize: Size(size.width * 0.7, size.height * 0.06),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20)
+                                  ),
+                                  side: BorderSide(
+                                    width: 5,
+                                    color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
+                                  )
+                              ),
+                              child: Text(notifier.choicesMean[2],style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),),
+                            ),
+                          ),
+                        ],
+                      )
+                      ///3番が正解のパターン
+                    ] else if(notifier.answerPositionNum == 2) ...[
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: ElevatedButton(
+                              onPressed: (){
+                                notifier.tapButton = true;
+                                notifier.answeredFalse = true;
+                                setState(() {});
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: notifier.tapButton ? Colors.redAccent : Colors.transparent,
+                                  fixedSize: Size(size.width * 0.7, size.height * 0.06),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20)
+                                  ),
+                                  side: BorderSide(
+                                    width: 5,
+                                    color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
+                                  )
+                              ),
+                              child: Text(notifier.choicesMean[0],style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: ElevatedButton(
+                              onPressed: (){
+                                notifier.tapButton = true;
+                                notifier.answeredFalse = true;
+                                setState(() {});
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: notifier.tapButton ? Colors.redAccent : Colors.transparent,
+                                  fixedSize: Size(size.width * 0.7, size.height * 0.06),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20)
+                                  ),
+                                  side: BorderSide(
+                                    width: 5,
+                                    color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
+                                  )
+                              ),
+                              child: Text(notifier.choicesMean[1],style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: ElevatedButton(
+                              onPressed: (){
+                                notifier.tapButton = true;
+                                notifier.answeredCorrect = true;
+                                setState(() {});
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: notifier.tapButton ? Colors.green : Colors.transparent,
+                                  fixedSize: Size(size.width * 0.7, size.height * 0.06),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20)
+                                  ),
+                                  side: BorderSide(
+                                    width: 5,
+                                    color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
+                                  )
+                              ),
+                              child: Text(notifier.meanList[0],style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: ElevatedButton(
+                              onPressed: (){
+                                notifier.tapButton = true;
+                                notifier.answeredFalse = true;
+                                setState(() {});
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: notifier.tapButton ? Colors.redAccent : Colors.transparent,
+                                  fixedSize: Size(size.width * 0.7, size.height * 0.06),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20)
+                                  ),
+                                  side: BorderSide(
+                                    width: 5,
+                                    color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
+                                  )
+                              ),
+                              child: Text(notifier.choicesMean[2],style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),),
+                            ),
+                          ),
+                        ],
+                      )
+                      ///4番が正解のパターン
+                    ] else if(notifier.answerPositionNum == 3) ...[
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: ElevatedButton(
+                              onPressed: (){
+                                notifier.tapButton = true;
+                                notifier.answeredFalse = true;
+                                setState(() {});
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: notifier.tapButton ? Colors.redAccent : Colors.transparent,
+                                  fixedSize: Size(size.width * 0.7, size.height * 0.06),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20)
+                                  ),
+                                  side: BorderSide(
+                                    width: 5,
+                                    color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
+                                  )
+                              ),
+                              child: Text(notifier.choicesMean[0],style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: ElevatedButton(
+                              onPressed: (){
+                                notifier.tapButton = true;
+                                notifier.answeredFalse = true;
+                                setState(() {});
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: notifier.tapButton ? Colors.redAccent : Colors.transparent,
+                                  fixedSize: Size(size.width * 0.7, size.height * 0.06),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20)
+                                  ),
+                                  side: BorderSide(
+                                    width: 5,
+                                    color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
+                                  )
+                              ),
+                              child: Text(notifier.choicesMean[1],style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: ElevatedButton(
+                              onPressed: (){
+                                notifier.tapButton = true;
+                                notifier.answeredFalse = true;
+                                setState(() {});
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: notifier.tapButton ? Colors.redAccent : Colors.transparent,
+                                  fixedSize: Size(size.width * 0.7, size.height * 0.06),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20)
+                                  ),
+                                  side: BorderSide(
+                                    width: 5,
+                                    color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
+                                  )
+                              ),
+                              child: Text(notifier.choicesMean[2],style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: ElevatedButton(
+                              onPressed: (){
+                                notifier.tapButton = true;
+                                notifier.answeredCorrect = true;
+                                setState(() {});
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: notifier.tapButton ? Colors.green : Colors.transparent,
+                                  fixedSize: Size(size.width * 0.7, size.height * 0.06),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20)
+                                  ),
+                                  side: BorderSide(
+                                    width: 5,
+                                    color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
+                                  )
+                              ),
+                              child: Text(notifier.meanList[0],style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),),
+                            ),
+                          ),
+                        ],
+                      )
+                    ]
+                  ],
+                ),
+              ),
+
+              Row(
                 children: [
-                  if(notifier.answerPositionNum == 0) ...[
-                    Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: ElevatedButton(
-                            onPressed: (){
-
-                            },
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.transparent,
-                                fixedSize: Size(size.width * 0.7, size.height * 0.06),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20)
-                                ),
-                                side: BorderSide(
-                                  width: 5,
-                                  color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
-                                )
-                            ),
-                            child: Text(notifier.meanList[0],style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: ElevatedButton(
-                            onPressed: (){
-
-                            },
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.transparent,
-                                fixedSize: Size(size.width * 0.7, size.height * 0.06),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20)
-                                ),
-                                side: BorderSide(
-                                  width: 5,
-                                  color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
-                                )
-                            ),
-                            child: Text(notifier.choicesMean[0],style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: ElevatedButton(
-                            onPressed: (){
-
-                            },
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.transparent,
-                                fixedSize: Size(size.width * 0.7, size.height * 0.06),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20)
-                                ),
-                                side: BorderSide(
-                                  width: 5,
-                                  color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
-                                )
-                            ),
-                            child: Text(notifier.choicesMean[1],style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: ElevatedButton(
-                            onPressed: (){
-
-                            },
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.transparent,
-                                fixedSize: Size(size.width * 0.7, size.height * 0.06),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20)
-                                ),
-                                side: BorderSide(
-                                  width: 5,
-                                  color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
-                                )
-                            ),
-                            child: Text(notifier.choicesMean[2],style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),),
-                          ),
-                        ),
-                      ],
-                    )
-                  ] else if(notifier.answerPositionNum == 1) ...[
-                    Column(
-                      children: [
-                        ElevatedButton(
-                          onPressed: (){
-
-                          },
-                          child: Text(notifier.choicesMean[0]),
-                        ),
-                        ElevatedButton(
-                          onPressed: (){
-
-                          },
-                          child: Text(notifier.meanList[0]),
-                        ),
-                        ElevatedButton(
-                          onPressed: (){
-
-                          },
-                          child: Text(notifier.choicesMean[1]),
-                        ),
-                        ElevatedButton(
-                          onPressed: (){
-
-                          },
-                          child: Text(notifier.choicesMean[2]),
-                        ),
-                      ],
-                    )
-                  ] else if(notifier.answerPositionNum == 2) ...[
-                    Column(
-                      children: [
-                        ElevatedButton(
-                          onPressed: (){
-
-                          },
-                          child: Text(notifier.choicesMean[0]),
-                        ),
-                        ElevatedButton(
-                          onPressed: (){
-
-                          },
-                          child: Text(notifier.choicesMean[1]),
-                        ),
-                        ElevatedButton(
-                          onPressed: (){
-
-                          },
-                          child: Text(notifier.meanList[0]),
-                        ),
-                        ElevatedButton(
-                          onPressed: (){
-
-                          },
-                          child: Text(notifier.choicesMean[2]),
-                        ),
-                      ],
-                    )
-                  ] else if(notifier.answerPositionNum == 3) ...[
-                    Column(
-                      children: [
-                        ElevatedButton(
-                          onPressed: (){
-
-                          },
-                          child: Text(notifier.choicesMean[0]),
-                        ),
-                        ElevatedButton(
-                          onPressed: (){
-
-                          },
-                          child: Text(notifier.choicesMean[1]),
-                        ),
-                        ElevatedButton(
-                          onPressed: (){
-
-                          },
-                          child: Text(notifier.choicesMean[2]),
-                        ),
-                        ElevatedButton(
-                          onPressed: (){
-
-                          },
-                          child: Text(notifier.meanList[0]),
-                        ),
-                      ],
-                    )
-                  ]
+                  Checkbox(
+                    activeColor: Colors.green,
+                    value: notifier.addListCheck,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        notifier.addListCheck = value!;
+                      });
+                    },
+                  ),
+                  Text(':  Add List to review',style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold
+                  ),)
                 ],
+              ),
+
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green,
+                        fixedSize: Size(size.width * 0.7, size.height * 0.06),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)
+                        ),
+                      ),
+                      onPressed: (){
+                        keyMap.updateAll((key, value) => value = AnswerStage.notAnswered);
+                        notifier.gameReset();
+
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const GamePage()));
+                      },
+                      child: const Text('Replay',style: TextStyle(
+                        fontSize: 30,
+                      ),),
+                    ),
+
+                    const SizedBox(
+                      height: 10,
+                    ),
+
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green,
+                        fixedSize: Size(size.width * 0.7, size.height * 0.06),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)
+                        ),
+                      ),
+                      onPressed: (){
+                        keyMap.updateAll((key, value) => value = AnswerStage.notAnswered);
+                        notifier.gameReset();
+
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()));
+                      },
+                      child: const Text('To Title',style: TextStyle(
+                        fontSize: 30,
+                      ),),
+                    ),
+                  ],
+                ),
               ),
             ],
           );

@@ -8,6 +8,7 @@ import 'package:wordle/components/result_box.dart';
 import 'package:wordle/components/title_back_box.dart';
 import 'package:wordle/constants/words.dart';
 import 'package:wordle/providers/controller.dart';
+import 'package:wordle/providers/quiz_provider.dart';
 import 'package:wordle/screen/settings.dart';
 import 'package:wordle/utils/quick_box.dart';
 
@@ -54,12 +55,6 @@ class _GamePageState extends State<GamePage> {
       appBar: AppBar(
         title: const Text('4 WORDS WORDLE'),
         centerTitle: true,
-        leading: IconButton(
-            onPressed: (){
-              showDialog(context: context, builder: (_) => const QuizBox());
-            },
-            icon: const Icon(Icons.question_answer)
-        ),
         actions: [
           Consumer<Controller>(
             builder: (_, notifier, __) {
@@ -76,17 +71,27 @@ class _GamePageState extends State<GamePage> {
                 }else{
                   runQuickBox(context: context, message: notifier.correctWord);
                 }
-                Future.delayed(const Duration(milliseconds: 3000), (){
+                Future.delayed(const Duration(milliseconds: 2000), (){
                   if(mounted){
-                    showDialog(context: context, builder: (_) => const ResultBox());
+                    if(Provider.of<QuizProvider>(context,listen: false).quizMode){
+                      showDialog(context: context, builder: (_) => const QuizBox());
+                    }else{
+                      showDialog(context: context, builder: (_) => const ResultBox());
+                    }
                   }
                 });
               }
               return IconButton(
                   onPressed: () async {
-                    notifier.gameCompleted ? showDialog(context: context, builder: (_) => const ResultBox())
-                        :
-                    showDialog(context: context, builder: (_) => const TitleBackBox());
+                    if(Provider.of<QuizProvider>(context,listen: false).quizMode){
+                      notifier.gameCompleted ? showDialog(context: context, builder: (_) => const QuizBox())
+                          :
+                      showDialog(context: context, builder: (_) => const TitleBackBox());
+                    }else{
+                      notifier.gameCompleted ? showDialog(context: context, builder: (_) => const ResultBox())
+                          :
+                      showDialog(context: context, builder: (_) => const TitleBackBox());
+                    }
                   },
                   icon: notifier.gameCompleted ? const Icon(Icons.description) : const Icon(Icons.reply)
               );
@@ -94,8 +99,6 @@ class _GamePageState extends State<GamePage> {
           ),
           IconButton(
               onPressed: (){
-                print(Provider.of<Controller>(context, listen: false).choicesList);
-                print(Provider.of<Controller>(context, listen: false).choicesMean);
                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Settings()
                 ));
               },
