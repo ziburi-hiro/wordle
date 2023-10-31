@@ -71,18 +71,18 @@ class _QuizBoxState extends State<QuizBox> {
                   style: TextStyle(
                     fontSize: 50,
                     fontWeight: FontWeight.w900,
-                    color: Colors.red,
+                    color: Colors.green,
                 ),),
               ),
 
               Visibility(
                 visible: notifier.answeredFalse,
-                child: Text('×',
+                child: const Text('×',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 50,
                     fontWeight: FontWeight.w900,
-                    color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.black,
+                    color: Colors.red,
                   ),),
               ),
 
@@ -528,9 +528,14 @@ class _QuizBoxState extends State<QuizBox> {
                       setState(() {
                         notifier.addListCheck = value!;
                       });
+                      if(notifier.addListCheck == true){
+                        notifier.addCheckList(word: notifier.correctWord.toLowerCase());
+                      }else if(notifier.addListCheck == false){
+                        notifier.deleteCheckList(word: notifier.correctWord.toLowerCase());
+                      }
                     },
                   ),
-                  Text(':  Add List to review',style: TextStyle(
+                  const Text(':  Add List to review',style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold
                   ),)

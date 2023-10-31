@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wordle/providers/quiz_provider.dart';
 import 'package:wordle/providers/theme_provider.dart';
+import 'package:wordle/screen/check_list_page.dart';
 import 'package:wordle/screen/five_words_wordle.dart';
 import 'package:wordle/screen/game_page.dart';
 import 'package:wordle/screen/settings.dart';
@@ -137,7 +138,7 @@ class _HomePageState extends State<HomePage> with RouteAware{
                     ),
                     const Padding(
                       padding: EdgeInsets.all(8.0),
-                      child: Text('---VS Mode---',style: TextStyle(
+                      child: Text('---Review---',style: TextStyle(
                           fontSize: 24
                       ),),
                     ),
@@ -154,10 +155,9 @@ class _HomePageState extends State<HomePage> with RouteAware{
                           )
                       ),
                       onPressed: (){
-                        //Navigator.of(context).push(MaterialPageRoute(builder: (context) => const GamePage()));
-                        print('now implement');
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CheckListPage()));
                       },
-                      child: const Text('4WORDS MODE',style: TextStyle(
+                      child: const Text('View CheckList',style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w900,
                           fontStyle: FontStyle.italic

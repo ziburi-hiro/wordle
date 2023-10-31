@@ -22,6 +22,7 @@ class Controller extends ChangeNotifier {
   bool answeredFalse = false;
   bool addListCheck = false;
   String correctWord = "";
+  List<String> checkList = [];
   List<String> meanList = [];
   List<String> choicesList = [];
   List<String> choicesMean = [];
@@ -63,11 +64,22 @@ class Controller extends ChangeNotifier {
     tapButton = false;
     answeredCorrect = false;
     answeredFalse = false;
+    addListCheck = false;
     currentTile = 0;
     currentRow = 0;
     answerPositionNum = 0;
     tilesEntered.clear();
     choicesMean.clear();
+  }
+
+  addCheckList({required String word}){
+    if(checkList.contains(word) == false){
+      checkList.add(word);
+    }
+  }
+
+  deleteCheckList({required String word}){
+    checkList.remove(word);
   }
 
   setKeyTapped({required String value, required int length}) {
