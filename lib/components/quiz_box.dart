@@ -97,7 +97,7 @@ class _QuizBoxState extends State<QuizBox> {
                           Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: ElevatedButton(
-                              onPressed: (){
+                              onPressed: (notifier.tapButton == true) ? (){} : (){
                                 notifier.tapButton = true;
                                 notifier.answeredCorrect = true;
                                 setState(() {});
@@ -122,7 +122,7 @@ class _QuizBoxState extends State<QuizBox> {
                           Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: ElevatedButton(
-                              onPressed: (){
+                              onPressed: (notifier.tapButton == true) ? (){} : (){
                                 notifier.tapButton = true;
                                 notifier.answeredFalse = true;
                                 setState(() {});
@@ -147,7 +147,7 @@ class _QuizBoxState extends State<QuizBox> {
                           Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: ElevatedButton(
-                              onPressed: (){
+                              onPressed: (notifier.tapButton == true) ? (){} : (){
                                 notifier.tapButton = true;
                                 notifier.answeredFalse = true;
                                 setState(() {});
@@ -172,7 +172,7 @@ class _QuizBoxState extends State<QuizBox> {
                           Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: ElevatedButton(
-                              onPressed: (){
+                              onPressed: (notifier.tapButton == true) ? (){} : (){
                                 notifier.tapButton = true;
                                 notifier.answeredFalse = true;
                                 setState(() {});
@@ -203,7 +203,7 @@ class _QuizBoxState extends State<QuizBox> {
                           Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: ElevatedButton(
-                              onPressed: (){
+                              onPressed: (notifier.tapButton == true) ? (){} : (){
                                 notifier.tapButton = true;
                                 notifier.answeredFalse = true;
                                 setState(() {});
@@ -228,7 +228,7 @@ class _QuizBoxState extends State<QuizBox> {
                           Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: ElevatedButton(
-                              onPressed: (){
+                              onPressed: (notifier.tapButton == true) ? (){} : (){
                                 notifier.tapButton = true;
                                 notifier.answeredCorrect = true;
                                 setState(() {});
@@ -253,7 +253,7 @@ class _QuizBoxState extends State<QuizBox> {
                           Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: ElevatedButton(
-                              onPressed: (){
+                              onPressed: (notifier.tapButton == true) ? (){} : (){
                                 notifier.tapButton = true;
                                 notifier.answeredFalse = true;
                                 setState(() {});
@@ -278,7 +278,7 @@ class _QuizBoxState extends State<QuizBox> {
                           Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: ElevatedButton(
-                              onPressed: (){
+                              onPressed: (notifier.tapButton == true) ? (){} : (){
                                 notifier.tapButton = true;
                                 notifier.answeredFalse = true;
                                 setState(() {});
@@ -309,7 +309,7 @@ class _QuizBoxState extends State<QuizBox> {
                           Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: ElevatedButton(
-                              onPressed: (){
+                              onPressed: (notifier.tapButton == true) ? (){} : (){
                                 notifier.tapButton = true;
                                 notifier.answeredFalse = true;
                                 setState(() {});
@@ -334,7 +334,7 @@ class _QuizBoxState extends State<QuizBox> {
                           Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: ElevatedButton(
-                              onPressed: (){
+                              onPressed: (notifier.tapButton == true) ? (){} : (){
                                 notifier.tapButton = true;
                                 notifier.answeredFalse = true;
                                 setState(() {});
@@ -359,7 +359,7 @@ class _QuizBoxState extends State<QuizBox> {
                           Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: ElevatedButton(
-                              onPressed: (){
+                              onPressed: (notifier.tapButton == true) ? (){} : (){
                                 notifier.tapButton = true;
                                 notifier.answeredCorrect = true;
                                 setState(() {});
@@ -384,7 +384,7 @@ class _QuizBoxState extends State<QuizBox> {
                           Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: ElevatedButton(
-                              onPressed: (){
+                              onPressed: (notifier.tapButton == true) ? (){} : (){
                                 notifier.tapButton = true;
                                 notifier.answeredFalse = true;
                                 setState(() {});
@@ -415,7 +415,7 @@ class _QuizBoxState extends State<QuizBox> {
                           Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: ElevatedButton(
-                              onPressed: (){
+                              onPressed: (notifier.tapButton == true) ? (){} : (){
                                 notifier.tapButton = true;
                                 notifier.answeredFalse = true;
                                 setState(() {});
@@ -440,7 +440,7 @@ class _QuizBoxState extends State<QuizBox> {
                           Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: ElevatedButton(
-                              onPressed: (){
+                              onPressed: (notifier.tapButton == true) ? (){} : (){
                                 notifier.tapButton = true;
                                 notifier.answeredFalse = true;
                                 setState(() {});
@@ -465,7 +465,7 @@ class _QuizBoxState extends State<QuizBox> {
                           Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: ElevatedButton(
-                              onPressed: (){
+                              onPressed: (notifier.tapButton == true) ? (){} : (){
                                 notifier.tapButton = true;
                                 notifier.answeredFalse = true;
                                 setState(() {});
@@ -490,7 +490,7 @@ class _QuizBoxState extends State<QuizBox> {
                           Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: ElevatedButton(
-                              onPressed: (){
+                              onPressed: (notifier.tapButton == true) ? (){} : (){
                                 notifier.tapButton = true;
                                 notifier.answeredCorrect = true;
                                 setState(() {});
