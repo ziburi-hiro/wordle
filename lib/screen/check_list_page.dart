@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wordle/constants/means.dart';
 import 'package:wordle/providers/controller.dart';
 import 'package:wordle/providers/theme_provider.dart';
+import 'package:wordle/utils/checkList_preferences.dart';
 
 class CheckListPage extends StatefulWidget {
   const CheckListPage({Key? key}) : super(key: key);
@@ -35,22 +37,58 @@ class _CheckListPageState extends State<CheckListPage> {
               children: [
                 Column(
                   children: [
-                    ListView.builder(
-                      itemCount: notifier.checkList.length,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index){
-                        return Card(
-                          child: SizedBox(
-                            height: 60,
-                            child: Text(notifier.checkList[index]!,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 22,
-                            ),),
-                          ),
+                    FutureBuilder(
+                      future: CheckListPreferences.getCheckList(),
+                      builder: (context, snapshot) {
+                        List<String> checkList = [];
+                        if(snapshot.hasData){
+                          checkList = snapshot.data as List<String>;
+                        }
+                        return ListView.builder(
+                          itemCount: checkList.length,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            return Card(
+                              child: SizedBox(
+                                height: 50,
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 15.0),
+                                      child: Text(checkList[index]!,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 22,
+                                        ),),
+                                    ),
+
+                                    const SizedBox(
+                                      width: 20,
+                                    ),
+
+
+                                    Text(Means[checkList[index]
+                                        .toUpperCase()]![0]),
+
+                                    IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          checkList.remove(checkList[index]);
+                                          CheckListPreferences.saveCheckList(list: checkList);
+                                        });
+                                      },
+                                      icon: Icon(Icons.delete),
+                                    )
+
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                          physics: const NeverScrollableScrollPhysics(),
                         );
-                      },
-                      physics: const NeverScrollableScrollPhysics(),
+                      }
                     )
                   ],
                 ),

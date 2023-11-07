@@ -7,6 +7,7 @@ import 'package:wordle/utils/calculate_stats.dart';
 import 'package:wordle/constants/answer_stages.dart';
 import 'package:wordle/data/key_map.dart';
 import 'package:wordle/utils/calculate_stats_fivewords.dart';
+import 'package:wordle/utils/checkList_preferences.dart';
 
 import '../models/tile_model.dart';
 
@@ -75,11 +76,14 @@ class Controller extends ChangeNotifier {
   addCheckList({required String word}){
     if(checkList.contains(word) == false){
       checkList.add(word);
+      checkList.sort(((a,b) => a.compareTo(b)));
+      CheckListPreferences.saveCheckList(list: checkList);
     }
   }
 
   deleteCheckList({required String word}){
     checkList.remove(word);
+    CheckListPreferences.saveCheckList(list: checkList);
   }
 
   setKeyTapped({required String value, required int length}) {
