@@ -73,17 +73,17 @@ class Controller extends ChangeNotifier {
     choicesMean.clear();
   }
 
-  addCheckList({required String word}){
-    if(checkList.contains(word) == false){
-      checkList.add(word);
-      checkList.sort(((a,b) => a.compareTo(b)));
-      CheckListPreferences.saveCheckList(list: checkList);
+  addCheckList({required String word,required List<String> list}){
+    if(list.contains(word) == false){
+      list.add(word);
+      list.sort(((a,b) => a.compareTo(b)));
+      CheckListPreferences.saveCheckList(list: list);
     }
   }
 
-  deleteCheckList({required String word}){
-    checkList.remove(word);
-    CheckListPreferences.saveCheckList(list: checkList);
+  deleteCheckList({required String word,required List<String> list}){
+    list.remove(word);
+    CheckListPreferences.saveCheckList(list: list);
   }
 
   setKeyTapped({required String value, required int length}) {
