@@ -35,61 +35,95 @@ class _CheckListPageState extends State<CheckListPage> {
             ),
             body: TabBarView(
               children: [
-                Column(
+                Stack(
                   children: [
-                    FutureBuilder(
-                      future: CheckListPreferences.getCheckList(),
-                      builder: (context, snapshot) {
-                        List<String> checkList = [];
-                        if(snapshot.hasData){
-                          checkList = snapshot.data as List<String>;
-                        }
-                        return ListView.builder(
-                          itemCount: checkList.length,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return Card(
-                              child: SizedBox(
-                                height: 50,
-                                child: Row(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 15.0),
-                                      child: Text(checkList[index]!,
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 22,
-                                        ),),
+                    Column(
+                      children: [
+                        FutureBuilder(
+                          future: CheckListPreferences.getCheckList(),
+                          builder: (context, snapshot) {
+                            List<String> checkList = [];
+                            if(snapshot.hasData){
+                              checkList = snapshot.data as List<String>;
+                            }
+                            return Flexible(
+                              child: ListView.builder(
+                                itemCount: checkList.length,
+                                itemBuilder: (context, index) {
+                                  return Card(
+                                    child: SizedBox(
+                                      height: 70,
+                                      child: Row(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 15.0),
+                                            child: Text(checkList[index]!,
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.w900,
+                                                fontSize: 26,
+                                              ),),
+                                          ),
+
+                                          Expanded(
+                                            child: Container(),),
+
+                                          Column(
+                                            mainAxisAlignment:MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.end,
+                                            children: [
+                                              Text('意味：${Means[checkList[index].toUpperCase()]![0]}',style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),),
+                                              Text('品詞：${Means[checkList[index].toUpperCase()]![1]}',style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),),
+                                            ],
+                                          ),
+
+                                          Padding(
+                                            padding: const EdgeInsets.only(left: 10.0),
+                                            child: IconButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  checkList.remove(checkList[index]);
+                                                  CheckListPreferences.saveCheckList(list: checkList);
+                                                });
+                                              },
+                                              icon: const Icon(Icons.delete),
+                                            ),
+                                          )
+
+                                        ],
+                                      ),
                                     ),
-
-                                    const SizedBox(
-                                      width: 20,
-                                    ),
-
-
-                                    Text(Means[checkList[index]
-                                        .toUpperCase()]![0]),
-
-                                    IconButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          checkList.remove(checkList[index]);
-                                          CheckListPreferences.saveCheckList(list: checkList);
-                                        });
-                                      },
-                                      icon: Icon(Icons.delete),
-                                    )
-
-                                  ],
-                                ),
+                                  );
+                                },
+                                //physics: const NeverScrollableScrollPhysics(),
                               ),
                             );
-                          },
-                          physics: const NeverScrollableScrollPhysics(),
-                        );
-                      }
-                    )
+                          }
+                        ),
+                        Container(
+                          width: double.infinity,
+                          height: 70,
+                          color: Colors.green,
+                          child: ElevatedButton(
+                            onPressed: (){},
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.green,
+                            ),
+                            child: const Text('Lets Test!',
+                              style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                              ),),
+                          ),
+                        )
+                      ],
+                    ),
                   ],
                 ),
                 const Column(
