@@ -22,6 +22,8 @@ class Controller extends ChangeNotifier {
   bool answeredCorrect = false;
   bool answeredFalse = false;
   bool addListCheck = false;
+  bool testModeALL = true;
+  bool testModeRandom = false;
   String correctWord = "";
   List<String> checkList = [];
   List<String> meanList = [];

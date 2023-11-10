@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wordle/components/testbox.dart';
 import 'package:wordle/constants/means.dart';
 import 'package:wordle/providers/controller.dart';
 import 'package:wordle/providers/theme_provider.dart';
@@ -111,7 +112,9 @@ class _CheckListPageState extends State<CheckListPage> {
                           height: 70,
                           color: Colors.green,
                           child: ElevatedButton(
-                            onPressed: (){},
+                            onPressed: (){
+                              showDialog(context: context, builder: (_) => const TestBox());
+                            },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.green,
                             ),
