@@ -10,6 +10,13 @@ class AllWordTestPage extends StatefulWidget {
 class _AllWordTestPageState extends State<AllWordTestPage> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        elevation: 0,
+        title: Text('ALLWORDTESTMODE'),
+      ),
+      body: Text('aaa'),
+    );
   }
 }
