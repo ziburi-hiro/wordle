@@ -7,6 +7,7 @@ import 'package:wordle/utils/calculate_stats.dart';
 import 'package:wordle/constants/answer_stages.dart';
 import 'package:wordle/data/key_map.dart';
 import 'package:wordle/utils/calculate_stats_fivewords.dart';
+import 'package:wordle/utils/checkList_preferences.dart';
 
 import '../models/tile_model.dart';
 
@@ -21,6 +22,8 @@ class Controller extends ChangeNotifier {
   bool answeredCorrect = false;
   bool answeredFalse = false;
   bool addListCheck = false;
+  bool testModeALL = true;
+  bool testModeRandom = false;
   String correctWord = "";
   List<String> checkList = [];
   List<String> meanList = [];
@@ -72,14 +75,17 @@ class Controller extends ChangeNotifier {
     choicesMean.clear();
   }
 
-  addCheckList({required String word}){
-    if(checkList.contains(word) == false){
-      checkList.add(word);
+  addCheckList({required String word,required List<String> list}){
+    if(list.contains(word) == false){
+      list.add(word);
+      list.sort(((a,b) => a.compareTo(b)));
+      CheckListPreferences.saveCheckList(list: list);
     }
   }
 
-  deleteCheckList({required String word}){
-    checkList.remove(word);
+  deleteCheckList({required String word,required List<String> list}){
+    list.remove(word);
+    CheckListPreferences.saveCheckList(list: list);
   }
 
   setKeyTapped({required String value, required int length}) {

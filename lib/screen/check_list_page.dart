@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wordle/components/testbox.dart';
+import 'package:wordle/constants/means.dart';
 import 'package:wordle/providers/controller.dart';
 import 'package:wordle/providers/theme_provider.dart';
+import 'package:wordle/utils/checkList_preferences.dart';
 
 class CheckListPage extends StatefulWidget {
   const CheckListPage({Key? key}) : super(key: key);
@@ -33,25 +36,97 @@ class _CheckListPageState extends State<CheckListPage> {
             ),
             body: TabBarView(
               children: [
-                Column(
+                Stack(
                   children: [
-                    ListView.builder(
-                      itemCount: notifier.checkList.length,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index){
-                        return Card(
-                          child: SizedBox(
-                            height: 60,
-                            child: Text(notifier.checkList[index]!,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
+                    Column(
+                      children: [
+                        FutureBuilder(
+                          future: CheckListPreferences.getCheckList(),
+                          builder: (context, snapshot) {
+                            List<String> checkList = [];
+                            if(snapshot.hasData){
+                              checkList = snapshot.data as List<String>;
+                            }
+                            return Flexible(
+                              child: ListView.builder(
+                                itemCount: checkList.length,
+                                itemBuilder: (context, index) {
+                                  return Card(
+                                    child: SizedBox(
+                                      height: 70,
+                                      child: Row(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 15.0),
+                                            child: Text(checkList[index]!,
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.w900,
+                                                fontSize: 26,
+                                              ),),
+                                          ),
+
+                                          Expanded(
+                                            child: Container(),),
+
+                                          Column(
+                                            mainAxisAlignment:MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.end,
+                                            children: [
+                                              Text('意味：${Means[checkList[index].toUpperCase()]![0]}',style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),),
+                                              Text('品詞：${Means[checkList[index].toUpperCase()]![1]}',style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),),
+                                            ],
+                                          ),
+
+                                          Padding(
+                                            padding: const EdgeInsets.only(left: 10.0),
+                                            child: IconButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  checkList.remove(checkList[index]);
+                                                  CheckListPreferences.saveCheckList(list: checkList);
+                                                });
+                                              },
+                                              icon: const Icon(Icons.delete),
+                                            ),
+                                          )
+
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                                //physics: const NeverScrollableScrollPhysics(),
+                              ),
+                            );
+                          }
+                        ),
+                        Container(
+                          width: double.infinity,
+                          height: 70,
+                          color: Colors.green,
+                          child: ElevatedButton(
+                            onPressed: (){
+                              showDialog(context: context, builder: (_) => const TestBox());
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.green,
+                            ),
+                            child: const Text('Lets Test!',
+                              style: TextStyle(
                                 fontSize: 22,
-                            ),),
+                                fontWeight: FontWeight.bold,
+                              ),),
                           ),
-                        );
-                      },
-                      physics: const NeverScrollableScrollPhysics(),
-                    )
+                        )
+                      ],
+                    ),
                   ],
                 ),
                 const Column(

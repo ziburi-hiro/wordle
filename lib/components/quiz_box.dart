@@ -6,6 +6,7 @@ import 'package:wordle/providers/controller.dart';
 import 'package:wordle/providers/theme_provider.dart';
 import 'package:wordle/screen/game_page.dart';
 import 'package:wordle/screen/home_page.dart';
+import 'package:wordle/utils/checkList_preferences.dart';
 
 class QuizBox extends StatefulWidget {
   const QuizBox({Key? key}) : super(key: key);
@@ -521,19 +522,30 @@ class _QuizBoxState extends State<QuizBox> {
 
               Row(
                 children: [
-                  Checkbox(
-                    activeColor: Colors.green,
-                    value: notifier.addListCheck,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        notifier.addListCheck = value!;
-                      });
-                      if(notifier.addListCheck == true){
-                        notifier.addCheckList(word: notifier.correctWord.toLowerCase());
-                      }else if(notifier.addListCheck == false){
-                        notifier.deleteCheckList(word: notifier.correctWord.toLowerCase());
+                  FutureBuilder(
+                    future: CheckListPreferences.getCheckList(),
+                    builder: (context, snapshot) {
+                      List<String> checkList = [];
+                      if(snapshot.hasData){
+                        checkList = snapshot.data as List<String>;
                       }
-                    },
+                      return Checkbox(
+                        activeColor: Colors.green,
+                        value: notifier.addListCheck,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            notifier.addListCheck = value!;
+                          });
+                          if (notifier.addListCheck == true) {
+                            notifier.addCheckList(
+                                word: notifier.correctWord.toLowerCase(), list: checkList);
+                          } else if (notifier.addListCheck == false) {
+                            notifier.deleteCheckList(
+                                word: notifier.correctWord.toLowerCase(), list: checkList);
+                          }
+                        },
+                      );
+                    }
                   ),
                   const Text(':  Add List to review',style: TextStyle(
                     fontSize: 20,
