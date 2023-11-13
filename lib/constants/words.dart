@@ -198,7 +198,6 @@ const List<String> words = [
   'GAZE',
   'GEAR',
   'GENE',
-
   'GIFT',
   'GIRL',
   'GIVE',
@@ -596,7 +595,6 @@ const List<String> words = [
   'TIME',
   'TINY',
   'TIRE',
-
   'TOMB',
   'TONE',
   'TOOL',

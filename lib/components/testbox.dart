@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wordle/providers/controller.dart';
 import 'package:wordle/screen/all_word_test_page.dart';
+import 'package:wordle/screen/random_word_test_page.dart';
 import 'package:wordle/utils/quick_box.dart';
 
 class TestBox extends StatefulWidget {
@@ -89,7 +90,7 @@ class _TestBoxState extends State<TestBox> {
                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => const AllWordTestPage()));
                     }else if(notifier.testModeALL == false && notifier.testModeRandom == true){
                       Navigator.of(context).pop();
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const AllWordTestPage()));
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const RandomWordTestPage()));
                     }else{
                       runQuickBox(context: context, message: 'Select test mode');
                     }
