@@ -93,7 +93,7 @@ class _GamePageState extends State<GamePage> {
                       showDialog(context: context, builder: (_) => const TitleBackBox());
                     }
                   },
-                  icon: notifier.gameCompleted ? const Icon(Icons.description) : const Icon(Icons.reply)
+                  icon: notifier.gameCompleted ? const Icon(Icons.description) : const Icon(Icons.home)
               );
             }
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wordle/providers/controller.dart';
 import 'package:wordle/providers/quiz_provider.dart';
 import 'package:wordle/providers/theme_provider.dart';
 import 'package:wordle/screen/check_list_page.dart';
@@ -39,25 +40,21 @@ class _HomePageState extends State<HomePage> with RouteAware{
   }
 
   @override
+  void initState() {
+    Provider.of<Controller>(context, listen: false).setQuizMode();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: AppBar(
-        title: Provider.of<QuizProvider>(context, listen: false).quizMode ?
-        const Text('QuizMode')
-            :
-        const Text('NormalMode'),
         centerTitle: true,
         elevation: 0,
         actions: [
-          IconButton(
-              onPressed: (){
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const StaticsPage()));
-              },
-              icon: const Icon(Icons.bar_chart_outlined)
-          ),
           IconButton(
               onPressed: (){
                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Settings()
@@ -81,9 +78,85 @@ class _HomePageState extends State<HomePage> with RouteAware{
               return Center(
                 child: Column(
                   children: [
-                    SizedBox(
-                      height: size.height*0.35,
+                    Expanded(
+                      child: SizedBox(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const FittedBox(
+                              fit: BoxFit.fitWidth,
+                              child: Text('WORDLE',style: TextStyle(
+                                fontSize: 70,
+                                fontWeight: FontWeight.w900,
+                              ),),
+                            ),
+                            snapshot.data! ?
+                            const Text('QuizMode',style: TextStyle(
+                              fontSize: 40,
+                              fontWeight: FontWeight.bold,
+                            ),)
+                                :
+                            const Text('NormalMode',style: TextStyle(
+                              fontSize: 40,
+                              fontWeight: FontWeight.bold
+                            ),),
+                          ],
+                        )
+                      ),
                     ),
+
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ToggleButtons(
+                        borderWidth: 5,
+                        borderColor: notifier.isDark ? Colors.white : Colors.grey,
+                        borderRadius: BorderRadius.circular(10),
+                        fillColor: Colors.green,
+                        selectedBorderColor: notifier.isDark ? Colors.white : Colors.grey,
+                        selectedColor: Colors.white,
+                        isSelected: Provider.of<Controller>(context, listen: false).toggleButtonSelect,
+                        children: const [
+                          SizedBox(
+                            width: 130,
+                            child: Center(
+                              child: Text('NormalMode',style: TextStyle(
+                                fontWeight: FontWeight.w900,
+                                fontSize: 16,
+                              ),),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 130,
+                            child: Center(
+                              child: Text('QuizMode',style: TextStyle(
+                                fontWeight: FontWeight.w900,
+                                fontSize: 16,
+                              ),),
+                            ),
+                          )
+                        ],
+                        onPressed: (index){
+                          setState(() {
+                            if(index == 0){
+                              if(Provider.of<Controller>(context, listen: false).toggleButtonSelect[0] == false){
+                                Provider.of<Controller>(context, listen: false).toggleButtonSelect[0] = true;
+                                Provider.of<Controller>(context, listen: false).toggleButtonSelect[1] = false;
+                                QuizPreferences.saveQuizMode(isQuizMode: Provider.of<Controller>(context, listen: false).toggleButtonSelect[1]);
+                                Provider.of<QuizProvider>(context,listen: false).setQuizMode(turnOn: Provider.of<Controller>(context, listen: false).toggleButtonSelect[1]);
+                              }
+                            }else if(index == 1){
+                              if(Provider.of<Controller>(context, listen: false).toggleButtonSelect[1] == false){
+                                Provider.of<Controller>(context, listen: false).toggleButtonSelect[1] = true;
+                                Provider.of<Controller>(context, listen: false).toggleButtonSelect[0] = false;
+                                QuizPreferences.saveQuizMode(isQuizMode: Provider.of<Controller>(context, listen: false).toggleButtonSelect[1]);
+                                Provider.of<QuizProvider>(context,listen: false).setQuizMode(turnOn: Provider.of<Controller>(context, listen: false).toggleButtonSelect[1]);
+                              }
+                            }
+                          });
+                        },
+                      ),
+                    ),
+
                     const Text('---Single Play---',style: TextStyle(
                         fontSize: 24
                     ),),
@@ -92,7 +165,7 @@ class _HomePageState extends State<HomePage> with RouteAware{
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             backgroundColor: notifier.isDark ? Colors.transparent : Colors.transparent,
-                            fixedSize: Size(size.width * 0.7, size.height * 0.1),
+                            fixedSize: Size(size.width * 0.7, size.height * 0.08),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20)
                             ),
@@ -117,7 +190,7 @@ class _HomePageState extends State<HomePage> with RouteAware{
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.transparent,
-                            fixedSize: Size(size.width * 0.7, size.height * 0.1),
+                            fixedSize: Size(size.width * 0.7, size.height * 0.08),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20)
                             ),
@@ -136,6 +209,7 @@ class _HomePageState extends State<HomePage> with RouteAware{
                         ),),
                       ),
                     ),
+
                     const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text('---Review---',style: TextStyle(
@@ -145,7 +219,7 @@ class _HomePageState extends State<HomePage> with RouteAware{
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           backgroundColor: notifier.isDark ? Colors.transparent : Colors.transparent,
-                          fixedSize: Size(size.width * 0.7, size.height * 0.1),
+                          fixedSize: Size(size.width * 0.7, size.height * 0.08),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20)
                           ),
@@ -162,6 +236,37 @@ class _HomePageState extends State<HomePage> with RouteAware{
                           fontWeight: FontWeight.w900,
                           fontStyle: FontStyle.italic
                       ),),
+                    ),
+
+                    const Padding(
+                      padding: EdgeInsets.only(top: 16.0,bottom: 8.0),
+                      child: Text('---Statistics---',style: TextStyle(
+                          fontSize: 24
+                      ),),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 40.0),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: notifier.isDark ? Colors.transparent : Colors.transparent,
+                            fixedSize: Size(size.width * 0.7, size.height * 0.08),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20)
+                            ),
+                            side: BorderSide(
+                              width: 5,
+                              color: notifier.isDark ? Colors.white : Colors.grey,
+                            )
+                        ),
+                        onPressed: (){
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const StaticsPage()));
+                        },
+                        child: const Text('View Statics',style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w900,
+                            fontStyle: FontStyle.italic
+                        ),),
+                      ),
                     ),
                   ],
                 ),

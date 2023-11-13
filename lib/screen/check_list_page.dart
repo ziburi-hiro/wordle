@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wordle/components/testbox.dart';
+import 'package:wordle/components/testBox.dart';
 import 'package:wordle/constants/means.dart';
 import 'package:wordle/providers/controller.dart';
 import 'package:wordle/providers/theme_provider.dart';

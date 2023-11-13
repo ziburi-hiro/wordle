@@ -8,6 +8,7 @@ import 'package:wordle/constants/answer_stages.dart';
 import 'package:wordle/data/key_map.dart';
 import 'package:wordle/utils/calculate_stats_fivewords.dart';
 import 'package:wordle/utils/checkList_preferences.dart';
+import 'package:wordle/utils/quiz_preferences.dart';
 
 import '../models/tile_model.dart';
 
@@ -22,8 +23,7 @@ class Controller extends ChangeNotifier {
   bool answeredCorrect = false;
   bool answeredFalse = false;
   bool addListCheck = false;
-  bool testModeALL = true;
-  bool testModeRandom = false;
+  List<bool> toggleButtonSelect = [true, false];
   String correctWord = "";
   List<String> checkList = [];
   List<String> meanList = [];
@@ -59,6 +59,14 @@ class Controller extends ChangeNotifier {
     choicesMean.add(Means[choices1]![0]);
     choicesMean.add(Means[choices2]![0]);
     choicesMean.add(Means[choices3]![0]);
+  }
+
+  setQuizMode() async {
+    if(await QuizPreferences.getQuizMode() == true){
+      toggleButtonSelect = [false,true];
+    }else{
+      toggleButtonSelect = [true,false];
+    }
   }
 
   gameReset(){

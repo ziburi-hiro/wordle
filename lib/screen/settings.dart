@@ -50,26 +50,6 @@ class Settings extends StatelessWidget {
             },
           ),
 
-          Consumer<QuizProvider>(
-            builder: (_, notifier, __){
-              bool isSwitched = false;
-              isSwitched = notifier.quizMode;
-
-              return SwitchListTile(
-                title: const Text('Quiz Mode',style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),),
-                value: isSwitched,
-                onChanged: (value){
-                  isSwitched = value;
-                  QuizPreferences.saveQuizMode(isQuizMode: isSwitched);
-                  Provider.of<QuizProvider>(context,listen: false).setQuizMode(turnOn: isSwitched);
-                },
-              );
-            },
-          ),
-
           Consumer<ThemeProvider>(
             builder: (_ , notifier ,__) {
               return ElevatedButton(
