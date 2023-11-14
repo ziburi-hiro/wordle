@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wordle/providers/controller.dart';
 import 'package:wordle/screen/random_word_test_page.dart';
+import 'package:wordle/utils/checkList_preferences.dart';
 import 'package:wordle/utils/quick_box.dart';
 
 class TestBox extends StatefulWidget {
@@ -35,25 +36,39 @@ class _TestBoxState extends State<TestBox> {
                   fontSize: 20,
                 ),),
 
-                SizedBox(
-                  width: 200,
-                  height: 40,
-                  child: ElevatedButton(
-                    onPressed: (){
-                      Navigator.of(context).pop();
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const RandomWordTestPage()));
-                    },
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        )
-                    ),
-                    child: const Text('Start Test',style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                    ),),
-                  ),
+                FutureBuilder(
+                  future: CheckListPreferences.getCheckList(),
+                  builder: (context, snapshot) {
+                    List<String> checkList = [];
+                    if (snapshot.hasData) {
+                      checkList = snapshot.data as List<String>;
+                    }
+                    return SizedBox(
+                      width: 200,
+                      height: 40,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (
+                                  context) => const RandomWordTestPage()));
+                          notifier.choiceTestWord(list: checkList);
+                          notifier.makePositionNum();
+                          notifier.makeFakeWordList();
+                        },
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            )
+                        ),
+                        child: const Text('Start Test', style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),),
+                      ),
+                    );
+                  }
                 )
               ],
             ),

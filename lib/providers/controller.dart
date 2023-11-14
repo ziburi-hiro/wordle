@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:wordle/constants/five_words_means.dart';
 import 'package:wordle/constants/means.dart';
+import 'package:wordle/constants/words.dart';
 import 'package:wordle/utils/calculate_chart_stats.dart';
 import 'package:wordle/utils/calculate_chart_stats_fivewords.dart';
 import 'package:wordle/utils/calculate_stats.dart';
@@ -24,12 +27,18 @@ class Controller extends ChangeNotifier {
   bool answeredFalse = false;
   bool addListCheck = false;
   List<bool> toggleButtonSelect = [true, false];
+  List<bool> tapButtonList = [false,false,false,false,false,false,false,false,false,false];
+  List<bool> answeredCorrectList = [false,false,false,false,false,false,false,false,false,false];
+  List<bool> answeredFalseList = [false,false,false,false,false,false,false,false,false,false];
   String correctWord = "";
   List<String> checkList = [];
   List<String> meanList = [];
   List<String> choicesList = [];
   List<String> choicesMean = [];
   List<String> meanList_5words = [];
+  List<String> testList = [];
+  List<int> positionNum = [];
+  List<List<String>> fakeMeanList = [];
   String partsOfSpeech = "";
   String partsOfSpeech_5words = "";
   int currentTile = 0;
@@ -59,6 +68,18 @@ class Controller extends ChangeNotifier {
     choicesMean.add(Means[choices1]![0]);
     choicesMean.add(Means[choices2]![0]);
     choicesMean.add(Means[choices3]![0]);
+  }
+
+  makeFakeWordList(){
+    for (var i = 0; i < 10; i++){
+      final num1 = Random().nextInt(words.length);
+      final num2 = Random().nextInt(words.length);
+      final num3 = Random().nextInt(words.length);
+      setChoicesWord(choices1: words[num1], choices2: words[num2], choices3: words[num3]);
+      setChoicesMean(choices1: words[num1], choices2: words[num2], choices3: words[num3]);
+      fakeMeanList.add([choicesMean[0],choicesMean[1],choicesMean[2]]);
+      choicesMean.clear();
+    }
   }
 
   setQuizMode() async {
@@ -94,6 +115,22 @@ class Controller extends ChangeNotifier {
   deleteCheckList({required String word,required List<String> list}){
     list.remove(word);
     CheckListPreferences.saveCheckList(list: list);
+  }
+
+  choiceTestWord({required List<String> list}){
+    for (var i = 0; i < 10; i++){
+      final r = Random().nextInt(list.length);
+      testList.add(list[r]);
+      print(testList);
+    }
+  }
+
+  makePositionNum(){
+    for (var i = 0; i < 10; i++){
+      final num = Random().nextInt(4);
+      positionNum.add(num);
+      print(positionNum);
+    }
   }
 
   setKeyTapped({required String value, required int length}) {
