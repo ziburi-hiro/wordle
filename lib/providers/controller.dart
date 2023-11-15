@@ -30,6 +30,7 @@ class Controller extends ChangeNotifier {
   List<bool> tapButtonList = [false,false,false,false,false,false,false,false,false,false];
   List<bool> answeredCorrectList = [false,false,false,false,false,false,false,false,false,false];
   List<bool> answeredFalseList = [false,false,false,false,false,false,false,false,false,false];
+  List<bool> checkRemove = [false,false,false,false,false,false,false,false,false,false];
   String correctWord = "";
   List<String> checkList = [];
   List<String> meanList = [];
@@ -44,6 +45,7 @@ class Controller extends ChangeNotifier {
   int currentTile = 0;
   int currentRow = 0;
   int answerPositionNum = 0;
+  int testCounter = 0;
   List<TileModel> tilesEntered = [];
 
   setCorrectWord({required String word}) => correctWord = word;
@@ -104,6 +106,16 @@ class Controller extends ChangeNotifier {
     choicesMean.clear();
   }
 
+  testReset(){
+    tapButtonList = [false,false,false,false,false,false,false,false,false,false];
+    answeredCorrectList = [false,false,false,false,false,false,false,false,false,false];
+    answeredFalseList = [false,false,false,false,false,false,false,false,false,false];
+    checkRemove = [false,false,false,false,false,false,false,false,false,false];
+    testCounter = 0;
+    testList.clear();
+    fakeMeanList.clear();
+  }
+
   addCheckList({required String word,required List<String> list}){
     if(list.contains(word) == false){
       list.add(word);
@@ -113,15 +125,16 @@ class Controller extends ChangeNotifier {
   }
 
   deleteCheckList({required String word,required List<String> list}){
-    list.remove(word);
-    CheckListPreferences.saveCheckList(list: list);
+    if(list.contains(word) == true){
+      list.remove(word);
+      CheckListPreferences.saveCheckList(list: list);
+    }
   }
 
   choiceTestWord({required List<String> list}){
     for (var i = 0; i < 10; i++){
       final r = Random().nextInt(list.length);
       testList.add(list[r]);
-      print(testList);
     }
   }
 
@@ -129,7 +142,6 @@ class Controller extends ChangeNotifier {
     for (var i = 0; i < 10; i++){
       final num = Random().nextInt(4);
       positionNum.add(num);
-      print(positionNum);
     }
   }
 

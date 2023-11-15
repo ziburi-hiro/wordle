@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wordle/components/testBox.dart';
 import 'package:wordle/constants/means.dart';
+import 'package:wordle/main.dart';
 import 'package:wordle/providers/controller.dart';
 import 'package:wordle/providers/theme_provider.dart';
 import 'package:wordle/utils/checkList_preferences.dart';
@@ -13,7 +14,27 @@ class CheckListPage extends StatefulWidget {
   State<CheckListPage> createState() => _CheckListPageState();
 }
 
-class _CheckListPageState extends State<CheckListPage> {
+class _CheckListPageState extends State<CheckListPage> with RouteAware{
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context)!);
+  }
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    super.dispose();
+  }
+
+  @override
+  void didPopNext() {
+    // 一度、別の画面に遷移したあとで、再度この画面に戻ってきた時にコールされます。
+    setState(() {
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<Controller>(
