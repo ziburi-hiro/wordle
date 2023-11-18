@@ -50,7 +50,7 @@ class _TestResultBoxState extends State<TestResultBox> {
                         padding: const EdgeInsets.all(10.0),
                         child: FittedBox(
                           fit: BoxFit.fitWidth,
-                          child: Text('${notifier.testCounter} out of ${notifier.testList.length}',style: const TextStyle(
+                          child: Text('${notifier.testCounter} out of 10',style: const TextStyle(
                               fontSize: 30,
                               fontWeight: FontWeight.w900
                           ),),
