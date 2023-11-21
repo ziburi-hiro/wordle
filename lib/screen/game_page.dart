@@ -115,7 +115,7 @@ class _GamePageState extends State<GamePage> {
 
           Expanded(
             flex: 7,
-              child: Grid(itemCount: 20, space: 3, axisCount: 4,)
+              child: Grid(itemCount: 20, space: 3, axisCount: 4, mode: 'FourWords',)
           ),
           Expanded(
             flex: 4,

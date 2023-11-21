@@ -3,15 +3,17 @@ import 'package:provider/provider.dart';
 import 'package:wordle/animations/bounce.dart';
 import 'package:wordle/animations/dance.dart';
 import 'package:wordle/components/tile.dart';
+import 'package:wordle/components/tileFiveWords.dart';
 import 'package:wordle/providers/controller.dart';
 
 class Grid extends StatelessWidget {
   const Grid({
-    super.key, required this.itemCount, required this.space, required this.axisCount,
+    super.key, required this.itemCount, required this.space, required this.axisCount,required this.mode
   });
   final int itemCount;
   final double space;
   final int axisCount;
+  final String mode;
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +48,8 @@ class Grid extends StatelessWidget {
                 animate: animateDance,
                 child: Bounce(
                   animate: animate,
-                  child: Tile(index: index,)
-            ),
+                  child: (mode == 'FourWords') ? Tile(index: index,) :  TileFiveWords(index: index,)
+                ),
               );
             },
           );

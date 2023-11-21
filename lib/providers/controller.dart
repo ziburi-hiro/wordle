@@ -11,6 +11,7 @@ import 'package:wordle/constants/answer_stages.dart';
 import 'package:wordle/data/key_map.dart';
 import 'package:wordle/utils/calculate_stats_fivewords.dart';
 import 'package:wordle/utils/checkList_preferences.dart';
+import 'package:wordle/utils/checkList_preferences_fivewords.dart';
 import 'package:wordle/utils/quiz_preferences.dart';
 
 import '../models/tile_model.dart';
@@ -32,7 +33,6 @@ class Controller extends ChangeNotifier {
   List<bool> answeredFalseList = [false,false,false,false,false,false,false,false,false,false];
   List<bool> checkRemove = [false,false,false,false,false,false,false,false,false,false];
   String correctWord = "";
-  List<String> checkList = [];
   List<String> meanList = [];
   List<String> choicesList = [];
   List<String> choicesMean = [];
@@ -70,6 +70,16 @@ class Controller extends ChangeNotifier {
     choicesMean.add(Means[choices1]![0]);
     choicesMean.add(Means[choices2]![0]);
     choicesMean.add(Means[choices3]![0]);
+  }
+
+  setChoicesWordFiveWords({required String choices1, required String choices2, required String choices3}){
+    choicesList = [choices1,choices2,choices3];
+  }
+
+  setChoicesMeanFiveWords({required String choices1, required String choices2, required String choices3}){
+    choicesMean.add(FiveWordsMeans[choices1]![0]);
+    choicesMean.add(FiveWordsMeans[choices2]![0]);
+    choicesMean.add(FiveWordsMeans[choices3]![0]);
   }
 
   makeFakeWordList(){
@@ -124,10 +134,25 @@ class Controller extends ChangeNotifier {
     }
   }
 
+  addCheckListFiveWords({required String word,required List<String> list}){
+    if(list.contains(word) == false){
+      list.add(word);
+      list.sort(((a,b) => a.compareTo(b)));
+      CheckListPreferencesFiveWords.saveCheckListFiveWords(list: list);
+    }
+  }
+
   deleteCheckList({required String word,required List<String> list}){
     if(list.contains(word) == true){
       list.remove(word);
       CheckListPreferences.saveCheckList(list: list);
+    }
+  }
+
+  deleteCheckListFiveWords({required String word,required List<String> list}){
+    if(list.contains(word) == true){
+      list.remove(word);
+      CheckListPreferencesFiveWords.saveCheckListFiveWords(list: list);
     }
   }
 

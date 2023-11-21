@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wordle/components/grid.dart';
 import 'package:wordle/components/keyboard_row.dart';
+import 'package:wordle/components/quiz_box_fivewords.dart';
 import 'package:wordle/components/result_box_fivewords.dart';
 import 'package:wordle/components/title_back_box.dart';
 import 'package:wordle/constants/five_words.dart';
 import 'package:wordle/providers/controller.dart';
+import 'package:wordle/providers/quiz_provider.dart';
 import 'package:wordle/screen/settings.dart';
 import 'package:wordle/utils/quick_box.dart';
 
@@ -20,15 +22,29 @@ class FiveWordsWordle extends StatefulWidget {
 class _FiveWordsWordleState extends State<FiveWordsWordle> {
 
   late String _word;
+  late String _choices1;
+  late String _choices2;
+  late String _choices3;
 
   @override
   void initState() {
     final r = Random().nextInt(five_words.length);
     _word = five_words[r];
+    final num1 = Random().nextInt(five_words.length);
+    final num2 = Random().nextInt(five_words.length);
+    final num3 = Random().nextInt(five_words.length);
+    _choices1 = five_words[num1];
+    _choices2 = five_words[num2];
+    _choices3 = five_words[num3];
+
+    final answerPositionNum = Random().nextInt(4);
 
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
       Provider.of<Controller>(context, listen: false).setCorrectWord(word: _word);
       Provider.of<Controller>(context, listen: false).setCorrectMeanFiveWords(word: _word);
+      Provider.of<Controller>(context, listen: false).setChoicesWordFiveWords(choices1: _choices1, choices2: _choices2, choices3: _choices3);
+      Provider.of<Controller>(context, listen: false).setChoicesMeanFiveWords(choices1: _choices1, choices2: _choices2, choices3: _choices3);
+      Provider.of<Controller>(context, listen: false).setAnswerPositionNum(num: answerPositionNum);
     });
     super.initState();
   }
@@ -48,7 +64,7 @@ class _FiveWordsWordleState extends State<FiveWordsWordle> {
                 }
                 if(notifier.gameCompleted){
                   if(notifier.gameWon){
-                    if(notifier.currentRow == 5){
+                    if(notifier.currentRow == 6){
                       runQuickBox(context: context, message: 'Phew!');
                     }else{
                       runQuickBox(context: context, message: 'Splendid!');
@@ -56,17 +72,27 @@ class _FiveWordsWordleState extends State<FiveWordsWordle> {
                   }else{
                     runQuickBox(context: context, message: notifier.correctWord);
                   }
-                  Future.delayed(const Duration(milliseconds: 3000), (){
+                  Future.delayed(const Duration(milliseconds: 2000), (){
                     if(mounted){
-                      showDialog(context: context, builder: (_) => const ResultBoxFiveWords());
+                      if(Provider.of<QuizProvider>(context,listen: false).quizMode){
+                        showDialog(context: context, builder: (_) => const QuizBoxFiveWords());
+                      }else{
+                        showDialog(context: context, builder: (_) => const ResultBoxFiveWords());
+                      }
                     }
                   });
                 }
                 return IconButton(
                     onPressed: () async {
-                      notifier.gameCompleted ? showDialog(context: context, builder: (_) => const ResultBoxFiveWords())
-                          :
-                      showDialog(context: context, builder: (_) => const TitleBackBox());
+                      if(Provider.of<QuizProvider>(context,listen: false).quizMode){
+                        notifier.gameCompleted ? showDialog(context: context, builder: (_) => const QuizBoxFiveWords())
+                            :
+                        showDialog(context: context, builder: (_) => const TitleBackBox());
+                      }else{
+                        notifier.gameCompleted ? showDialog(context: context, builder: (_) => const ResultBoxFiveWords())
+                            :
+                        showDialog(context: context, builder: (_) => const TitleBackBox());
+                      }
                     },
                     icon: notifier.gameCompleted ? const Icon(Icons.description) : const Icon(Icons.home)
                 );
@@ -90,7 +116,7 @@ class _FiveWordsWordleState extends State<FiveWordsWordle> {
 
           Expanded(
               flex: 7,
-              child: Grid(itemCount: 30, space: 4, axisCount: 5,)
+              child: Grid(itemCount: 30, space: 4, axisCount: 5, mode: 'FiveWords',)
           ),
           Expanded(
               flex: 4,
