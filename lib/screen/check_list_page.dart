@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wordle/components/testBox.dart';
+import 'package:wordle/components/testbox_fivewords.dart';
 import 'package:wordle/constants/five_words_means.dart';
 import 'package:wordle/constants/means.dart';
 import 'package:wordle/main.dart';
@@ -227,7 +228,7 @@ class _CheckListPageState extends State<CheckListPage> with RouteAware{
                       color: Colors.green,
                       child: ElevatedButton(
                         onPressed: (){
-                          //showDialog(context: context, builder: (_) => const TestBox());
+                          showDialog(context: context, builder: (_) => const TestBoxFiveWords());
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.green,

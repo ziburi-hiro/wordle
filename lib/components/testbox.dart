@@ -24,9 +24,9 @@ class _TestBoxState extends State<TestBox> {
             width: size.width*0.8,
             height: 200,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('10 words Test',style: TextStyle(
+                const Text('Four Characters',style: TextStyle(
                   fontWeight: FontWeight.w900,
                   fontSize: 26,
                 ),),
@@ -44,8 +44,8 @@ class _TestBoxState extends State<TestBox> {
                       checkList = snapshot.data as List<String>;
                     }
                     return SizedBox(
-                      width: 200,
-                      height: 40,
+                      width: size.width*0.6,
+                      height: size.height*0.06,
                       child: ElevatedButton(
                         onPressed: () {
                           Navigator.of(context).pop();
@@ -63,7 +63,7 @@ class _TestBoxState extends State<TestBox> {
                             )
                         ),
                         child: const Text('Start Test', style: TextStyle(
-                          fontSize: 22,
+                          fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),),
                       ),

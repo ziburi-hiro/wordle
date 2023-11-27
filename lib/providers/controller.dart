@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
+import 'package:wordle/constants/five_words.dart';
 import 'package:wordle/constants/five_words_means.dart';
 import 'package:wordle/constants/means.dart';
 import 'package:wordle/constants/words.dart';
@@ -94,6 +95,18 @@ class Controller extends ChangeNotifier {
     }
   }
 
+  makeFakeWordListFiveWords(){
+    for (var i = 0; i < 10; i++){
+      final num1 = Random().nextInt(five_words.length);
+      final num2 = Random().nextInt(five_words.length);
+      final num3 = Random().nextInt(five_words.length);
+      setChoicesWordFiveWords(choices1: five_words[num1], choices2: five_words[num2], choices3: five_words[num3]);
+      setChoicesMeanFiveWords(choices1: five_words[num1], choices2: five_words[num2], choices3: five_words[num3]);
+      fakeMeanList.add([choicesMean[0],choicesMean[1],choicesMean[2]]);
+      choicesMean.clear();
+    }
+  }
+
   setQuizMode() async {
     if(await QuizPreferences.getQuizMode() == true){
       toggleButtonSelect = [false,true];
@@ -123,6 +136,7 @@ class Controller extends ChangeNotifier {
     checkRemove = [false,false,false,false,false,false,false,false,false,false];
     testCounter = 0;
     testList.clear();
+    positionNum.clear();
     fakeMeanList.clear();
   }
 
