@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wordle/components/test_cancel_box.dart';
 import 'package:wordle/components/test_result_box.dart';
-import 'package:wordle/components/testbox.dart';
 import 'package:wordle/constants/means.dart';
 import 'package:wordle/providers/controller.dart';
 import 'package:wordle/providers/theme_provider.dart';
@@ -692,7 +691,6 @@ class _RandomWordTestPageState extends State<RandomWordTestPage> {
                                               setState(() {
                                                 notifier.checkRemove[index] = !notifier.checkRemove[index];
                                               });
-                                              print(checkList);
                                               },
                                           ),
                                           const Text(':  Delete from checkList',style: TextStyle(

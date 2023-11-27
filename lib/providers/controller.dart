@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
+import 'package:wordle/constants/five_words.dart';
 import 'package:wordle/constants/five_words_means.dart';
 import 'package:wordle/constants/means.dart';
 import 'package:wordle/constants/words.dart';
@@ -11,6 +12,7 @@ import 'package:wordle/constants/answer_stages.dart';
 import 'package:wordle/data/key_map.dart';
 import 'package:wordle/utils/calculate_stats_fivewords.dart';
 import 'package:wordle/utils/checkList_preferences.dart';
+import 'package:wordle/utils/checkList_preferences_fivewords.dart';
 import 'package:wordle/utils/quiz_preferences.dart';
 
 import '../models/tile_model.dart';
@@ -32,7 +34,6 @@ class Controller extends ChangeNotifier {
   List<bool> answeredFalseList = [false,false,false,false,false,false,false,false,false,false];
   List<bool> checkRemove = [false,false,false,false,false,false,false,false,false,false];
   String correctWord = "";
-  List<String> checkList = [];
   List<String> meanList = [];
   List<String> choicesList = [];
   List<String> choicesMean = [];
@@ -72,6 +73,16 @@ class Controller extends ChangeNotifier {
     choicesMean.add(Means[choices3]![0]);
   }
 
+  setChoicesWordFiveWords({required String choices1, required String choices2, required String choices3}){
+    choicesList = [choices1,choices2,choices3];
+  }
+
+  setChoicesMeanFiveWords({required String choices1, required String choices2, required String choices3}){
+    choicesMean.add(FiveWordsMeans[choices1]![0]);
+    choicesMean.add(FiveWordsMeans[choices2]![0]);
+    choicesMean.add(FiveWordsMeans[choices3]![0]);
+  }
+
   makeFakeWordList(){
     for (var i = 0; i < 10; i++){
       final num1 = Random().nextInt(words.length);
@@ -79,6 +90,18 @@ class Controller extends ChangeNotifier {
       final num3 = Random().nextInt(words.length);
       setChoicesWord(choices1: words[num1], choices2: words[num2], choices3: words[num3]);
       setChoicesMean(choices1: words[num1], choices2: words[num2], choices3: words[num3]);
+      fakeMeanList.add([choicesMean[0],choicesMean[1],choicesMean[2]]);
+      choicesMean.clear();
+    }
+  }
+
+  makeFakeWordListFiveWords(){
+    for (var i = 0; i < 10; i++){
+      final num1 = Random().nextInt(five_words.length);
+      final num2 = Random().nextInt(five_words.length);
+      final num3 = Random().nextInt(five_words.length);
+      setChoicesWordFiveWords(choices1: five_words[num1], choices2: five_words[num2], choices3: five_words[num3]);
+      setChoicesMeanFiveWords(choices1: five_words[num1], choices2: five_words[num2], choices3: five_words[num3]);
       fakeMeanList.add([choicesMean[0],choicesMean[1],choicesMean[2]]);
       choicesMean.clear();
     }
@@ -113,6 +136,7 @@ class Controller extends ChangeNotifier {
     checkRemove = [false,false,false,false,false,false,false,false,false,false];
     testCounter = 0;
     testList.clear();
+    positionNum.clear();
     fakeMeanList.clear();
   }
 
@@ -124,10 +148,25 @@ class Controller extends ChangeNotifier {
     }
   }
 
+  addCheckListFiveWords({required String word,required List<String> list}){
+    if(list.contains(word) == false){
+      list.add(word);
+      list.sort(((a,b) => a.compareTo(b)));
+      CheckListPreferencesFiveWords.saveCheckListFiveWords(list: list);
+    }
+  }
+
   deleteCheckList({required String word,required List<String> list}){
     if(list.contains(word) == true){
       list.remove(word);
       CheckListPreferences.saveCheckList(list: list);
+    }
+  }
+
+  deleteCheckListFiveWords({required String word,required List<String> list}){
+    if(list.contains(word) == true){
+      list.remove(word);
+      CheckListPreferencesFiveWords.saveCheckListFiveWords(list: list);
     }
   }
 

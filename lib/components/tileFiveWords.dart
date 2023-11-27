@@ -6,18 +6,18 @@ import 'package:wordle/constants/answer_stages.dart';
 import 'package:wordle/constants/colors.dart';
 import 'package:wordle/providers/controller.dart';
 
-class Tile extends StatefulWidget {
-  const Tile({required this.index, super.key,
+class TileFiveWords extends StatefulWidget {
+  const TileFiveWords({required this.index, super.key,
   });
 
   final int index;
 
   @override
-  State<Tile> createState() => _TileState();
+  State<TileFiveWords> createState() => _TileFiveWordsState();
 }
 
-class _TileState extends State<Tile> with SingleTickerProviderStateMixin {
-  
+class _TileFiveWordsState extends State<TileFiveWords> with SingleTickerProviderStateMixin {
+
   late AnimationController _animationController;
 
   Color _backgroundColor = Colors.transparent;
@@ -27,10 +27,10 @@ class _TileState extends State<Tile> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     _animationController = AnimationController(
-      duration: const Duration(milliseconds: 500),
+        duration: const Duration(milliseconds: 500),
         vsync: this
     );
-    
+
     super.initState();
   }
 
@@ -57,7 +57,7 @@ class _TileState extends State<Tile> with SingleTickerProviderStateMixin {
             _answerStage = notifier.tilesEntered[widget.index].answerStage;
 
             if(notifier.checkLine) {
-              final delay = widget.index - (notifier.currentRow - 1) * 4;
+              final delay = widget.index - (notifier.currentRow - 1) * 5;
               Future.delayed(Duration(milliseconds: 300 * delay),(){
                 if(mounted){
                   _animationController.forward();
@@ -94,25 +94,25 @@ class _TileState extends State<Tile> with SingleTickerProviderStateMixin {
                 }
                 return Transform(
                   alignment: Alignment.center,
-                transform: Matrix4.identity()
-                ..setEntry(3, 2, 0.003)
-                  ..rotateX(_animationController.value * pi)
+                  transform: Matrix4.identity()
+                    ..setEntry(3, 2, 0.003)
+                    ..rotateX(_animationController.value * pi)
                     ..rotateX(flip),
-                child: Container(
-                    decoration: BoxDecoration(
-                      color: flip > 0 ? _backgroundColor : Colors.transparent,
-                      border: Border.all(
-                        color: flip > 0 ? Colors.transparent : _borderColor,
+                  child: Container(
+                      decoration: BoxDecoration(
+                          color: flip > 0 ? _backgroundColor : Colors.transparent,
+                          border: Border.all(
+                            color: flip > 0 ? Colors.transparent : _borderColor,
+                          )
+                      ),
+                      child: FittedBox(
+                          fit: BoxFit.contain,
+                          child: flip > 0 ? Text(text, style: const TextStyle().copyWith(
+                              color: fontColor
+                          ),) : Text(text)
                       )
-                    ),
-                    child: FittedBox(
-                        fit: BoxFit.contain,
-                        child: flip > 0 ? Text(text, style: const TextStyle().copyWith(
-                          color: fontColor
-                        ),) : Text(text)
-                    )
-                ),
-              );
+                  ),
+                );
               },
             );
           }else {
