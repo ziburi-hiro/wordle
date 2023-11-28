@@ -50,7 +50,7 @@ class _TestResultBoxState extends State<TestResultBox> {
                         padding: const EdgeInsets.all(10.0),
                         child: FittedBox(
                           fit: BoxFit.fitWidth,
-                          child: Text('${notifier.testCounter} out of 10',style: const TextStyle(
+                          child: Text('${notifier.testCounter} out of ${notifier.tapButtonList.length}',style: const TextStyle(
                               fontSize: 30,
                               fontWeight: FontWeight.w900
                           ),),
@@ -67,7 +67,7 @@ class _TestResultBoxState extends State<TestResultBox> {
                         ),
                       ),
 
-                      notifier.testCounter > 5 ?
+                      notifier.testCounter/notifier.tapButtonList.length > 0.6 ?
                       const Padding(
                         padding: EdgeInsets.all(10.0),
                         child: FittedBox(

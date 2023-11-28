@@ -48,13 +48,19 @@ class _TestBoxState extends State<TestBox> {
                       height: size.height*0.06,
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.of(context).pop();
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (
-                                  context) => const RandomWordTestPage()));
-                          notifier.choiceTestWord(list: checkList);
-                          notifier.makePositionNum();
-                          notifier.makeFakeWordList();
+                          if(checkList.isEmpty){
+                            Navigator.of(context).pop();
+                            print('No word in checklist');
+                          }else{
+                            notifier.testInit(list: checkList);
+                            notifier.choiceTestWord(list: checkList);
+                            notifier.makePositionNum(list: checkList);
+                            notifier.makeFakeWordList(list: checkList);
+                            Navigator.of(context).pop();
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (
+                                    context) => const RandomWordTestPage()));
+                          }
                         },
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.green,

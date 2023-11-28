@@ -29,10 +29,10 @@ class Controller extends ChangeNotifier {
   bool answeredFalse = false;
   bool addListCheck = false;
   List<bool> toggleButtonSelect = [true, false];
-  List<bool> tapButtonList = [false,false,false,false,false,false,false,false,false,false];
-  List<bool> answeredCorrectList = [false,false,false,false,false,false,false,false,false,false];
-  List<bool> answeredFalseList = [false,false,false,false,false,false,false,false,false,false];
-  List<bool> checkRemove = [false,false,false,false,false,false,false,false,false,false];
+  List<bool> tapButtonList = [];
+  List<bool> answeredCorrectList = [];
+  List<bool> answeredFalseList = [];
+  List<bool> checkRemove = [];
   String correctWord = "";
   List<String> meanList = [];
   List<String> choicesList = [];
@@ -83,27 +83,51 @@ class Controller extends ChangeNotifier {
     choicesMean.add(FiveWordsMeans[choices3]![0]);
   }
 
-  makeFakeWordList(){
-    for (var i = 0; i < 10; i++){
-      final num1 = Random().nextInt(words.length);
-      final num2 = Random().nextInt(words.length);
-      final num3 = Random().nextInt(words.length);
-      setChoicesWord(choices1: words[num1], choices2: words[num2], choices3: words[num3]);
-      setChoicesMean(choices1: words[num1], choices2: words[num2], choices3: words[num3]);
-      fakeMeanList.add([choicesMean[0],choicesMean[1],choicesMean[2]]);
-      choicesMean.clear();
+  makeFakeWordList({required List<String> list}){
+    if(list.length < 10){
+      for (var i = 0; i < list.length; i++){
+        final num1 = Random().nextInt(words.length);
+        final num2 = Random().nextInt(words.length);
+        final num3 = Random().nextInt(words.length);
+        setChoicesWord(choices1: words[num1], choices2: words[num2], choices3: words[num3]);
+        setChoicesMean(choices1: words[num1], choices2: words[num2], choices3: words[num3]);
+        fakeMeanList.add([choicesMean[0],choicesMean[1],choicesMean[2]]);
+        choicesMean.clear();
+      }
+    }else{
+      for (var i = 0; i < 10; i++){
+        final num1 = Random().nextInt(words.length);
+        final num2 = Random().nextInt(words.length);
+        final num3 = Random().nextInt(words.length);
+        setChoicesWord(choices1: words[num1], choices2: words[num2], choices3: words[num3]);
+        setChoicesMean(choices1: words[num1], choices2: words[num2], choices3: words[num3]);
+        fakeMeanList.add([choicesMean[0],choicesMean[1],choicesMean[2]]);
+        choicesMean.clear();
+      }
     }
   }
 
-  makeFakeWordListFiveWords(){
-    for (var i = 0; i < 10; i++){
-      final num1 = Random().nextInt(five_words.length);
-      final num2 = Random().nextInt(five_words.length);
-      final num3 = Random().nextInt(five_words.length);
-      setChoicesWordFiveWords(choices1: five_words[num1], choices2: five_words[num2], choices3: five_words[num3]);
-      setChoicesMeanFiveWords(choices1: five_words[num1], choices2: five_words[num2], choices3: five_words[num3]);
-      fakeMeanList.add([choicesMean[0],choicesMean[1],choicesMean[2]]);
-      choicesMean.clear();
+  makeFakeWordListFiveWords({required List<String> list}){
+    if(list.length < 10){
+      for (var i = 0; i < list.length; i++){
+        final num1 = Random().nextInt(five_words.length);
+        final num2 = Random().nextInt(five_words.length);
+        final num3 = Random().nextInt(five_words.length);
+        setChoicesWordFiveWords(choices1: five_words[num1], choices2: five_words[num2], choices3: five_words[num3]);
+        setChoicesMeanFiveWords(choices1: five_words[num1], choices2: five_words[num2], choices3: five_words[num3]);
+        fakeMeanList.add([choicesMean[0],choicesMean[1],choicesMean[2]]);
+        choicesMean.clear();
+      }
+    }else{
+      for (var i = 0; i < 10; i++){
+        final num1 = Random().nextInt(five_words.length);
+        final num2 = Random().nextInt(five_words.length);
+        final num3 = Random().nextInt(five_words.length);
+        setChoicesWordFiveWords(choices1: five_words[num1], choices2: five_words[num2], choices3: five_words[num3]);
+        setChoicesMeanFiveWords(choices1: five_words[num1], choices2: five_words[num2], choices3: five_words[num3]);
+        fakeMeanList.add([choicesMean[0],choicesMean[1],choicesMean[2]]);
+        choicesMean.clear();
+      }
     }
   }
 
@@ -112,6 +136,20 @@ class Controller extends ChangeNotifier {
       toggleButtonSelect = [false,true];
     }else{
       toggleButtonSelect = [true,false];
+    }
+  }
+
+  testInit({required List<String> list}){
+    if(list.length < 10){
+      tapButtonList = List.filled(list.length, false);
+      answeredCorrectList = List.filled(list.length, false);
+      answeredFalseList = List.filled(list.length, false);
+      checkRemove = List.filled(list.length, false);
+    }else{
+      tapButtonList = List.filled(10, false);
+      answeredCorrectList = List.filled(10, false);
+      answeredFalseList = List.filled(10, false);
+      checkRemove = List.filled(10, false);
     }
   }
 
@@ -130,10 +168,10 @@ class Controller extends ChangeNotifier {
   }
 
   testReset(){
-    tapButtonList = [false,false,false,false,false,false,false,false,false,false];
-    answeredCorrectList = [false,false,false,false,false,false,false,false,false,false];
-    answeredFalseList = [false,false,false,false,false,false,false,false,false,false];
-    checkRemove = [false,false,false,false,false,false,false,false,false,false];
+    tapButtonList = [];
+    answeredCorrectList = [];
+    answeredFalseList = [];
+    checkRemove = [];
     testCounter = 0;
     testList.clear();
     positionNum.clear();
@@ -171,16 +209,26 @@ class Controller extends ChangeNotifier {
   }
 
   choiceTestWord({required List<String> list}){
-    for (var i = 0; i < 10; i++){
-      final r = Random().nextInt(list.length);
-      testList.add(list[r]);
+    for (var i = 0; i < list.length; i++){
+      testList.add(list[i]);
+    }
+    testList.shuffle();
+    if(testList.length >= 10){
+      testList = testList.take(10).toList();
     }
   }
 
-  makePositionNum(){
-    for (var i = 0; i < 10; i++){
-      final num = Random().nextInt(4);
-      positionNum.add(num);
+  makePositionNum({required List<String> list}){
+    if(list.length < 10){
+      for (var i = 0; i < list.length; i++){
+        final num = Random().nextInt(4);
+        positionNum.add(num);
+      }
+    }else{
+      for (var i = 0; i < 10; i++){
+        final num = Random().nextInt(4);
+        positionNum.add(num);
+      }
     }
   }
 

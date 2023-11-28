@@ -50,13 +50,19 @@ class _TestBoxFiveWordsState extends State<TestBoxFiveWords> {
                         height: size.height*0.06,
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.of(context).pop();
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (
-                                    context) => const RandomWordTestFiveWordsPage()));
-                            notifier.choiceTestWord(list: checkList);
-                            notifier.makePositionNum();
-                            notifier.makeFakeWordListFiveWords();
+                            if(checkList.isEmpty){
+                              Navigator.of(context).pop();
+                              print('No word in checklist');
+                            }else{
+                              notifier.testInit(list: checkList);
+                              notifier.choiceTestWord(list: checkList);
+                              notifier.makePositionNum(list: checkList);
+                              notifier.makeFakeWordListFiveWords(list: checkList);
+                              Navigator.of(context).pop();
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (
+                                      context) => const RandomWordTestFiveWordsPage()));
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.green,

@@ -6,10 +6,16 @@ import 'package:wordle/main.dart';
 import 'package:wordle/providers/controller.dart';
 import 'package:wordle/screen/game_page.dart';
 import 'package:wordle/screen/home_page.dart';
+import 'package:wordle/utils/checkList_preferences.dart';
 
-class ResultBox extends StatelessWidget {
+class ResultBox extends StatefulWidget {
   const ResultBox({Key? key}) : super(key: key);
 
+  @override
+  State<ResultBox> createState() => _ResultBoxState();
+}
+
+class _ResultBoxState extends State<ResultBox> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -31,14 +37,14 @@ class ResultBox extends StatelessWidget {
                 child: Text('RESULTS',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 22,
+                    fontSize: 30,
                     fontWeight: FontWeight.w900
                   ),
                 )
             ),
 
             Expanded(
-              flex: 4,
+              flex: 3,
               child: Column(
                 children: [
                   const Text('Correct Word',
@@ -82,8 +88,42 @@ class ResultBox extends StatelessWidget {
               ),
             ),
 
+            Row(
+              children: [
+                FutureBuilder(
+                    future: CheckListPreferences.getCheckList(),
+                    builder: (context, snapshot) {
+                      List<String> checkList = [];
+                      if(snapshot.hasData){
+                        checkList = snapshot.data as List<String>;
+                      }
+                      return Checkbox(
+                        activeColor: Colors.green,
+                        value: notifier.addListCheck,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            notifier.addListCheck = value!;
+                          });
+                          if (notifier.addListCheck == true) {
+                            notifier.addCheckList(
+                                word: notifier.correctWord.toLowerCase(), list: checkList);
+                          } else if (notifier.addListCheck == false) {
+                            notifier.deleteCheckList(
+                                word: notifier.correctWord.toLowerCase(), list: checkList);
+                          }
+                        },
+                      );
+                    }
+                ),
+                const Text('Add List to review',style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold
+                ),)
+              ],
+            ),
+
             Expanded(
-                flex: 2,
+                flex: 1,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green
@@ -104,9 +144,9 @@ class ResultBox extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            
+
             Expanded(
-                flex: 2,
+                flex: 1,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green

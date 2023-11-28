@@ -29,16 +29,10 @@ class _RandomWordTestPageState extends State<RandomWordTestPage> {
           title: const Text('10WRODTEST'),
           actions: [
             Visibility(
-              visible: (Provider.of<Controller>(context, listen: false).tapButtonList[0]
-                  && Provider.of<Controller>(context, listen: false).tapButtonList[1]
-                  && Provider.of<Controller>(context, listen: false).tapButtonList[2]
-                  && Provider.of<Controller>(context, listen: false).tapButtonList[3]
-                  && Provider.of<Controller>(context, listen: false).tapButtonList[4]
-                  && Provider.of<Controller>(context, listen: false).tapButtonList[5]
-                  && Provider.of<Controller>(context, listen: false).tapButtonList[6]
-                  && Provider.of<Controller>(context, listen: false).tapButtonList[7]
-                  && Provider.of<Controller>(context, listen: false).tapButtonList[8]
-                  && Provider.of<Controller>(context, listen: false).tapButtonList[9]),
+              visible: (Provider.of<Controller>(context, listen: false)
+                  .tapButtonList
+                  .where((element) => element == true)
+                  .toList().length == Provider.of<Controller>(context, listen: false).tapButtonList.length),
               child: IconButton(
                 onPressed: (){
                   showDialog(context: context, builder: (_) => const TestResultBox());
@@ -156,10 +150,10 @@ class _RandomWordTestPageState extends State<RandomWordTestPage> {
                                                     notifier.tapButtonList[index] = true;
                                                     notifier.answeredCorrectList[index] = true;
                                                     notifier.testCounter++;
-                                                    if(notifier.tapButtonList[0] && notifier.tapButtonList[1] && notifier.tapButtonList[2]
-                                                        && notifier.tapButtonList[3] && notifier.tapButtonList[4] && notifier.tapButtonList[5]
-                                                        && notifier.tapButtonList[6] && notifier.tapButtonList[7] && notifier.tapButtonList[8]
-                                                        && notifier.tapButtonList[9]){
+                                                    if(Provider.of<Controller>(context, listen: false)
+                                                        .tapButtonList
+                                                        .where((element) => element == true)
+                                                        .toList().length == Provider.of<Controller>(context, listen: false).tapButtonList.length){
                                                       showDialog(context: context, builder: (_) => const TestResultBox());
                                                     }
                                                     setState(() {});
@@ -187,10 +181,10 @@ class _RandomWordTestPageState extends State<RandomWordTestPage> {
                                                   onPressed: (notifier.tapButtonList[index] == true) ? (){} : (){
                                                     notifier.tapButtonList[index] = true;
                                                     notifier.answeredFalseList[index] = true;
-                                                    if(notifier.tapButtonList[0] && notifier.tapButtonList[1] && notifier.tapButtonList[2]
-                                                        && notifier.tapButtonList[3] && notifier.tapButtonList[4] && notifier.tapButtonList[5]
-                                                        && notifier.tapButtonList[6] && notifier.tapButtonList[7] && notifier.tapButtonList[8]
-                                                        && notifier.tapButtonList[9]){
+                                                    if(Provider.of<Controller>(context, listen: false)
+                                                        .tapButtonList
+                                                        .where((element) => element == true)
+                                                        .toList().length == Provider.of<Controller>(context, listen: false).tapButtonList.length){
                                                       showDialog(context: context, builder: (_) => const TestResultBox());
                                                     }
                                                     setState(() {});
@@ -218,10 +212,10 @@ class _RandomWordTestPageState extends State<RandomWordTestPage> {
                                                   onPressed: (notifier.tapButtonList[index] == true) ? (){} : (){
                                                     notifier.tapButtonList[index] = true;
                                                     notifier.answeredFalseList[index] = true;
-                                                    if(notifier.tapButtonList[0] && notifier.tapButtonList[1] && notifier.tapButtonList[2]
-                                                        && notifier.tapButtonList[3] && notifier.tapButtonList[4] && notifier.tapButtonList[5]
-                                                        && notifier.tapButtonList[6] && notifier.tapButtonList[7] && notifier.tapButtonList[8]
-                                                        && notifier.tapButtonList[9]){
+                                                    if(Provider.of<Controller>(context, listen: false)
+                                                        .tapButtonList
+                                                        .where((element) => element == true)
+                                                        .toList().length == Provider.of<Controller>(context, listen: false).tapButtonList.length){
                                                       showDialog(context: context, builder: (_) => const TestResultBox());
                                                     }
                                                     setState(() {});
@@ -249,10 +243,10 @@ class _RandomWordTestPageState extends State<RandomWordTestPage> {
                                                   onPressed: (notifier.tapButtonList[index] == true) ? (){} : (){
                                                     notifier.tapButtonList[index] = true;
                                                     notifier.answeredFalseList[index] = true;
-                                                    if(notifier.tapButtonList[0] && notifier.tapButtonList[1] && notifier.tapButtonList[2]
-                                                        && notifier.tapButtonList[3] && notifier.tapButtonList[4] && notifier.tapButtonList[5]
-                                                        && notifier.tapButtonList[6] && notifier.tapButtonList[7] && notifier.tapButtonList[8]
-                                                        && notifier.tapButtonList[9]){
+                                                    if(Provider.of<Controller>(context, listen: false)
+                                                        .tapButtonList
+                                                        .where((element) => element == true)
+                                                        .toList().length == Provider.of<Controller>(context, listen: false).tapButtonList.length){
                                                       showDialog(context: context, builder: (_) => const TestResultBox());
                                                     }
                                                     setState(() {});
@@ -286,10 +280,10 @@ class _RandomWordTestPageState extends State<RandomWordTestPage> {
                                                   onPressed: (notifier.tapButtonList[index] == true) ? (){} : (){
                                                     notifier.tapButtonList[index] = true;
                                                     notifier.answeredFalseList[index] = true;
-                                                    if(notifier.tapButtonList[0] && notifier.tapButtonList[1] && notifier.tapButtonList[2]
-                                                        && notifier.tapButtonList[3] && notifier.tapButtonList[4] && notifier.tapButtonList[5]
-                                                        && notifier.tapButtonList[6] && notifier.tapButtonList[7] && notifier.tapButtonList[8]
-                                                        && notifier.tapButtonList[9]){
+                                                    if(Provider.of<Controller>(context, listen: false)
+                                                        .tapButtonList
+                                                        .where((element) => element == true)
+                                                        .toList().length == Provider.of<Controller>(context, listen: false).tapButtonList.length){
                                                       showDialog(context: context, builder: (_) => const TestResultBox());
                                                     }
                                                     setState(() {});
@@ -318,10 +312,10 @@ class _RandomWordTestPageState extends State<RandomWordTestPage> {
                                                     notifier.tapButtonList[index] = true;
                                                     notifier.answeredCorrectList[index] = true;
                                                     notifier.testCounter++;
-                                                    if(notifier.tapButtonList[0] && notifier.tapButtonList[1] && notifier.tapButtonList[2]
-                                                        && notifier.tapButtonList[3] && notifier.tapButtonList[4] && notifier.tapButtonList[5]
-                                                        && notifier.tapButtonList[6] && notifier.tapButtonList[7] && notifier.tapButtonList[8]
-                                                        && notifier.tapButtonList[9]){
+                                                    if(Provider.of<Controller>(context, listen: false)
+                                                        .tapButtonList
+                                                        .where((element) => element == true)
+                                                        .toList().length == Provider.of<Controller>(context, listen: false).tapButtonList.length){
                                                       showDialog(context: context, builder: (_) => const TestResultBox());
                                                     }
                                                     setState(() {});
@@ -349,10 +343,10 @@ class _RandomWordTestPageState extends State<RandomWordTestPage> {
                                                   onPressed: (notifier.tapButtonList[index] == true) ? (){} : (){
                                                     notifier.tapButtonList[index] = true;
                                                     notifier.answeredFalseList[index] = true;
-                                                    if(notifier.tapButtonList[0] && notifier.tapButtonList[1] && notifier.tapButtonList[2]
-                                                        && notifier.tapButtonList[3] && notifier.tapButtonList[4] && notifier.tapButtonList[5]
-                                                        && notifier.tapButtonList[6] && notifier.tapButtonList[7] && notifier.tapButtonList[8]
-                                                        && notifier.tapButtonList[9]){
+                                                    if(Provider.of<Controller>(context, listen: false)
+                                                        .tapButtonList
+                                                        .where((element) => element == true)
+                                                        .toList().length == Provider.of<Controller>(context, listen: false).tapButtonList.length){
                                                       showDialog(context: context, builder: (_) => const TestResultBox());
                                                     }
                                                     setState(() {});
@@ -380,10 +374,10 @@ class _RandomWordTestPageState extends State<RandomWordTestPage> {
                                                   onPressed: (notifier.tapButtonList[index] == true) ? (){} : (){
                                                     notifier.tapButtonList[index] = true;
                                                     notifier.answeredFalseList[index] = true;
-                                                    if(notifier.tapButtonList[0] && notifier.tapButtonList[1] && notifier.tapButtonList[2]
-                                                        && notifier.tapButtonList[3] && notifier.tapButtonList[4] && notifier.tapButtonList[5]
-                                                        && notifier.tapButtonList[6] && notifier.tapButtonList[7] && notifier.tapButtonList[8]
-                                                        && notifier.tapButtonList[9]){
+                                                    if(Provider.of<Controller>(context, listen: false)
+                                                        .tapButtonList
+                                                        .where((element) => element == true)
+                                                        .toList().length == Provider.of<Controller>(context, listen: false).tapButtonList.length){
                                                       showDialog(context: context, builder: (_) => const TestResultBox());
                                                     }
                                                     setState(() {});
@@ -417,10 +411,10 @@ class _RandomWordTestPageState extends State<RandomWordTestPage> {
                                                   onPressed: (notifier.tapButtonList[index] == true) ? (){} : (){
                                                     notifier.tapButtonList[index] = true;
                                                     notifier.answeredFalseList[index] = true;
-                                                    if(notifier.tapButtonList[0] && notifier.tapButtonList[1] && notifier.tapButtonList[2]
-                                                        && notifier.tapButtonList[3] && notifier.tapButtonList[4] && notifier.tapButtonList[5]
-                                                        && notifier.tapButtonList[6] && notifier.tapButtonList[7] && notifier.tapButtonList[8]
-                                                        && notifier.tapButtonList[9]){
+                                                    if(Provider.of<Controller>(context, listen: false)
+                                                        .tapButtonList
+                                                        .where((element) => element == true)
+                                                        .toList().length == Provider.of<Controller>(context, listen: false).tapButtonList.length){
                                                       showDialog(context: context, builder: (_) => const TestResultBox());
                                                     }
                                                     setState(() {});
@@ -448,10 +442,10 @@ class _RandomWordTestPageState extends State<RandomWordTestPage> {
                                                   onPressed: (notifier.tapButtonList[index] == true) ? (){} : (){
                                                     notifier.tapButtonList[index] = true;
                                                     notifier.answeredFalseList[index] = true;
-                                                    if(notifier.tapButtonList[0] && notifier.tapButtonList[1] && notifier.tapButtonList[2]
-                                                        && notifier.tapButtonList[3] && notifier.tapButtonList[4] && notifier.tapButtonList[5]
-                                                        && notifier.tapButtonList[6] && notifier.tapButtonList[7] && notifier.tapButtonList[8]
-                                                        && notifier.tapButtonList[9]){
+                                                    if(Provider.of<Controller>(context, listen: false)
+                                                        .tapButtonList
+                                                        .where((element) => element == true)
+                                                        .toList().length == Provider.of<Controller>(context, listen: false).tapButtonList.length){
                                                       showDialog(context: context, builder: (_) => const TestResultBox());
                                                     }
                                                     setState(() {});
@@ -480,10 +474,10 @@ class _RandomWordTestPageState extends State<RandomWordTestPage> {
                                                     notifier.tapButtonList[index] = true;
                                                     notifier.answeredCorrectList[index] = true;
                                                     notifier.testCounter++;
-                                                    if(notifier.tapButtonList[0] && notifier.tapButtonList[1] && notifier.tapButtonList[2]
-                                                        && notifier.tapButtonList[3] && notifier.tapButtonList[4] && notifier.tapButtonList[5]
-                                                        && notifier.tapButtonList[6] && notifier.tapButtonList[7] && notifier.tapButtonList[8]
-                                                        && notifier.tapButtonList[9]){
+                                                    if(Provider.of<Controller>(context, listen: false)
+                                                        .tapButtonList
+                                                        .where((element) => element == true)
+                                                        .toList().length == Provider.of<Controller>(context, listen: false).tapButtonList.length){
                                                       showDialog(context: context, builder: (_) => const TestResultBox());
                                                     }
                                                     setState(() {});
@@ -511,10 +505,10 @@ class _RandomWordTestPageState extends State<RandomWordTestPage> {
                                                   onPressed: (notifier.tapButtonList[index] == true) ? (){} : (){
                                                     notifier.tapButtonList[index] = true;
                                                     notifier.answeredFalseList[index] = true;
-                                                    if(notifier.tapButtonList[0] && notifier.tapButtonList[1] && notifier.tapButtonList[2]
-                                                        && notifier.tapButtonList[3] && notifier.tapButtonList[4] && notifier.tapButtonList[5]
-                                                        && notifier.tapButtonList[6] && notifier.tapButtonList[7] && notifier.tapButtonList[8]
-                                                        && notifier.tapButtonList[9]){
+                                                    if(Provider.of<Controller>(context, listen: false)
+                                                        .tapButtonList
+                                                        .where((element) => element == true)
+                                                        .toList().length == Provider.of<Controller>(context, listen: false).tapButtonList.length){
                                                       showDialog(context: context, builder: (_) => const TestResultBox());
                                                     }
                                                     setState(() {});
@@ -548,10 +542,10 @@ class _RandomWordTestPageState extends State<RandomWordTestPage> {
                                                   onPressed: (notifier.tapButtonList[index] == true) ? (){} : (){
                                                     notifier.tapButtonList[index] = true;
                                                     notifier.answeredFalseList[index] = true;
-                                                    if(notifier.tapButtonList[0] && notifier.tapButtonList[1] && notifier.tapButtonList[2]
-                                                        && notifier.tapButtonList[3] && notifier.tapButtonList[4] && notifier.tapButtonList[5]
-                                                        && notifier.tapButtonList[6] && notifier.tapButtonList[7] && notifier.tapButtonList[8]
-                                                        && notifier.tapButtonList[9]){
+                                                    if(Provider.of<Controller>(context, listen: false)
+                                                        .tapButtonList
+                                                        .where((element) => element == true)
+                                                        .toList().length == Provider.of<Controller>(context, listen: false).tapButtonList.length){
                                                       showDialog(context: context, builder: (_) => const TestResultBox());
                                                     }
                                                     setState(() {});
@@ -579,10 +573,10 @@ class _RandomWordTestPageState extends State<RandomWordTestPage> {
                                                   onPressed: (notifier.tapButtonList[index] == true) ? (){} : (){
                                                     notifier.tapButtonList[index] = true;
                                                     notifier.answeredFalseList[index] = true;
-                                                    if(notifier.tapButtonList[0] && notifier.tapButtonList[1] && notifier.tapButtonList[2]
-                                                        && notifier.tapButtonList[3] && notifier.tapButtonList[4] && notifier.tapButtonList[5]
-                                                        && notifier.tapButtonList[6] && notifier.tapButtonList[7] && notifier.tapButtonList[8]
-                                                        && notifier.tapButtonList[9]){
+                                                    if(Provider.of<Controller>(context, listen: false)
+                                                        .tapButtonList
+                                                        .where((element) => element == true)
+                                                        .toList().length == Provider.of<Controller>(context, listen: false).tapButtonList.length){
                                                       showDialog(context: context, builder: (_) => const TestResultBox());
                                                     }
                                                     setState(() {});
@@ -610,10 +604,10 @@ class _RandomWordTestPageState extends State<RandomWordTestPage> {
                                                   onPressed: (notifier.tapButtonList[index] == true) ? (){} : (){
                                                     notifier.tapButtonList[index] = true;
                                                     notifier.answeredFalseList[index] = true;
-                                                    if(notifier.tapButtonList[0] && notifier.tapButtonList[1] && notifier.tapButtonList[2]
-                                                        && notifier.tapButtonList[3] && notifier.tapButtonList[4] && notifier.tapButtonList[5]
-                                                        && notifier.tapButtonList[6] && notifier.tapButtonList[7] && notifier.tapButtonList[8]
-                                                        && notifier.tapButtonList[9]){
+                                                    if(Provider.of<Controller>(context, listen: false)
+                                                        .tapButtonList
+                                                        .where((element) => element == true)
+                                                        .toList().length == Provider.of<Controller>(context, listen: false).tapButtonList.length){
                                                       showDialog(context: context, builder: (_) => const TestResultBox());
                                                     }
                                                     setState(() {});
@@ -642,10 +636,10 @@ class _RandomWordTestPageState extends State<RandomWordTestPage> {
                                                     notifier.tapButtonList[index] = true;
                                                     notifier.answeredCorrectList[index] = true;
                                                     notifier.testCounter++;
-                                                    if(notifier.tapButtonList[0] && notifier.tapButtonList[1] && notifier.tapButtonList[2]
-                                                        && notifier.tapButtonList[3] && notifier.tapButtonList[4] && notifier.tapButtonList[5]
-                                                        && notifier.tapButtonList[6] && notifier.tapButtonList[7] && notifier.tapButtonList[8]
-                                                        && notifier.tapButtonList[9]){
+                                                    if(Provider.of<Controller>(context, listen: false)
+                                                        .tapButtonList
+                                                        .where((element) => element == true)
+                                                        .toList().length == Provider.of<Controller>(context, listen: false).tapButtonList.length){
                                                       showDialog(context: context, builder: (_) => const TestResultBox());
                                                     }
                                                     setState(() {});
@@ -705,7 +699,7 @@ class _RandomWordTestPageState extends State<RandomWordTestPage> {
                             );
                           },
                           loop: false,
-                          itemCount: 10,
+                          itemCount: (checkList.length < 10) ? notifier.tapButtonList.length : 10,
                           viewportFraction: 1,
                           layout: SwiperLayout.DEFAULT,
                           pagination: const SwiperPagination(
