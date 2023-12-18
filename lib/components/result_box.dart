@@ -20,7 +20,7 @@ class _ResultBoxState extends State<ResultBox> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return AlertDialog(
-      insetPadding: EdgeInsets.fromLTRB(size.width * 0.08, size.height * 0.12, size.width * 0.08, size.height * 0.12),
+      insetPadding: EdgeInsets.fromLTRB(size.width * 0.02, size.height * 0.05, size.width * 0.02, size.height * 0.05),
       content: Consumer<Controller>(
         builder: (_, notifier, __) {
           return Column(

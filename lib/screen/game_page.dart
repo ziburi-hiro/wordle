@@ -69,7 +69,7 @@ class _GamePageState extends State<GamePage> {
                     runQuickBox(context: context, message: 'Splendid!');
                   }
                 }else{
-                  runQuickBox(context: context, message: notifier.correctWord);
+                  runQuickBox(context: context, message: notifier.correctWord.toLowerCase());
                 }
                 Future.delayed(const Duration(milliseconds: 2000), (){
                   if(mounted){
@@ -117,6 +117,7 @@ class _GamePageState extends State<GamePage> {
             flex: 7,
               child: Grid(itemCount: 20, space: 3, axisCount: 4, mode: 'FourWords',)
           ),
+
           Expanded(
             flex: 4,
               child: Column(

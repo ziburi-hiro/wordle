@@ -266,7 +266,7 @@ class Controller extends ChangeNotifier {
     String guessedWord = "";
 
     for (int i = currentRow * length; i < (currentRow * length) + length; i++) {
-      guessed.add(tilesEntered[i].letter);
+      guessed.add(tilesEntered[i].letter.toUpperCase());
     }
 
     guessedWord = guessed.join();
@@ -284,14 +284,14 @@ class Controller extends ChangeNotifier {
         if (guessedWord[i] == correctWord[i]) {
           remainingCorrect.remove(guessedWord[i]);
           tilesEntered[i + (currentRow * length)].answerStage = AnswerStage.correct;
-          keyMap.update(guessedWord[i], (value) => AnswerStage.correct);
+          keyMap.update(guessedWord[i].toLowerCase(), (value) => AnswerStage.correct);
         }
       }
 
       for (int i = 0; i < remainingCorrect.length; i++) {
         for (int j = 0; j < length; j++) {
           if (remainingCorrect[i] ==
-              tilesEntered[j + (currentRow * length)].letter) {
+              tilesEntered[j + (currentRow * length)].letter.toUpperCase()) {
             if (tilesEntered[j + (currentRow * length)].answerStage !=
                 AnswerStage.correct) {
               tilesEntered[j + (currentRow * length)].answerStage =

@@ -33,11 +33,6 @@ class _TestBoxFiveWordsState extends State<TestBoxFiveWords> {
                   fontSize: 26,
                 ),),
 
-                const Text('Test random 10 words \n from your checklist!',style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),),
-
                 FutureBuilder(
                     future: CheckListPreferencesFiveWords.getCheckListFiveWords(),
                     builder: (context, snapshot) {
@@ -45,36 +40,49 @@ class _TestBoxFiveWordsState extends State<TestBoxFiveWords> {
                       if (snapshot.hasData) {
                         checkList = snapshot.data as List<String>;
                       }
-                      return SizedBox(
-                        width: size.width*0.6,
-                        height: size.height*0.06,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            if(checkList.isEmpty){
-                              Navigator.of(context).pop();
-                              print('No word in checklist');
-                            }else{
-                              notifier.testInit(list: checkList);
-                              notifier.choiceTestWord(list: checkList);
-                              notifier.makePositionNum(list: checkList);
-                              notifier.makeFakeWordListFiveWords(list: checkList);
-                              Navigator.of(context).pop();
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (
-                                      context) => const RandomWordTestFiveWordsPage()));
-                            }
-                          },
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.green,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              )
-                          ),
-                          child: const Text('Start Test', style: TextStyle(
-                            fontSize: 24,
+                      return Column(
+                        children: [
+                          (checkList.length > 9) ?
+                          const Text('Test random 10 words \n from your checklist!',style: TextStyle(
                             fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),)
+                              :
+                          Text('Test random ${checkList.length} words \n from your checklist!',style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
                           ),),
-                        ),
+
+                          Padding(
+                            padding: const EdgeInsets.only(top: 30.0),
+                            child: SizedBox(
+                              width: size.width*0.6,
+                              height: size.height*0.06,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  notifier.testInit(list: checkList);
+                                  notifier.choiceTestWord(list: checkList);
+                                  notifier.makePositionNum(list: checkList);
+                                  notifier.makeFakeWordListFiveWords(list: checkList);
+                                  Navigator.of(context).pop();
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (
+                                          context) => const RandomWordTestFiveWordsPage()));
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.green,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    )
+                                ),
+                                child: const Text('Start Test', style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),),
+                              ),
+                            ),
+                          ),
+                        ],
                       );
                     }
                 )

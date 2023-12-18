@@ -9,6 +9,7 @@ import 'package:wordle/providers/controller.dart';
 import 'package:wordle/providers/theme_provider.dart';
 import 'package:wordle/utils/checkList_preferences.dart';
 import 'package:wordle/utils/checkList_preferences_fivewords.dart';
+import 'package:wordle/utils/quick_box.dart';
 
 class CheckListPage extends StatefulWidget {
   const CheckListPage({Key? key}) : super(key: key);
@@ -126,28 +127,40 @@ class _CheckListPageState extends State<CheckListPage> with RouteAware{
                                     ),
                                   );
                                 },
-                                //physics: const NeverScrollableScrollPhysics(),
                               ),
                             );
                           }
                         ),
-                        Container(
-                          width: double.infinity,
-                          height: 70,
-                          color: Colors.green,
-                          child: ElevatedButton(
-                            onPressed: (){
-                              showDialog(context: context, builder: (_) => const TestBox());
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.green,
-                            ),
-                            child: const Text('Lets Test!',
-                              style: TextStyle(
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold,
-                              ),),
-                          ),
+                        FutureBuilder(
+                          future: CheckListPreferences.getCheckList(),
+                          builder: (context, snapshot) {
+                            List<String> checkList = [];
+                            if (snapshot.hasData) {
+                              checkList = snapshot.data as List<String>;
+                            }
+                            return Container(
+                              width: double.infinity,
+                              height: 70,
+                              color: Colors.green,
+                              child: ElevatedButton(
+                                onPressed: (){
+                                  if(checkList.isEmpty){
+                                    runQuickBox(context: context, message: 'No word in checklist!');
+                                  }else{
+                                    showDialog(context: context, builder: (_) => const TestBox());
+                                  }
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.green,
+                                ),
+                                child: const Text('Lets Test!',
+                                  style: TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold,
+                                  ),),
+                              ),
+                            );
+                          }
                         )
                       ],
                     ),
@@ -222,23 +235,36 @@ class _CheckListPageState extends State<CheckListPage> with RouteAware{
                           );
                         }
                     ),
-                    Container(
-                      width: double.infinity,
-                      height: 70,
-                      color: Colors.green,
-                      child: ElevatedButton(
-                        onPressed: (){
-                          showDialog(context: context, builder: (_) => const TestBoxFiveWords());
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green,
-                        ),
-                        child: const Text('Lets Test!',
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                          ),),
-                      ),
+                    FutureBuilder(
+                        future: CheckListPreferencesFiveWords.getCheckListFiveWords(),
+                        builder: (context, snapshot) {
+                          List<String> checkListFiveWords = [];
+                          if (snapshot.hasData) {
+                            checkListFiveWords = snapshot.data as List<String>;
+                          }
+                          return Container(
+                            width: double.infinity,
+                            height: 70,
+                            color: Colors.green,
+                            child: ElevatedButton(
+                              onPressed: (){
+                                if(checkListFiveWords.isEmpty){
+                                  runQuickBox(context: context, message: 'No word in checklist!');
+                                }else{
+                                  showDialog(context: context, builder: (_) => const TestBoxFiveWords());
+                                }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.green,
+                              ),
+                              child: const Text('Lets Test!',
+                                style: TextStyle(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                ),),
+                            ),
+                          );
+                        }
                     )
                   ],
                 ),

@@ -28,7 +28,7 @@ class _RandomWordTestFiveWordsPageState extends State<RandomWordTestFiveWordsPag
           centerTitle: true,
           elevation: 0,
           automaticallyImplyLeading: false,
-          title: const Text('10WRODTEST'),
+          title: const Text('WORDTEST'),
           actions: [
             Visibility(
               visible: (Provider.of<Controller>(context, listen: false)
@@ -66,7 +66,7 @@ class _RandomWordTestFiveWordsPageState extends State<RandomWordTestFiveWordsPag
                       Center(
                         child: SizedBox(
                           width: MediaQuery.of(context).size.width * 0.9,
-                          height: MediaQuery.of(context).size.height * 0.7,
+                          height: MediaQuery.of(context).size.height * 0.80,
                           child: Swiper(
                             itemBuilder: (BuildContext context, int index) {
                               return Card(

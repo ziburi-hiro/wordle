@@ -18,8 +18,8 @@ class Grid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        padding: const EdgeInsets.fromLTRB(36, 20, 36, 20),
+        //physics: const NeverScrollableScrollPhysics(),
+        padding: const EdgeInsets.fromLTRB(36, 20, 36,20),
         itemCount: itemCount,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           mainAxisSpacing: space,
