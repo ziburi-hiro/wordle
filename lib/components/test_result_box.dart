@@ -25,10 +25,10 @@ class _TestResultBoxState extends State<TestResultBox> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.all(10.0),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
                     child: Text('Test Result',style: TextStyle(
-                      fontSize: 35,
+                      fontSize: 35.sp,
                       fontWeight: FontWeight.w900,
                     ),),
                   ),
@@ -38,12 +38,12 @@ class _TestResultBoxState extends State<TestResultBox> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        const Padding(
-                          padding: EdgeInsets.only(top: 10.0, bottom: 10),
+                        Padding(
+                          padding: EdgeInsets.only(top: 10.0.h, bottom: 10.h),
                           child: FittedBox(
                             fit: BoxFit.fitWidth,
                             child: Text('Your score is ...',style: TextStyle(
-                              fontSize: 30,
+                              fontSize: 30.sp,
                               fontWeight: FontWeight.w900,
                             ),),
                           ),
@@ -53,42 +53,42 @@ class _TestResultBoxState extends State<TestResultBox> {
                           padding: const EdgeInsets.all(10.0),
                           child: FittedBox(
                             fit: BoxFit.fitWidth,
-                            child: Text('${notifier.testCounter} out of ${notifier.tapButtonList.length}',style: const TextStyle(
-                                fontSize: 30,
+                            child: Text('${notifier.testCounter} out of ${notifier.tapButtonList.length}',style: TextStyle(
+                                fontSize: 30.sp,
                                 fontWeight: FontWeight.w900
                             ),),
                           ),
                         ),
-                        const Padding(
-                          padding: EdgeInsets.only(top: 10.0, bottom: 10),
+                        Padding(
+                          padding: EdgeInsets.only(top: 10.0.h, bottom: 10.h),
                           child: FittedBox(
                             fit: BoxFit.fitWidth,
                             child: Text('questions correct!!',style: TextStyle(
-                                fontSize: 30,
+                                fontSize: 30.sp,
                                 fontWeight: FontWeight.w900
                             ),),
                           ),
                         ),
 
                         notifier.testCounter/notifier.tapButtonList.length > 0.6 ?
-                        const Padding(
-                          padding: EdgeInsets.all(10.0),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
                           child: FittedBox(
                             fit: BoxFit.fitWidth,
                             child: Text('Great!!',style: TextStyle(
                               color: Colors.red,
-                              fontSize: 50,
+                              fontSize: 50.sp,
                               fontWeight: FontWeight.w900,
                             ),),
                           ),
                         ) :
-                        const Padding(
-                          padding: EdgeInsets.all(10.0),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
                           child: FittedBox(
                             fit: BoxFit.fitWidth,
                             child: Text('Try Harder!!',style: TextStyle(
                               color: Colors.red,
-                              fontSize: 50,
+                              fontSize: 50.sp,
                               fontWeight: FontWeight.w900,
                             ),),
                           ),

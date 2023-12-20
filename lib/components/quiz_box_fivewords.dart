@@ -95,7 +95,7 @@ class _QuizBoxFiveWordsState extends State<QuizBoxFiveWords> {
                         Column(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(top: 5.0),
+                              padding: EdgeInsets.only(top: 5.0.h),
                               child: ElevatedButton(
                                 onPressed: (notifier.tapButton == true) ? (){} : (){
                                   notifier.tapButton = true;
@@ -113,14 +113,14 @@ class _QuizBoxFiveWordsState extends State<QuizBoxFiveWords> {
                                       color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
                                     )
                                 ),
-                                child: Text(notifier.meanList_5words[0],style: const TextStyle(
-                                  fontSize: 20,
+                                child: Text(notifier.meanList_5words[0],style: TextStyle(
+                                  fontSize: 20.sp,
                                   fontWeight: FontWeight.bold,
                                 ),),
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 5.0),
+                              padding: EdgeInsets.only(top: 5.0.h),
                               child: ElevatedButton(
                                 onPressed: (notifier.tapButton == true) ? (){} : (){
                                   notifier.tapButton = true;
@@ -138,14 +138,14 @@ class _QuizBoxFiveWordsState extends State<QuizBoxFiveWords> {
                                       color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
                                     )
                                 ),
-                                child: Text(notifier.choicesMean[0],style: const TextStyle(
-                                  fontSize: 20,
+                                child: Text(notifier.choicesMean[0],style: TextStyle(
+                                  fontSize: 20.sp,
                                   fontWeight: FontWeight.bold,
                                 ),),
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 5.0),
+                              padding: EdgeInsets.only(top: 5.0.h),
                               child: ElevatedButton(
                                 onPressed: (notifier.tapButton == true) ? (){} : (){
                                   notifier.tapButton = true;
@@ -163,14 +163,14 @@ class _QuizBoxFiveWordsState extends State<QuizBoxFiveWords> {
                                       color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
                                     )
                                 ),
-                                child: Text(notifier.choicesMean[1],style: const TextStyle(
-                                  fontSize: 20,
+                                child: Text(notifier.choicesMean[1],style: TextStyle(
+                                  fontSize: 20.sp,
                                   fontWeight: FontWeight.bold,
                                 ),),
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 5.0),
+                              padding: EdgeInsets.only(top: 5.0.h),
                               child: ElevatedButton(
                                 onPressed: (notifier.tapButton == true) ? (){} : (){
                                   notifier.tapButton = true;
@@ -188,8 +188,8 @@ class _QuizBoxFiveWordsState extends State<QuizBoxFiveWords> {
                                       color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
                                     )
                                 ),
-                                child: Text(notifier.choicesMean[2],style: const TextStyle(
-                                  fontSize: 20,
+                                child: Text(notifier.choicesMean[2],style: TextStyle(
+                                  fontSize: 20.sp,
                                   fontWeight: FontWeight.bold,
                                 ),),
                               ),
@@ -201,7 +201,7 @@ class _QuizBoxFiveWordsState extends State<QuizBoxFiveWords> {
                         Column(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(top: 5.0),
+                              padding: EdgeInsets.only(top: 5.0.h),
                               child: ElevatedButton(
                                 onPressed: (notifier.tapButton == true) ? (){} : (){
                                   notifier.tapButton = true;
@@ -219,14 +219,14 @@ class _QuizBoxFiveWordsState extends State<QuizBoxFiveWords> {
                                       color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
                                     )
                                 ),
-                                child: Text(notifier.choicesMean[0],style: const TextStyle(
-                                  fontSize: 20,
+                                child: Text(notifier.choicesMean[0],style: TextStyle(
+                                  fontSize: 20.sp,
                                   fontWeight: FontWeight.bold,
                                 ),),
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 5.0),
+                              padding: EdgeInsets.only(top: 5.0.h),
                               child: ElevatedButton(
                                 onPressed: (notifier.tapButton == true) ? (){} : (){
                                   notifier.tapButton = true;
@@ -244,14 +244,14 @@ class _QuizBoxFiveWordsState extends State<QuizBoxFiveWords> {
                                       color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
                                     )
                                 ),
-                                child: Text(notifier.meanList_5words[0],style: const TextStyle(
-                                  fontSize: 20,
+                                child: Text(notifier.meanList_5words[0],style: TextStyle(
+                                  fontSize: 20.sp,
                                   fontWeight: FontWeight.bold,
                                 ),),
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 5.0),
+                              padding: EdgeInsets.only(top: 5.0.h),
                               child: ElevatedButton(
                                 onPressed: (notifier.tapButton == true) ? (){} : (){
                                   notifier.tapButton = true;
@@ -269,14 +269,14 @@ class _QuizBoxFiveWordsState extends State<QuizBoxFiveWords> {
                                       color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
                                     )
                                 ),
-                                child: Text(notifier.choicesMean[1],style: const TextStyle(
-                                  fontSize: 20,
+                                child: Text(notifier.choicesMean[1],style: TextStyle(
+                                  fontSize: 20.sp,
                                   fontWeight: FontWeight.bold,
                                 ),),
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 5.0),
+                              padding: EdgeInsets.only(top: 5.0.h),
                               child: ElevatedButton(
                                 onPressed: (notifier.tapButton == true) ? (){} : (){
                                   notifier.tapButton = true;
@@ -294,8 +294,8 @@ class _QuizBoxFiveWordsState extends State<QuizBoxFiveWords> {
                                       color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
                                     )
                                 ),
-                                child: Text(notifier.choicesMean[2],style: const TextStyle(
-                                  fontSize: 20,
+                                child: Text(notifier.choicesMean[2],style: TextStyle(
+                                  fontSize: 20.sp,
                                   fontWeight: FontWeight.bold,
                                 ),),
                               ),
@@ -307,7 +307,7 @@ class _QuizBoxFiveWordsState extends State<QuizBoxFiveWords> {
                         Column(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(top: 5.0),
+                              padding: EdgeInsets.only(top: 5.0.h),
                               child: ElevatedButton(
                                 onPressed: (notifier.tapButton == true) ? (){} : (){
                                   notifier.tapButton = true;
@@ -325,14 +325,14 @@ class _QuizBoxFiveWordsState extends State<QuizBoxFiveWords> {
                                       color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
                                     )
                                 ),
-                                child: Text(notifier.choicesMean[0],style: const TextStyle(
-                                  fontSize: 20,
+                                child: Text(notifier.choicesMean[0],style: TextStyle(
+                                  fontSize: 20.sp,
                                   fontWeight: FontWeight.bold,
                                 ),),
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 5.0),
+                              padding: EdgeInsets.only(top: 5.0.h),
                               child: ElevatedButton(
                                 onPressed: (notifier.tapButton == true) ? (){} : (){
                                   notifier.tapButton = true;
@@ -350,14 +350,14 @@ class _QuizBoxFiveWordsState extends State<QuizBoxFiveWords> {
                                       color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
                                     )
                                 ),
-                                child: Text(notifier.choicesMean[1],style: const TextStyle(
-                                  fontSize: 20,
+                                child: Text(notifier.choicesMean[1],style: TextStyle(
+                                  fontSize: 20.sp,
                                   fontWeight: FontWeight.bold,
                                 ),),
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 5.0),
+                              padding: EdgeInsets.only(top: 5.0.h),
                               child: ElevatedButton(
                                 onPressed: (notifier.tapButton == true) ? (){} : (){
                                   notifier.tapButton = true;
@@ -375,14 +375,14 @@ class _QuizBoxFiveWordsState extends State<QuizBoxFiveWords> {
                                       color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
                                     )
                                 ),
-                                child: Text(notifier.meanList_5words[0],style: const TextStyle(
-                                  fontSize: 20,
+                                child: Text(notifier.meanList_5words[0],style: TextStyle(
+                                  fontSize: 20.sp,
                                   fontWeight: FontWeight.bold,
                                 ),),
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 5.0),
+                              padding: EdgeInsets.only(top: 5.0.h),
                               child: ElevatedButton(
                                 onPressed: (notifier.tapButton == true) ? (){} : (){
                                   notifier.tapButton = true;
@@ -400,8 +400,8 @@ class _QuizBoxFiveWordsState extends State<QuizBoxFiveWords> {
                                       color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
                                     )
                                 ),
-                                child: Text(notifier.choicesMean[2],style: const TextStyle(
-                                  fontSize: 20,
+                                child: Text(notifier.choicesMean[2],style: TextStyle(
+                                  fontSize: 20.sp,
                                   fontWeight: FontWeight.bold,
                                 ),),
                               ),
@@ -413,7 +413,7 @@ class _QuizBoxFiveWordsState extends State<QuizBoxFiveWords> {
                         Column(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(top: 5.0),
+                              padding: EdgeInsets.only(top: 5.0.h),
                               child: ElevatedButton(
                                 onPressed: (notifier.tapButton == true) ? (){} : (){
                                   notifier.tapButton = true;
@@ -431,14 +431,14 @@ class _QuizBoxFiveWordsState extends State<QuizBoxFiveWords> {
                                       color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
                                     )
                                 ),
-                                child: Text(notifier.choicesMean[0],style: const TextStyle(
-                                  fontSize: 20,
+                                child: Text(notifier.choicesMean[0],style: TextStyle(
+                                  fontSize: 20.sp,
                                   fontWeight: FontWeight.bold,
                                 ),),
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 5.0),
+                              padding: EdgeInsets.only(top: 5.0.h),
                               child: ElevatedButton(
                                 onPressed: (notifier.tapButton == true) ? (){} : (){
                                   notifier.tapButton = true;
@@ -456,14 +456,14 @@ class _QuizBoxFiveWordsState extends State<QuizBoxFiveWords> {
                                       color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
                                     )
                                 ),
-                                child: Text(notifier.choicesMean[1],style: const TextStyle(
-                                  fontSize: 20,
+                                child: Text(notifier.choicesMean[1],style: TextStyle(
+                                  fontSize: 20.sp,
                                   fontWeight: FontWeight.bold,
                                 ),),
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 5.0),
+                              padding: EdgeInsets.only(top: 5.0.h),
                               child: ElevatedButton(
                                 onPressed: (notifier.tapButton == true) ? (){} : (){
                                   notifier.tapButton = true;
@@ -481,14 +481,14 @@ class _QuizBoxFiveWordsState extends State<QuizBoxFiveWords> {
                                       color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
                                     )
                                 ),
-                                child: Text(notifier.choicesMean[2],style: const TextStyle(
-                                  fontSize: 20,
+                                child: Text(notifier.choicesMean[2],style: TextStyle(
+                                  fontSize: 20.sp,
                                   fontWeight: FontWeight.bold,
                                 ),),
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 5.0),
+                              padding: EdgeInsets.only(top: 5.0.h),
                               child: ElevatedButton(
                                 onPressed: (notifier.tapButton == true) ? (){} : (){
                                   notifier.tapButton = true;
@@ -506,8 +506,8 @@ class _QuizBoxFiveWordsState extends State<QuizBoxFiveWords> {
                                       color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
                                     )
                                 ),
-                                child: Text(notifier.meanList_5words[0],style: const TextStyle(
-                                  fontSize: 20,
+                                child: Text(notifier.meanList_5words[0],style: TextStyle(
+                                  fontSize: 20.sp,
                                   fontWeight: FontWeight.bold,
                                 ),),
                               ),
@@ -520,6 +520,7 @@ class _QuizBoxFiveWordsState extends State<QuizBoxFiveWords> {
                 ),
 
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     FutureBuilder(
                         future: CheckListPreferencesFiveWords.getCheckListFiveWords(),
@@ -528,25 +529,28 @@ class _QuizBoxFiveWordsState extends State<QuizBoxFiveWords> {
                           if(snapshot.hasData){
                             checkListFiveWords = snapshot.data as List<String>;
                           }
-                          return Checkbox(
-                            activeColor: Colors.green,
-                            value: notifier.addListCheck,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                notifier.addListCheck = value!;
-                              });
-                              if (notifier.addListCheck == true) {
-                                notifier.addCheckListFiveWords(
-                                    word: notifier.correctWord.toLowerCase(), list: checkListFiveWords);
-                              } else if (notifier.addListCheck == false) {
-                                notifier.deleteCheckListFiveWords(
-                                    word: notifier.correctWord.toLowerCase(), list: checkListFiveWords);
-                              }
-                            },
+                          return Transform.scale(
+                            scale: 1.0.sp,
+                            child: Checkbox(
+                              activeColor: Colors.green,
+                              value: notifier.addListCheck,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  notifier.addListCheck = value!;
+                                });
+                                if (notifier.addListCheck == true) {
+                                  notifier.addCheckListFiveWords(
+                                      word: notifier.correctWord.toLowerCase(), list: checkListFiveWords);
+                                } else if (notifier.addListCheck == false) {
+                                  notifier.deleteCheckListFiveWords(
+                                      word: notifier.correctWord.toLowerCase(), list: checkListFiveWords);
+                                }
+                              },
+                            ),
                           );
                         }
                     ),
-                    Text(':  Add List to review',style: TextStyle(
+                    Text(' Add List to review',style: TextStyle(
                         fontSize: 20.sp,
                         fontWeight: FontWeight.bold
                     ),)
@@ -572,8 +576,8 @@ class _QuizBoxFiveWordsState extends State<QuizBoxFiveWords> {
                           Navigator.of(context).pop();
                           Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const FiveWordsWordle()));
                         },
-                        child: Text('Replay',style: TextStyle(
-                          fontSize: 30.sp,
+                        child: const Text('Replay',style: TextStyle(
+                          fontSize: 30,
                         ),),
                       ),
 
@@ -596,8 +600,8 @@ class _QuizBoxFiveWordsState extends State<QuizBoxFiveWords> {
                           Navigator.of(context).pop();
                           Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()));
                         },
-                        child: Text('To Title',style: TextStyle(
-                          fontSize: 30.sp,
+                        child: const Text('To Title',style: TextStyle(
+                          fontSize: 30,
                         ),),
                       ),
                     ],
