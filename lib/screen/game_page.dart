@@ -51,6 +51,9 @@ class _GamePageState extends State<GamePage> {
 
   @override
   Widget build(BuildContext context) {
+
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('4 WORDS WORDLE'),
@@ -69,7 +72,7 @@ class _GamePageState extends State<GamePage> {
                     runQuickBox(context: context, message: 'Splendid!');
                   }
                 }else{
-                  runQuickBox(context: context, message: notifier.correctWord);
+                  runQuickBox(context: context, message: notifier.correctWord.toLowerCase());
                 }
                 Future.delayed(const Duration(milliseconds: 2000), (){
                   if(mounted){
@@ -117,6 +120,7 @@ class _GamePageState extends State<GamePage> {
             flex: 7,
               child: Grid(itemCount: 20, space: 3, axisCount: 4, mode: 'FourWords',)
           ),
+
           Expanded(
             flex: 4,
               child: Column(

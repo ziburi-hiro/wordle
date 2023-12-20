@@ -42,6 +42,7 @@ dependencies:
   card_swiper: ^3.0.1
   flutter_card_swiper: ^6.0.0
   smooth_page_indicator: ^1.1.0
+  flutter_screenutil: ^5.9.0
 
 dev_dependencies:
   flutter_test:
