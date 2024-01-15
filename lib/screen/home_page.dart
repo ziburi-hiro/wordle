@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:wordle/providers/controller.dart';
 import 'package:wordle/providers/quiz_provider.dart';
@@ -64,105 +65,167 @@ class _HomePageState extends State<HomePage> with RouteAware{
           ),
         ],
       ),
-      body: FutureBuilder(
-        initialData: false,
-        future: QuizPreferences.getQuizMode(),
-        builder: (context,snapshot){
-          if(snapshot.hasData){
-            WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-              Provider.of<QuizProvider>(context, listen: false).setQuizMode(turnOn: snapshot.data as bool);
-            });
-          }
-          return Consumer<ThemeProvider>(
-            builder: (_, notifier, __) {
-              return Center(
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: SizedBox(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+      body: ScreenUtilInit(
+        designSize: const Size(393, 852),
+        child: FutureBuilder(
+          initialData: false,
+          future: QuizPreferences.getQuizMode(),
+          builder: (context,snapshot){
+            if(snapshot.hasData){
+              WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+                Provider.of<QuizProvider>(context, listen: false).setQuizMode(turnOn: snapshot.data as bool);
+              });
+            }
+            return Consumer<ThemeProvider>(
+              builder: (_, notifier, __) {
+                return Center(
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: SizedBox(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              FittedBox(
+                                fit: BoxFit.fitWidth,
+                                child: Text('WORDQUEST',style: TextStyle(
+                                  fontSize: 70.sp,
+                                  fontWeight: FontWeight.w900,
+                                ),),
+                              ),
+                              snapshot.data! ?
+                              FittedBox(
+                                fit: BoxFit.fitWidth,
+                                child: Text('QuizMode',style: TextStyle(
+                                  fontSize: 40.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),),
+                              )
+                                  :
+                              FittedBox(
+                                fit: BoxFit.fitWidth,
+                                child: Text('NormalMode',style: TextStyle(
+                                  fontSize: 40.sp,
+                                  fontWeight: FontWeight.bold
+                                ),),
+                              ),
+                            ],
+                          )
+                        ),
+                      ),
+
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0),
+                        child: ToggleButtons(
+                          borderWidth: 5,
+                          borderColor: notifier.isDark ? Colors.white : Colors.grey,
+                          borderRadius: BorderRadius.circular(10),
+                          fillColor: Colors.green,
+                          selectedBorderColor: notifier.isDark ? Colors.white : Colors.grey,
+                          selectedColor: Colors.white,
+                          isSelected: Provider.of<Controller>(context, listen: false).toggleButtonSelect,
                           children: [
-                            const FittedBox(
-                              fit: BoxFit.fitWidth,
-                              child: Text('WORDLE',style: TextStyle(
-                                fontSize: 70,
-                                fontWeight: FontWeight.w900,
-                              ),),
+                            SizedBox(
+                              width: size.width * 0.4,
+                              child: Center(
+                                child: Text('NormalMode',style: TextStyle(
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: 16.sp,
+                                ),),
+                              ),
                             ),
-                            snapshot.data! ?
-                            const Text('QuizMode',style: TextStyle(
-                              fontSize: 40,
-                              fontWeight: FontWeight.bold,
-                            ),)
-                                :
-                            const Text('NormalMode',style: TextStyle(
-                              fontSize: 40,
-                              fontWeight: FontWeight.bold
-                            ),),
+                            SizedBox(
+                              width: size.width * 0.4,
+                              child: Center(
+                                child: Text('QuizMode',style: TextStyle(
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: 16.sp,
+                                ),),
+                              ),
+                            )
                           ],
-                        )
+                          onPressed: (index){
+                            setState(() {
+                              if(index == 0){
+                                if(Provider.of<Controller>(context, listen: false).toggleButtonSelect[0] == false){
+                                  Provider.of<Controller>(context, listen: false).toggleButtonSelect[0] = true;
+                                  Provider.of<Controller>(context, listen: false).toggleButtonSelect[1] = false;
+                                  QuizPreferences.saveQuizMode(isQuizMode: Provider.of<Controller>(context, listen: false).toggleButtonSelect[1]);
+                                  Provider.of<QuizProvider>(context,listen: false).setQuizMode(turnOn: Provider.of<Controller>(context, listen: false).toggleButtonSelect[1]);
+                                }
+                              }else if(index == 1){
+                                if(Provider.of<Controller>(context, listen: false).toggleButtonSelect[1] == false){
+                                  Provider.of<Controller>(context, listen: false).toggleButtonSelect[1] = true;
+                                  Provider.of<Controller>(context, listen: false).toggleButtonSelect[0] = false;
+                                  QuizPreferences.saveQuizMode(isQuizMode: Provider.of<Controller>(context, listen: false).toggleButtonSelect[1]);
+                                  Provider.of<QuizProvider>(context,listen: false).setQuizMode(turnOn: Provider.of<Controller>(context, listen: false).toggleButtonSelect[1]);
+                                }
+                              }
+                            });
+                          },
+                        ),
                       ),
-                    ),
 
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ToggleButtons(
-                        borderWidth: 5,
-                        borderColor: notifier.isDark ? Colors.white : Colors.grey,
-                        borderRadius: BorderRadius.circular(10),
-                        fillColor: Colors.green,
-                        selectedBorderColor: notifier.isDark ? Colors.white : Colors.grey,
-                        selectedColor: Colors.white,
-                        isSelected: Provider.of<Controller>(context, listen: false).toggleButtonSelect,
-                        children: const [
-                          SizedBox(
-                            width: 130,
-                            child: Center(
-                              child: Text('NormalMode',style: TextStyle(
-                                fontWeight: FontWeight.w900,
-                                fontSize: 16,
-                              ),),
-                            ),
+                      Text('---Single Play---',style: TextStyle(
+                          fontSize: 24.sp
+                      ),),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: notifier.isDark ? Colors.transparent : Colors.transparent,
+                              fixedSize: Size(size.width * 0.7, size.height * 0.08),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20)
+                              ),
+                              side: BorderSide(
+                                width: 5,
+                                color: notifier.isDark ? Colors.white : Colors.grey,
+                              )
                           ),
-                          SizedBox(
-                            width: 130,
-                            child: Center(
-                              child: Text('QuizMode',style: TextStyle(
-                                fontWeight: FontWeight.w900,
-                                fontSize: 16,
-                              ),),
-                            ),
-                          )
-                        ],
-                        onPressed: (index){
-                          setState(() {
-                            if(index == 0){
-                              if(Provider.of<Controller>(context, listen: false).toggleButtonSelect[0] == false){
-                                Provider.of<Controller>(context, listen: false).toggleButtonSelect[0] = true;
-                                Provider.of<Controller>(context, listen: false).toggleButtonSelect[1] = false;
-                                QuizPreferences.saveQuizMode(isQuizMode: Provider.of<Controller>(context, listen: false).toggleButtonSelect[1]);
-                                Provider.of<QuizProvider>(context,listen: false).setQuizMode(turnOn: Provider.of<Controller>(context, listen: false).toggleButtonSelect[1]);
-                              }
-                            }else if(index == 1){
-                              if(Provider.of<Controller>(context, listen: false).toggleButtonSelect[1] == false){
-                                Provider.of<Controller>(context, listen: false).toggleButtonSelect[1] = true;
-                                Provider.of<Controller>(context, listen: false).toggleButtonSelect[0] = false;
-                                QuizPreferences.saveQuizMode(isQuizMode: Provider.of<Controller>(context, listen: false).toggleButtonSelect[1]);
-                                Provider.of<QuizProvider>(context,listen: false).setQuizMode(turnOn: Provider.of<Controller>(context, listen: false).toggleButtonSelect[1]);
-                              }
-                            }
-                          });
-                        },
+                          onPressed: (){
+                            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const GamePage()));
+                          },
+                          child: Text('4 WORDS VER',style: TextStyle(
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.w900,
+                              fontStyle: FontStyle.italic
+                          ),),
+                        ),
                       ),
-                    ),
 
-                    const Text('---Single Play---',style: TextStyle(
-                        fontSize: 24
-                    ),),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      child: ElevatedButton(
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.transparent,
+                              fixedSize: Size(size.width * 0.7, size.height * 0.08),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20)
+                              ),
+                              side: BorderSide(
+                                width: 5,
+                                color: notifier.isDark ? Colors.white : Colors.grey,
+                              )
+                          ),
+                          onPressed: (){
+                            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const FiveWordsWordle()));
+                          },
+                          child: Text('5 WORDS VER',style: TextStyle(
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.w900,
+                              fontStyle: FontStyle.italic
+                          ),),
+                        ),
+                      ),
+
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 8.0),
+                        child: Text('---Review---',style: TextStyle(
+                            fontSize: 24.sp
+                        ),),
+                      ),
+                      ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             backgroundColor: notifier.isDark ? Colors.transparent : Colors.transparent,
                             fixedSize: Size(size.width * 0.7, size.height * 0.08),
@@ -175,105 +238,52 @@ class _HomePageState extends State<HomePage> with RouteAware{
                             )
                         ),
                         onPressed: (){
-                          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const GamePage()));
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CheckListPage()));
                         },
-                        child: const Text('4WORDS WORDLE',style: TextStyle(
-                            fontSize: 20,
+                        child: Text('View CheckList',style: TextStyle(
+                            fontSize: 20.sp,
                             fontWeight: FontWeight.w900,
                             fontStyle: FontStyle.italic
                         ),),
                       ),
-                    ),
 
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.transparent,
-                            fixedSize: Size(size.width * 0.7, size.height * 0.08),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20)
-                            ),
-                            side: BorderSide(
-                              width: 5,
-                              color: notifier.isDark ? Colors.white : Colors.grey,
-                            )
-                        ),
-                        onPressed: (){
-                          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const FiveWordsWordle()));
-                        },
-                        child: const Text('5WORDS WORDLE',style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w900,
-                            fontStyle: FontStyle.italic
+                      Padding(
+                        padding: EdgeInsets.only(top: 8.0,bottom: 8.0),
+                        child: Text('---Statistics---',style: TextStyle(
+                            fontSize: 24.sp
                         ),),
                       ),
-                    ),
-
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text('---Review---',style: TextStyle(
-                          fontSize: 24
-                      ),),
-                    ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: notifier.isDark ? Colors.transparent : Colors.transparent,
-                          fixedSize: Size(size.width * 0.7, size.height * 0.08),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 40.0),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: notifier.isDark ? Colors.transparent : Colors.transparent,
+                              fixedSize: Size(size.width * 0.7, size.height * 0.08),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20)
+                              ),
+                              side: BorderSide(
+                                width: 5,
+                                color: notifier.isDark ? Colors.white : Colors.grey,
+                              )
                           ),
-                          side: BorderSide(
-                            width: 5,
-                            color: notifier.isDark ? Colors.white : Colors.grey,
-                          )
-                      ),
-                      onPressed: (){
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CheckListPage()));
-                      },
-                      child: const Text('View CheckList',style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w900,
-                          fontStyle: FontStyle.italic
-                      ),),
-                    ),
-
-                    const Padding(
-                      padding: EdgeInsets.only(top: 16.0,bottom: 8.0),
-                      child: Text('---Statistics---',style: TextStyle(
-                          fontSize: 24
-                      ),),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 40.0),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: notifier.isDark ? Colors.transparent : Colors.transparent,
-                            fixedSize: Size(size.width * 0.7, size.height * 0.08),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20)
-                            ),
-                            side: BorderSide(
-                              width: 5,
-                              color: notifier.isDark ? Colors.white : Colors.grey,
-                            )
+                          onPressed: (){
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const StaticsPage()));
+                          },
+                          child: Text('View Statics',style: TextStyle(
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.w900,
+                              fontStyle: FontStyle.italic
+                          ),),
                         ),
-                        onPressed: (){
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const StaticsPage()));
-                        },
-                        child: const Text('View Statics',style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w900,
-                            fontStyle: FontStyle.italic
-                        ),),
                       ),
-                    ),
-                  ],
-                ),
-              );
-            },
-          );
-        },
+                    ],
+                  ),
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }

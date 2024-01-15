@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wordle/components/reset_statistics_box.dart';
@@ -28,53 +29,59 @@ class Settings extends StatelessWidget {
           )
         ],
       ),
-      body: Column(
-        children: [
-          Consumer<ThemeProvider>(
-            builder: (_ , notifier, __){
-              bool isSwitched = false;
-              isSwitched = notifier.isDark;
+      body: ScreenUtilInit(
+        designSize: const Size(393, 852),
+        child: Column(
+          children: [
+            Consumer<ThemeProvider>(
+              builder: (_ , notifier, __){
+                bool isSwitched = false;
+                isSwitched = notifier.isDark;
 
-              return SwitchListTile(
-                title: const Text('Dark Theme',style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),),
-                value: isSwitched,
-                onChanged: (value){
-                  isSwitched = value;
-                  ThemePreferences.saveTheme(isDark: isSwitched);
-                  Provider.of<ThemeProvider>(context,listen: false).setTheme(turnOn: isSwitched);
-                },
-              );
-            },
-          ),
+                return SwitchListTile(
+                  title: Text('Dark Theme',style: TextStyle(
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.bold,
+                  ),),
+                  value: isSwitched,
+                  onChanged: (value){
+                    isSwitched = value;
+                    ThemePreferences.saveTheme(isDark: isSwitched);
+                    Provider.of<ThemeProvider>(context,listen: false).setTheme(turnOn: isSwitched);
+                  },
+                );
+              },
+            ),
 
-          Consumer<ThemeProvider>(
-            builder: (_ , notifier ,__) {
-              return ElevatedButton(
-                onPressed: () async {
-                  showDialog(context: context, builder: (_) => const ResetStatisticsBox());
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Consumer<ThemeProvider>(
+                builder: (_ , notifier ,__) {
+                  return ElevatedButton(
+                    onPressed: () async {
+                      showDialog(context: context, builder: (_) => const ResetStatisticsBox());
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.transparent,
+                      fixedSize: Size(size.width * 0.7, size.height * 0.06),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)
+                      ),
+                      side: BorderSide(
+                        width: 5,
+                        color: notifier.isDark ? Colors.white : Colors.grey,
+                      )
+                    ),
+                    child: Text('Reset Statistics',style: TextStyle(
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.bold,
+                    ),),
+                  );
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.transparent,
-                  fixedSize: Size(size.width * 0.7, size.height * 0.06),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)
-                  ),
-                  side: BorderSide(
-                    width: 5,
-                    color: notifier.isDark ? Colors.white : Colors.grey,
-                  )
-                ),
-                child: const Text('Reset Statistics',style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),),
-              );
-            },
-          ),
-        ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
