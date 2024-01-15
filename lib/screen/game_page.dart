@@ -56,7 +56,7 @@ class _GamePageState extends State<GamePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('4 WORDS WORDLE'),
+        title: const Text('4 WORDS GAME'),
         centerTitle: true,
         actions: [
           Consumer<Controller>(

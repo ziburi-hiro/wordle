@@ -88,7 +88,7 @@ class _HomePageState extends State<HomePage> with RouteAware{
                             children: [
                               FittedBox(
                                 fit: BoxFit.fitWidth,
-                                child: Text('WORDLE',style: TextStyle(
+                                child: Text('WORDQUEST',style: TextStyle(
                                   fontSize: 70.sp,
                                   fontWeight: FontWeight.w900,
                                 ),),
@@ -186,7 +186,7 @@ class _HomePageState extends State<HomePage> with RouteAware{
                           onPressed: (){
                             Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const GamePage()));
                           },
-                          child: Text('4WORDS WORDLE',style: TextStyle(
+                          child: Text('4 WORDS VER',style: TextStyle(
                               fontSize: 20.sp,
                               fontWeight: FontWeight.w900,
                               fontStyle: FontStyle.italic
@@ -211,7 +211,7 @@ class _HomePageState extends State<HomePage> with RouteAware{
                           onPressed: (){
                             Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const FiveWordsWordle()));
                           },
-                          child: Text('5WORDS WORDLE',style: TextStyle(
+                          child: Text('5 WORDS VER',style: TextStyle(
                               fontSize: 20.sp,
                               fontWeight: FontWeight.w900,
                               fontStyle: FontStyle.italic

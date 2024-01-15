@@ -53,7 +53,7 @@ class _FiveWordsWordleState extends State<FiveWordsWordle> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('5 WORDS WORDLE'),
+        title: const Text('5 WORDS GAME'),
         centerTitle: true,
 
         actions: [
