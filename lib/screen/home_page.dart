@@ -88,7 +88,7 @@ class _HomePageState extends State<HomePage> with RouteAware{
                             children: [
                               FittedBox(
                                 fit: BoxFit.fitWidth,
-                                child: Text('WORDQUEST',style: TextStyle(
+                                child: Text('WORDRILL',style: TextStyle(
                                   fontSize: 70.sp,
                                   fontWeight: FontWeight.w900,
                                 ),),
