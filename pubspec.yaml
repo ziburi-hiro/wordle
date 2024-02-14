@@ -48,7 +48,7 @@ dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/icon/wordrill_app_icon.png"
+  image_path: "assets/icon/wordrill_icon.png"
 
 dev_dependencies:
   flutter_test:
