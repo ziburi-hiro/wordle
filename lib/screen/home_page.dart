@@ -7,6 +7,7 @@ import 'package:wordle/providers/theme_provider.dart';
 import 'package:wordle/screen/check_list_page.dart';
 import 'package:wordle/screen/five_words_wordle.dart';
 import 'package:wordle/screen/game_page.dart';
+import 'package:wordle/screen/help_page.dart';
 import 'package:wordle/screen/settings.dart';
 import 'package:wordle/screen/statics_page.dart';
 import 'package:wordle/utils/quiz_preferences.dart';
@@ -56,6 +57,13 @@ class _HomePageState extends State<HomePage> with RouteAware{
         centerTitle: true,
         elevation: 0,
         actions: [
+          IconButton(
+            onPressed: (){
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HelpPage()
+              ));
+            },
+            icon: const Icon(Icons.help_outline),
+          ),
           IconButton(
               onPressed: (){
                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Settings()
@@ -220,7 +228,7 @@ class _HomePageState extends State<HomePage> with RouteAware{
                       ),
 
                       Padding(
-                        padding: EdgeInsets.only(bottom: 8.0),
+                        padding: const EdgeInsets.only(bottom: 8.0),
                         child: Text('---Review---',style: TextStyle(
                             fontSize: 24.sp
                         ),),
@@ -248,7 +256,7 @@ class _HomePageState extends State<HomePage> with RouteAware{
                       ),
 
                       Padding(
-                        padding: EdgeInsets.only(top: 8.0,bottom: 8.0),
+                        padding: const EdgeInsets.only(top: 8.0,bottom: 8.0),
                         child: Text('---Statistics---',style: TextStyle(
                             fontSize: 24.sp
                         ),),

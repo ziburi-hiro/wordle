@@ -1,4 +1,4 @@
-package com.example.wordle
+package com.hiro.wordrill
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -44,11 +44,22 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   flutter_screenutil: ^5.9.0
   flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.3.7
 
 flutter_icons:
   android: true
   ios: true
   image_path: "assets/icon/wordrill_icon.png"
+
+flutter_native_splash:
+  color: "#fffffc"
+  image: assets/icon/wordrill_icon.png
+  android: true
+  ios: true
+  web: true
+  android_gravity: center
+  ios_content_mode: center
+  web_image_mode: center
 
 dev_dependencies:
   flutter_test:
