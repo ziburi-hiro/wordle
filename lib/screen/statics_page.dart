@@ -4,6 +4,8 @@ import 'package:wordle/components/stats_box.dart';
 import 'package:wordle/components/stats_chart.dart';
 import 'package:wordle/components/stats_chart_fivewords.dart';
 import 'package:wordle/providers/theme_provider.dart';
+import 'package:wordle/screen/help_page.dart';
+import 'package:wordle/screen/settings.dart';
 import 'package:wordle/utils/calculate_stats.dart';
 import 'package:wordle/utils/calculate_stats_fivewords.dart';
 
@@ -26,6 +28,22 @@ class _StaticsPageState extends State<StaticsPage> {
               title: const Text('STATICS'),
               centerTitle: true,
               elevation: 0,
+              actions: [
+                IconButton(
+                  onPressed: (){
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HelpPage()
+                    ));
+                  },
+                  icon: const Icon(Icons.help_outline),
+                ),
+                IconButton(
+                    onPressed: (){
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Settings()
+                      ));
+                    },
+                    icon: const Icon(Icons.settings)
+                )
+              ],
               bottom: TabBar(
                 indicatorColor: notifier.isDark ? Colors.white : Colors.grey,
                 labelColor: notifier.isDark ? Colors.white : Colors.black,
