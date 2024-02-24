@@ -9,6 +9,7 @@ import 'package:wordle/components/title_back_box.dart';
 import 'package:wordle/constants/five_words.dart';
 import 'package:wordle/providers/controller.dart';
 import 'package:wordle/providers/quiz_provider.dart';
+import 'package:wordle/screen/help_page.dart';
 import 'package:wordle/screen/settings.dart';
 import 'package:wordle/utils/quick_box.dart';
 
@@ -55,48 +56,54 @@ class _FiveWordsWordleState extends State<FiveWordsWordle> {
       appBar: AppBar(
         title: const Text('5 WORDS GAME'),
         centerTitle: true,
-
-        actions: [
-          Consumer<Controller>(
-              builder: (_, notifier, __) {
-                if(notifier.notEnoughLetters){
-                  runQuickBox(context: context, message: 'Not Enough Letters');
-                }
-                if(notifier.gameCompleted){
-                  if(notifier.gameWon){
-                    if(notifier.currentRow == 6){
-                      runQuickBox(context: context, message: 'Phew!');
-                    }else{
-                      runQuickBox(context: context, message: 'Splendid!');
-                    }
-                  }else{
-                    runQuickBox(context: context, message: notifier.correctWord);
-                  }
-                  Future.delayed(const Duration(milliseconds: 2000), (){
-                    if(mounted){
-                      if(Provider.of<QuizProvider>(context,listen: false).quizMode){
-                        showDialog(context: context, builder: (_) => const QuizBoxFiveWords());
-                      }else{
-                        showDialog(context: context, builder: (_) => const ResultBoxFiveWords());
-                      }
-                    }
-                  });
-                }
-                return IconButton(
-                    onPressed: () async {
-                      if(Provider.of<QuizProvider>(context,listen: false).quizMode){
-                        notifier.gameCompleted ? showDialog(context: context, builder: (_) => const QuizBoxFiveWords())
-                            :
-                        showDialog(context: context, builder: (_) => const TitleBackBox());
-                      }else{
-                        notifier.gameCompleted ? showDialog(context: context, builder: (_) => const ResultBoxFiveWords())
-                            :
-                        showDialog(context: context, builder: (_) => const TitleBackBox());
-                      }
-                    },
-                    icon: notifier.gameCompleted ? const Icon(Icons.description) : const Icon(Icons.home)
-                );
+        leading: Consumer<Controller>(
+            builder: (_, notifier, __) {
+              if(notifier.notEnoughLetters){
+                runQuickBox(context: context, message: 'Not Enough Letters');
               }
+              if(notifier.gameCompleted){
+                if(notifier.gameWon){
+                  if(notifier.currentRow == 6){
+                    runQuickBox(context: context, message: 'Phew!');
+                  }else{
+                    runQuickBox(context: context, message: 'Splendid!');
+                  }
+                }else{
+                  runQuickBox(context: context, message: notifier.correctWord);
+                }
+                Future.delayed(const Duration(milliseconds: 2000), (){
+                  if(mounted){
+                    if(Provider.of<QuizProvider>(context,listen: false).quizMode){
+                      showDialog(context: context, builder: (_) => const QuizBoxFiveWords());
+                    }else{
+                      showDialog(context: context, builder: (_) => const ResultBoxFiveWords());
+                    }
+                  }
+                });
+              }
+              return IconButton(
+                  onPressed: () async {
+                    if(Provider.of<QuizProvider>(context,listen: false).quizMode){
+                      notifier.gameCompleted ? showDialog(context: context, builder: (_) => const QuizBoxFiveWords())
+                          :
+                      showDialog(context: context, builder: (_) => const TitleBackBox());
+                    }else{
+                      notifier.gameCompleted ? showDialog(context: context, builder: (_) => const ResultBoxFiveWords())
+                          :
+                      showDialog(context: context, builder: (_) => const TitleBackBox());
+                    }
+                  },
+                  icon: notifier.gameCompleted ? const Icon(Icons.description) : const Icon(Icons.home)
+              );
+            }
+        ),
+        actions: [
+          IconButton(
+            onPressed: (){
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HelpPage()
+              ));
+            },
+            icon: const Icon(Icons.help_outline),
           ),
           IconButton(
               onPressed: (){

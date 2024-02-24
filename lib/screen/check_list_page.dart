@@ -8,6 +8,8 @@ import 'package:wordle/constants/means.dart';
 import 'package:wordle/main.dart';
 import 'package:wordle/providers/controller.dart';
 import 'package:wordle/providers/theme_provider.dart';
+import 'package:wordle/screen/help_page.dart';
+import 'package:wordle/screen/settings.dart';
 import 'package:wordle/utils/checkList_preferences.dart';
 import 'package:wordle/utils/checkList_preferences_fivewords.dart';
 import 'package:wordle/utils/quick_box.dart';
@@ -53,6 +55,22 @@ class _CheckListPageState extends State<CheckListPage> with RouteAware{
                title: const Text('CheckList'),
                 centerTitle: true,
                 elevation: 0,
+                actions: [
+                  IconButton(
+                    onPressed: (){
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HelpPage()
+                      ));
+                    },
+                    icon: const Icon(Icons.help_outline),
+                  ),
+                  IconButton(
+                      onPressed: (){
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Settings()
+                        ));
+                      },
+                      icon: const Icon(Icons.settings)
+                  )
+                ],
                 bottom: TabBar(
                   indicatorColor: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
                   labelColor: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.black,

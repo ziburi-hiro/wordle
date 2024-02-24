@@ -9,6 +9,7 @@ import 'package:wordle/components/title_back_box.dart';
 import 'package:wordle/constants/words.dart';
 import 'package:wordle/providers/controller.dart';
 import 'package:wordle/providers/quiz_provider.dart';
+import 'package:wordle/screen/help_page.dart';
 import 'package:wordle/screen/settings.dart';
 import 'package:wordle/utils/quick_box.dart';
 
@@ -58,8 +59,7 @@ class _GamePageState extends State<GamePage> {
       appBar: AppBar(
         title: const Text('4 WORDS GAME'),
         centerTitle: true,
-        actions: [
-          Consumer<Controller>(
+        leading: Consumer<Controller>(
             builder: (_, notifier, __) {
               if(notifier.notEnoughLetters){
                 runQuickBox(context: context, message: 'Not Enough Letters');
@@ -99,7 +99,16 @@ class _GamePageState extends State<GamePage> {
                   icon: notifier.gameCompleted ? const Icon(Icons.description) : const Icon(Icons.home)
               );
             }
+        ),
+        actions: [
+          IconButton(
+            onPressed: (){
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HelpPage()
+              ));
+            },
+            icon: const Icon(Icons.help_outline),
           ),
+
           IconButton(
               onPressed: (){
                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Settings()
