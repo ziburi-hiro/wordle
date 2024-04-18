@@ -5,8 +5,10 @@ import 'package:wordle/components/grid.dart';
 import 'package:wordle/components/keyboard_row.dart';
 import 'package:wordle/components/quiz_box.dart';
 import 'package:wordle/components/result_box.dart';
+import 'package:wordle/components/rule_box.dart';
 import 'package:wordle/components/title_back_box.dart';
 import 'package:wordle/constants/words.dart';
+import 'package:wordle/main.dart';
 import 'package:wordle/providers/controller.dart';
 import 'package:wordle/providers/quiz_provider.dart';
 import 'package:wordle/screen/help_page.dart';
@@ -20,7 +22,26 @@ class GamePage extends StatefulWidget {
   State<GamePage> createState() => _GamePageState();
 }
 
-class _GamePageState extends State<GamePage> {
+class _GamePageState extends State<GamePage> with RouteAware{
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context)!);
+  }
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    super.dispose();
+  }
+
+  @override
+  void didPush() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      showDialog(context: context, builder: (_) => const RuleBox());
+    });
+  }
 
   late String _word;
   late String _choices1;
