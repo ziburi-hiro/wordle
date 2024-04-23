@@ -14,6 +14,7 @@ import 'package:wordle/utils/calculate_stats_fivewords.dart';
 import 'package:wordle/utils/checkList_preferences.dart';
 import 'package:wordle/utils/checkList_preferences_fivewords.dart';
 import 'package:wordle/utils/quiz_preferences.dart';
+import 'package:wordle/utils/rule_preferences.dart';
 
 import '../models/tile_model.dart';
 
@@ -28,6 +29,7 @@ class Controller extends ChangeNotifier {
   bool answeredCorrect = false;
   bool answeredFalse = false;
   bool addListCheck = false;
+  bool ruleDisplayCheck = false;
   List<bool> toggleButtonSelect = [true, false];
   List<bool> tapButtonList = [];
   List<bool> answeredCorrectList = [];

@@ -1,5 +1,11 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:wordle/components/step1_widget.dart';
+import 'package:wordle/components/step2_widget.dart';
+import 'package:wordle/components/step3_widget.dart';
+import 'package:wordle/providers/controller.dart';
+import 'package:wordle/utils/rule_preferences.dart';
 
 class RuleBox extends StatefulWidget {
   const RuleBox({super.key});
@@ -10,11 +16,10 @@ class RuleBox extends StatefulWidget {
 
 class _RuleBoxState extends State<RuleBox> {
 
-  List<Widget> list = [Text('11'),Text('22'),Text('33')];
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    List<Widget> list = [Step1(size: size),Step2(size: size),Step3(size: size)];
 
     return AlertDialog(
       content: SizedBox(
@@ -28,30 +33,15 @@ class _RuleBoxState extends State<RuleBox> {
             ),),
 
             SizedBox(
-              height: 10,
+              height: 5,
             ),
 
             Container(
-              height: size.height*0.57,
-              color: Colors.grey,
+              height: size.height*0.55,
+              //color: Colors.grey,
               child: Swiper(
                 itemBuilder: (BuildContext context, int index) {
-                  return Card(
-                    elevation: 5,
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text('Step 1',style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),),
-                      ],
-                    ),
-                  );
+                  return list[index];
                 },
                 loop: false,
                 itemCount: 3,
@@ -68,26 +58,56 @@ class _RuleBoxState extends State<RuleBox> {
             ),
 
             SizedBox(
-              height: 10,
+              height: size.height*0.03,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  FutureBuilder(
+                      future: RulePreferences.getRuleCheckBox(),
+                      builder: (context, snapshot) {
+                        return Transform.scale(
+                          scale: 1.0,
+                          child: Checkbox(
+                            activeColor: Colors.green,
+                            value: Provider.of<Controller>(context, listen: false).ruleDisplayCheck,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                Provider.of<Controller>(context, listen: false).ruleDisplayCheck = value!;
+                              });
+                              RulePreferences.saveRuleCheckBox(checkBox: Provider.of<Controller>(context, listen: false).ruleDisplayCheck);
+                            },
+                          ),
+                        );
+                      }
+                  ),
+                  const Text('今後ルールを表示しない',style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold
+                  ),)
+                ],
+              ),
             ),
 
-            Container(
-              width: size.width*0.5,
-              height: size.height*0.07,
-              child: ElevatedButton(
-                onPressed: (){
-                  Navigator.pop(context);
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+            Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: Container(
+                width: size.width*0.5,
+                height: size.height*0.05,
+                child: ElevatedButton(
+                  onPressed: (){
+                    Navigator.pop(context);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    backgroundColor: Colors.green,
                   ),
-                  backgroundColor: Colors.green,
+                  child: const Text('I got it',style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),),
                 ),
-                child: const Text('Close',style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),),
               ),
             )
           ],
@@ -96,3 +116,5 @@ class _RuleBoxState extends State<RuleBox> {
     );
   }
 }
+
+

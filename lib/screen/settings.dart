@@ -4,9 +4,11 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wordle/components/reset_statistics_box.dart';
 import 'package:wordle/providers/quiz_provider.dart';
+import 'package:wordle/providers/rule_display_provider.dart';
 import 'package:wordle/providers/theme_provider.dart';
 import 'package:wordle/utils/quick_box.dart';
 import 'package:wordle/utils/quiz_preferences.dart';
+import 'package:wordle/utils/rule_preferences.dart';
 import 'package:wordle/utils/theme_preferences.dart';
 
 class Settings extends StatelessWidget {
@@ -52,6 +54,26 @@ class Settings extends StatelessWidget {
                 );
               },
             ),
+
+            // Consumer<RuleDisplayProvider>(
+            //   builder: (_ , notifier, __){
+            //     bool isSwitched = true;
+            //     isSwitched = notifier.isDisplay;
+            //
+            //     return SwitchListTile(
+            //       title: Text('Display Rule',style: TextStyle(
+            //         fontSize: 20.sp,
+            //         fontWeight: FontWeight.bold,
+            //       ),),
+            //       value: isSwitched,
+            //       onChanged: (value){
+            //         isSwitched = value;
+            //         RulePreferences.saveRuleCheckBox(checkBox: isSwitched);
+            //         Provider.of<RuleDisplayProvider>(context,listen: false).setRuleDisplay(turnOn: isSwitched);
+            //       },
+            //     );
+            //   },
+            // ),
 
             Padding(
               padding: const EdgeInsets.all(10.0),

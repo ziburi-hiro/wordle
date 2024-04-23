@@ -14,6 +14,7 @@ import 'package:wordle/providers/quiz_provider.dart';
 import 'package:wordle/screen/help_page.dart';
 import 'package:wordle/screen/settings.dart';
 import 'package:wordle/utils/quick_box.dart';
+import 'package:wordle/utils/rule_preferences.dart';
 
 class GamePage extends StatefulWidget {
   const GamePage({Key? key}) : super(key: key);
@@ -37,9 +38,9 @@ class _GamePageState extends State<GamePage> with RouteAware{
   }
 
   @override
-  void didPush() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      showDialog(context: context, builder: (_) => const RuleBox());
+  void didPush() async {
+    Future.delayed(Duration(seconds: 1),() {
+      showDialog(context: context,barrierDismissible: false, builder: (_) => const RuleBox());
     });
   }
 
