@@ -5,22 +5,48 @@ import 'package:wordle/components/grid.dart';
 import 'package:wordle/components/keyboard_row.dart';
 import 'package:wordle/components/quiz_box.dart';
 import 'package:wordle/components/result_box.dart';
+import 'package:wordle/components/rule_box.dart';
 import 'package:wordle/components/title_back_box.dart';
 import 'package:wordle/constants/words.dart';
+import 'package:wordle/main.dart';
 import 'package:wordle/providers/controller.dart';
 import 'package:wordle/providers/quiz_provider.dart';
 import 'package:wordle/screen/help_page.dart';
 import 'package:wordle/screen/settings.dart';
 import 'package:wordle/utils/quick_box.dart';
+import 'package:wordle/utils/rule_preferences.dart';
 
 class GamePage extends StatefulWidget {
-  const GamePage({Key? key}) : super(key: key);
+  GamePage(this.ruleDisplayCheck, {Key? key}) : super(key: key);
+
+  bool ruleDisplayCheck;
 
   @override
   State<GamePage> createState() => _GamePageState();
 }
 
-class _GamePageState extends State<GamePage> {
+class _GamePageState extends State<GamePage> with RouteAware{
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context)!);
+  }
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    super.dispose();
+  }
+
+  @override
+  void didPush() async {
+    if(widget.ruleDisplayCheck == false){
+      Future.delayed(const Duration(seconds: 1),() {
+        showDialog(context: context,barrierDismissible: false, builder: (_) => const RuleBox());
+      });
+    }
+  }
 
   late String _word;
   late String _choices1;

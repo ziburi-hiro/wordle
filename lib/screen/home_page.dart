@@ -12,6 +12,7 @@ import 'package:wordle/screen/settings.dart';
 import 'package:wordle/screen/statics_page.dart';
 import 'package:wordle/utils/quiz_preferences.dart';
 import 'package:wordle/main.dart';
+import 'package:wordle/utils/rule_preferences.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -179,51 +180,61 @@ class _HomePageState extends State<HomePage> with RouteAware{
                       ),),
                       Padding(
                         padding: const EdgeInsets.only(top: 8),
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: notifier.isDark ? Colors.transparent : Colors.transparent,
-                              fixedSize: Size(size.width * 0.7, size.height * 0.08),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20)
+                        child: FutureBuilder(
+                          future: RulePreferences.getRuleCheckBox(),
+                          builder: (context,snapshot){
+                            return ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: notifier.isDark ? Colors.transparent : Colors.transparent,
+                                  fixedSize: Size(size.width * 0.7, size.height * 0.08),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20)
+                                  ),
+                                  side: BorderSide(
+                                    width: 5,
+                                    color: notifier.isDark ? Colors.white : Colors.grey,
+                                  )
                               ),
-                              side: BorderSide(
-                                width: 5,
-                                color: notifier.isDark ? Colors.white : Colors.grey,
-                              )
-                          ),
-                          onPressed: (){
-                            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const GamePage()));
+                              onPressed: (){
+                                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>  GamePage(snapshot.data!)));
+                              },
+                              child: Text('4 WORDS VER',style: TextStyle(
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.w900,
+                                  fontStyle: FontStyle.italic
+                              ),),
+                            );
                           },
-                          child: Text('4 WORDS VER',style: TextStyle(
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.w900,
-                              fontStyle: FontStyle.italic
-                          ),),
                         ),
                       ),
 
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.transparent,
-                              fixedSize: Size(size.width * 0.7, size.height * 0.08),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20)
+                        child: FutureBuilder(
+                          future: RulePreferences.getRuleCheckBox(),
+                          builder: (context, snapshot){
+                            return ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.transparent,
+                                  fixedSize: Size(size.width * 0.7, size.height * 0.08),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20)
+                                  ),
+                                  side: BorderSide(
+                                    width: 5,
+                                    color: notifier.isDark ? Colors.white : Colors.grey,
+                                  )
                               ),
-                              side: BorderSide(
-                                width: 5,
-                                color: notifier.isDark ? Colors.white : Colors.grey,
-                              )
-                          ),
-                          onPressed: (){
-                            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const FiveWordsWordle()));
+                              onPressed: (){
+                                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>  FiveWordsWordle(snapshot.data!)));
+                              },
+                              child: Text('5 WORDS VER',style: TextStyle(
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.w900,
+                                  fontStyle: FontStyle.italic
+                              ),),
+                            );
                           },
-                          child: Text('5 WORDS VER',style: TextStyle(
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.w900,
-                              fontStyle: FontStyle.italic
-                          ),),
                         ),
                       ),
 

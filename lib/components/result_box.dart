@@ -8,6 +8,7 @@ import 'package:wordle/providers/controller.dart';
 import 'package:wordle/screen/game_page.dart';
 import 'package:wordle/screen/home_page.dart';
 import 'package:wordle/utils/checkList_preferences.dart';
+import 'package:wordle/utils/rule_preferences.dart';
 
 class ResultBox extends StatefulWidget {
   const ResultBox({Key? key}) : super(key: key);
@@ -129,21 +130,26 @@ class _ResultBoxState extends State<ResultBox> {
                 ],
               ),
 
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
-                  fixedSize: Size(size.width * 0.7, size.height * 0.06),
-                ),
-                onPressed: (){
-                  keyMap.updateAll((key, value) => value = AnswerStage.notAnswered);
-                  notifier.gameReset();
+              FutureBuilder(
+                future: RulePreferences.getRuleCheckBox(),
+                builder: (context,snapshot){
+                  return ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                      fixedSize: Size(size.width * 0.7, size.height * 0.06),
+                    ),
+                    onPressed: (){
+                      keyMap.updateAll((key, value) => value = AnswerStage.notAnswered);
+                      notifier.gameReset();
 
-                  Navigator.of(context).pop();
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const GamePage()));
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => GamePage(snapshot.data!)));
+                    },
+                    child: const Text('Replay',style: TextStyle(
+                      fontSize: 30,
+                    ),),
+                  );
                 },
-                child: const Text('Replay',style: TextStyle(
-                  fontSize: 30,
-                ),),
               ),
 
               SizedBox(

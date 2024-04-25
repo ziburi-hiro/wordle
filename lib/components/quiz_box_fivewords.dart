@@ -8,6 +8,7 @@ import 'package:wordle/providers/theme_provider.dart';
 import 'package:wordle/screen/five_words_wordle.dart';
 import 'package:wordle/screen/home_page.dart';
 import 'package:wordle/utils/checkList_preferences_fivewords.dart';
+import 'package:wordle/utils/rule_preferences.dart';
 
 class QuizBoxFiveWords extends StatefulWidget {
   const QuizBoxFiveWords({super.key});
@@ -561,24 +562,29 @@ class _QuizBoxFiveWordsState extends State<QuizBoxFiveWords> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green,
-                          fixedSize: Size(size.width * 0.7, size.height * 0.06),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20)
-                          ),
-                        ),
-                        onPressed: (){
-                          keyMap.updateAll((key, value) => value = AnswerStage.notAnswered);
-                          notifier.gameReset();
+                      FutureBuilder(
+                        future: RulePreferences.getRuleCheckBox(),
+                        builder: (context,snapshot){
+                          return ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.green,
+                              fixedSize: Size(size.width * 0.7, size.height * 0.06),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20)
+                              ),
+                            ),
+                            onPressed: (){
+                              keyMap.updateAll((key, value) => value = AnswerStage.notAnswered);
+                              notifier.gameReset();
 
-                          Navigator.of(context).pop();
-                          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const FiveWordsWordle()));
+                              Navigator.of(context).pop();
+                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>  FiveWordsWordle(snapshot.data!)));
+                            },
+                            child: const Text('Replay',style: TextStyle(
+                              fontSize: 30,
+                            ),),
+                          );
                         },
-                        child: const Text('Replay',style: TextStyle(
-                          fontSize: 30,
-                        ),),
                       ),
 
                       SizedBox(
