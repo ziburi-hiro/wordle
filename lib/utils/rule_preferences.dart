@@ -10,7 +10,7 @@ class RulePreferences{
   static Future<bool> getRuleCheckBox() async {
 
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getBool('RuleCheckBox') ?? true;
+    return prefs.getBool('RuleCheckBox') ?? false;
 
   }
 

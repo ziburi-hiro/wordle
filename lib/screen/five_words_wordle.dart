@@ -5,8 +5,10 @@ import 'package:wordle/components/grid.dart';
 import 'package:wordle/components/keyboard_row.dart';
 import 'package:wordle/components/quiz_box_fivewords.dart';
 import 'package:wordle/components/result_box_fivewords.dart';
+import 'package:wordle/components/rule_box.dart';
 import 'package:wordle/components/title_back_box.dart';
 import 'package:wordle/constants/five_words.dart';
+import 'package:wordle/main.dart';
 import 'package:wordle/providers/controller.dart';
 import 'package:wordle/providers/quiz_provider.dart';
 import 'package:wordle/screen/help_page.dart';
@@ -14,13 +16,36 @@ import 'package:wordle/screen/settings.dart';
 import 'package:wordle/utils/quick_box.dart';
 
 class FiveWordsWordle extends StatefulWidget {
-  const FiveWordsWordle({Key? key}) : super(key: key);
+  FiveWordsWordle(this.ruleDisplayCheck,{Key? key}) : super(key: key);
+
+  bool ruleDisplayCheck;
 
   @override
   State<FiveWordsWordle> createState() => _FiveWordsWordleState();
 }
 
-class _FiveWordsWordleState extends State<FiveWordsWordle> {
+class _FiveWordsWordleState extends State<FiveWordsWordle> with RouteAware{
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context)!);
+  }
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    super.dispose();
+  }
+
+  @override
+  void didPush() async {
+    if(widget.ruleDisplayCheck == false){
+      Future.delayed(const Duration(seconds: 1),() {
+        showDialog(context: context,barrierDismissible: false, builder: (_) => const RuleBox());
+      });
+    }
+  }
 
   late String _word;
   late String _choices1;

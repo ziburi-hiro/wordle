@@ -17,7 +17,9 @@ import 'package:wordle/utils/quick_box.dart';
 import 'package:wordle/utils/rule_preferences.dart';
 
 class GamePage extends StatefulWidget {
-  const GamePage({Key? key}) : super(key: key);
+  GamePage(this.ruleDisplayCheck, {Key? key}) : super(key: key);
+
+  bool ruleDisplayCheck;
 
   @override
   State<GamePage> createState() => _GamePageState();
@@ -39,9 +41,11 @@ class _GamePageState extends State<GamePage> with RouteAware{
 
   @override
   void didPush() async {
-    Future.delayed(Duration(seconds: 1),() {
-      showDialog(context: context,barrierDismissible: false, builder: (_) => const RuleBox());
-    });
+    if(widget.ruleDisplayCheck == false){
+      Future.delayed(const Duration(seconds: 1),() {
+        showDialog(context: context,barrierDismissible: false, builder: (_) => const RuleBox());
+      });
+    }
   }
 
   late String _word;

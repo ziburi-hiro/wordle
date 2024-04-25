@@ -25,92 +25,92 @@ class _RuleBoxState extends State<RuleBox> {
       content: SizedBox(
         width: size.width*0.9,
         height: size.height*0.7,
-        child: Column(
-          children: [
-            Text('Game Rule',style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold
-            ),),
-
-            SizedBox(
-              height: 5,
-            ),
-
-            Container(
-              height: size.height*0.55,
-              //color: Colors.grey,
-              child: Swiper(
-                itemBuilder: (BuildContext context, int index) {
-                  return list[index];
-                },
-                loop: false,
-                itemCount: 3,
-                viewportFraction: 1,
-                layout: SwiperLayout.DEFAULT,
-                pagination: const SwiperPagination(
-                  builder: DotSwiperPaginationBuilder(
-                    activeColor: Colors.green,
-                    color: Colors.grey,
-                    activeSize: 15,
-                  ),
-                ),
-              ),
-            ),
-
-            SizedBox(
-              height: size.height*0.03,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  FutureBuilder(
-                      future: RulePreferences.getRuleCheckBox(),
-                      builder: (context, snapshot) {
-                        return Transform.scale(
-                          scale: 1.0,
-                          child: Checkbox(
-                            activeColor: Colors.green,
-                            value: Provider.of<Controller>(context, listen: false).ruleDisplayCheck,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                Provider.of<Controller>(context, listen: false).ruleDisplayCheck = value!;
-                              });
-                              RulePreferences.saveRuleCheckBox(checkBox: Provider.of<Controller>(context, listen: false).ruleDisplayCheck);
-                            },
-                          ),
-                        );
-                      }
-                  ),
-                  const Text('今後ルールを表示しない',style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold
-                  ),)
-                ],
-              ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.only(top: 10.0),
-              child: Container(
-                width: size.width*0.5,
-                height: size.height*0.05,
-                child: ElevatedButton(
-                  onPressed: (){
-                    Navigator.pop(context);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    backgroundColor: Colors.green,
-                  ),
-                  child: const Text('I got it',style: TextStyle(
+        child: FutureBuilder(
+          future: RulePreferences.getRuleCheckBox(),
+          builder: (context,snapshot){
+            return Column(
+              children: [
+                const Text('Game Rule',style: TextStyle(
                     fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),),
+                    fontWeight: FontWeight.bold
+                ),),
+
+                const SizedBox(
+                  height: 5,
                 ),
-              ),
-            )
-          ],
+
+                Container(
+                  height: size.height*0.55,
+                  //color: Colors.grey,
+                  child: Swiper(
+                    itemBuilder: (BuildContext context, int index) {
+                      return list[index];
+                    },
+                    loop: false,
+                    itemCount: 3,
+                    viewportFraction: 1,
+                    layout: SwiperLayout.DEFAULT,
+                    pagination: const SwiperPagination(
+                      builder: DotSwiperPaginationBuilder(
+                        activeColor: Colors.green,
+                        color: Colors.grey,
+                        activeSize: 15,
+                      ),
+                    ),
+                  ),
+                ),
+
+                SizedBox(
+                  height: size.height*0.03,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Transform.scale(
+                        scale: 1.0,
+                        child: Checkbox(
+                          activeColor: Colors.green,
+                          value: Provider.of<Controller>(context, listen: false).ruleDisplayCheck,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              Provider.of<Controller>(context, listen: false).ruleDisplayCheck = value!;
+                              RulePreferences.saveRuleCheckBox(checkBox: Provider.of<Controller>(context, listen: false).ruleDisplayCheck);
+                            });
+                          },
+                        ),
+                      ),
+                      const Text('今後ルールを表示しない',style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold
+                      ),)
+                    ],
+                  ),
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: Container(
+                    width: size.width*0.5,
+                    height: size.height*0.05,
+                    child: ElevatedButton(
+                      onPressed: (){
+                        Navigator.pop(context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        backgroundColor: Colors.green,
+                      ),
+                      child: const Text('I got it',style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),),
+                    ),
+                  ),
+                )
+              ],
+            );
+          },
         ),
       ),
     );

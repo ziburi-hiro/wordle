@@ -6,6 +6,7 @@ import 'package:wordle/providers/rule_display_provider.dart';
 import 'package:wordle/providers/theme_provider.dart';
 import 'package:wordle/screen/game_page.dart';
 import 'package:wordle/screen/home_page.dart';
+import 'package:wordle/utils/rule_preferences.dart';
 import 'package:wordle/utils/theme_preferences.dart';
 import 'package:wordle/constants/themes.dart';
 

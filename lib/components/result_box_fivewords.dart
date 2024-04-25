@@ -7,6 +7,7 @@ import 'package:wordle/providers/controller.dart';
 import 'package:wordle/screen/five_words_wordle.dart';
 import 'package:wordle/screen/home_page.dart';
 import 'package:wordle/utils/checkList_preferences_fivewords.dart';
+import 'package:wordle/utils/rule_preferences.dart';
 
 class ResultBoxFiveWords extends StatefulWidget {
   const ResultBoxFiveWords({Key? key}) : super(key: key);
@@ -128,21 +129,26 @@ class _ResultBoxFiveWordsState extends State<ResultBoxFiveWords> {
                   ],
                 ),
 
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
-                    fixedSize: Size(size.width * 0.7, size.height * 0.06),
-                  ),
-                  onPressed: (){
-                    keyMap.updateAll((key, value) => value = AnswerStage.notAnswered);
-                    notifier.gameReset();
+                FutureBuilder(
+                  future: RulePreferences.getRuleCheckBox(),
+                  builder: (context,snapshot){
+                    return ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        fixedSize: Size(size.width * 0.7, size.height * 0.06),
+                      ),
+                      onPressed: (){
+                        keyMap.updateAll((key, value) => value = AnswerStage.notAnswered);
+                        notifier.gameReset();
 
-                    Navigator.of(context).pop();
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const FiveWordsWordle()));
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => FiveWordsWordle(snapshot.data!)));
+                      },
+                      child: const Text('Replay',style: TextStyle(
+                        fontSize: 30,
+                      ),),
+                    );
                   },
-                  child: const Text('Replay',style: TextStyle(
-                    fontSize: 30,
-                  ),),
                 ),
 
                 SizedBox(
