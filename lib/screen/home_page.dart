@@ -173,29 +173,7 @@ class _HomePageState extends State<HomePage> with RouteAware{
                               ]
                             ),
                           ),
-                          // child: Text('WORDRILL',style: GoogleFonts.monomaniacOne(
-                          //   fontSize: 80.sp,
-                          //   fontWeight: FontWeight.bold,
-                          //   letterSpacing: 3.0,
-                          // ),),
                         ),
-
-                        // snapshot.data! ?
-                        // FittedBox(
-                        //   fit: BoxFit.fitWidth,
-                        //   child: Text('クイズモード',style: GoogleFonts.monomaniacOne(
-                        //       fontSize: 40.sp,
-                        //       fontWeight: FontWeight.bold
-                        //   ),),
-                        // )
-                        //     :
-                        // FittedBox(
-                        //   fit: BoxFit.fitWidth,
-                        //   child: Text('ノーマルモード',style: GoogleFonts.monomaniacOne(
-                        //       fontSize: 40.sp,
-                        //       fontWeight: FontWeight.bold
-                        //   ),),
-                        // ),
 
                         Padding(
                           padding: const EdgeInsets.only(bottom: 20.0),
@@ -253,8 +231,8 @@ class _HomePageState extends State<HomePage> with RouteAware{
                           height: size.height*0.05,
                         ),
 
-                        Text('ゲームプレイ',style: GoogleFonts.yuseiMagic(
-                            fontSize: 25.sp,
+                        Text('ゲームプレイ',style: GoogleFonts.monomaniacOne(
+                            fontSize: 30.sp,
                             fontWeight: FontWeight.bold
                         ),),
 
@@ -318,16 +296,8 @@ class _HomePageState extends State<HomePage> with RouteAware{
                           ),
                         ),
 
-                        // Padding(
-                        //   padding: const EdgeInsets.only(bottom: 8.0),
-                        //   child: Text('単語帳',style: GoogleFonts.yuseiMagic(
-                        //       fontSize: 25.sp,
-                        //       fontWeight: FontWeight.bold
-                        //   ),),
-                        // ),
-
                         SizedBox(
-                          height: size.height*0.05,
+                          height: size.height*0.03,
                         ),
 
                         Row(
