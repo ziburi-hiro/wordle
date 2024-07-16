@@ -45,6 +45,7 @@ dependencies:
   flutter_screenutil: ^5.9.0
   flutter_launcher_icons: ^0.13.1
   flutter_native_splash: ^2.3.7
+  lottie: ^2.7.0
 
 flutter_icons:
   android: true
@@ -93,6 +94,7 @@ flutter:
    - assets/images/Step1.gif
    - assets/images/Step2.gif
    - assets/images/Step3.gif
+   - assets/images/help.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

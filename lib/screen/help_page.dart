@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:wordle/constants/colors.dart';
 import 'package:wordle/providers/controller.dart';
@@ -22,7 +24,10 @@ class _HelpPageState extends State<HelpPage> {
         builder: (_, notifier , __) {
           return Scaffold(
             appBar: AppBar(
-              title: Text('Help'),
+              title: Text('Help',style: GoogleFonts.monomaniacOne(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold
+              ),),
               centerTitle: true,
               elevation: 0,
             ),
@@ -30,11 +35,18 @@ class _HelpPageState extends State<HelpPage> {
             body: SingleChildScrollView(
               child: Column(
                 children: [
-                  Container(
+                  SizedBox(
                     width: double.infinity,
-                    height: size.height*0.2,
-                    color: Colors.red,
-                    child: Text('何か画像？'),
+                    height: size.height*0.3,
+                    child: Lottie.asset(
+                        'assets/images/help.json',
+                        errorBuilder: (context, error, stackTrace) {
+                          return const Padding(
+                            padding: EdgeInsets.all(10),
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                    ),
                   ),
 
                   ///WORDRILLとは
@@ -42,9 +54,20 @@ class _HelpPageState extends State<HelpPage> {
                     data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
                     child: ExpansionTile(
                       onExpansionChanged: (bool changed){},
-                      title: Text('WORDRILLとは？'),
+                      textColor: correctGreen,
+                      iconColor: correctGreen,
+                      title: Text('WORDRILLとは？',style: GoogleFonts.mPlusRounded1c(
+                          fontSize: 28.sp,
+                          fontWeight: FontWeight.bold
+                      ),),
                       children: [
-                        Text('wordrillの説明')
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10.0,right: 10.0),
+                          child: Text('WORDRILLは遊びながら英単語を学習できる単語学習ゲームです\n'
+                              '出題されている英単語をヒントを頼りに指定の回数の中で当てよう!!',style: GoogleFonts.mPlusRounded1c(
+                            fontSize: 18,
+                          ),),
+                        )
                       ],
                     ),
                   ),
@@ -53,10 +76,23 @@ class _HelpPageState extends State<HelpPage> {
                   Theme(
                     data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
                     child: ExpansionTile(
+                      textColor: containsYellow,
+                      iconColor: containsYellow,
                       onExpansionChanged: (bool changed){},
-                      title: Text('WORDRILLとは？'),
+                      title: Text('ノーマルモードとは？',style: GoogleFonts.mPlusRounded1c(
+                          fontSize: 28.sp,
+                          fontWeight: FontWeight.bold
+                      ),),
                       children: [
-                        Text('wordrillの説明')
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10.0,right: 10.0),
+                          child: Text('ゲーム終了時に単語の意味と品詞が表示されるよ',style: GoogleFonts.mPlusRounded1c(
+                            fontSize: 18,
+                          ),),
+                        ),
+                        Image.asset(
+                            'assets/images/Normal_result.png'
+                        ),
                       ],
                     ),
                   ),
@@ -65,10 +101,23 @@ class _HelpPageState extends State<HelpPage> {
                   Theme(
                     data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
                     child: ExpansionTile(
+                      textColor: Colors.grey,
+                      iconColor: Colors.grey,
                       onExpansionChanged: (bool changed){},
-                      title: Text('WORDRILLとは？'),
+                      title: Text('クイズモードとは？',style: GoogleFonts.mPlusRounded1c(
+                          fontSize: 28.sp,
+                          fontWeight: FontWeight.bold
+                      ),),
                       children: [
-                        Text('wordrillの説明')
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10.0,right: 10.0),
+                          child: Text('ゲーム終了時に単語の意味が４択で問われるよ',style: GoogleFonts.mPlusRounded1c(
+                            fontSize: 18,
+                          ),),
+                        ),
+                        Image.asset(
+                            'assets/images/Quiz_result.png'
+                        ),
                       ],
                     ),
                   ),
@@ -77,9 +126,14 @@ class _HelpPageState extends State<HelpPage> {
                   Theme(
                     data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
                     child: ExpansionTile(
+                      textColor: correctGreen,
+                      iconColor: correctGreen,
                       onExpansionChanged: (bool changed){},
-                      title: Text('WORDRILLとは？'),
-                      children: [
+                      title: Text('単語帳とは？',style: GoogleFonts.mPlusRounded1c(
+                          fontSize: 28.sp,
+                          fontWeight: FontWeight.bold
+                      ),),
+                      children: const [
                         Text('wordrillの説明')
                       ],
                     ),
@@ -89,9 +143,14 @@ class _HelpPageState extends State<HelpPage> {
                   Theme(
                     data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
                     child: ExpansionTile(
+                      textColor: containsYellow,
+                      iconColor: containsYellow,
                       onExpansionChanged: (bool changed){},
-                      title: Text('WORDRILLとは？'),
-                      children: [
+                      title: Text('成績とは？',style: GoogleFonts.mPlusRounded1c(
+                          fontSize: 28.sp,
+                          fontWeight: FontWeight.bold
+                      ),),
+                      children: const [
                         Text('wordrillの説明')
                       ],
                     ),
@@ -101,10 +160,73 @@ class _HelpPageState extends State<HelpPage> {
                   Theme(
                     data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
                     child: ExpansionTile(
+                      textColor: correctGreen,
+                      iconColor: correctGreen,
                       onExpansionChanged: (bool changed){},
-                      title: Text('WORDRILLとは？'),
+                      title: Text('遊び方',style: GoogleFonts.mPlusRounded1c(
+                          fontSize: 28.sp,
+                          fontWeight: FontWeight.bold
+                      ),),
                       children: [
-                        Text('wordrillの説明')
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10.0,right: 10.0),
+                          child: RichText(
+                            text: TextSpan(
+                              style: TextStyle(
+                                  fontSize: 20.sp,
+                                  color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.black,
+                                  fontWeight: FontWeight.w900
+                              ),
+                              children: const [
+                                TextSpan(
+                                  text: '出題されている英単語を予想してキーボードで入力します\n',
+                                ),
+                                TextSpan(
+                                  text: 'ENTERを押すと文字の背景が変化するよ\n',
+                                ),
+                                TextSpan(
+                                    text: '緑色',
+                                    style: TextStyle(
+                                      color: correctGreen,
+                                    )
+                                ),
+                                TextSpan(
+                                  text: '：文字と場所が正解\n',
+                                ),
+                                TextSpan(
+                                    text: '黄色',
+                                    style: TextStyle(
+                                      color: containsYellow,
+                                    )
+                                ),
+                                TextSpan(
+                                  text: '：文字は正解だが場所が不正解\n',
+                                ),
+                                TextSpan(
+                                    text: '灰色',
+                                    style: TextStyle(
+                                      color: Color.fromARGB(255, 120, 124, 127),
+                                    )
+                                ),
+                                TextSpan(
+                                  text: '：文字も場所も不正解\n',
+                                ),
+                                TextSpan(
+                                  text: '色をヒントに出題単語を当てよう！\n',
+                                ),
+                              ]
+                          ),
+                      ),
+                        ),
+
+                        Text('例：正解は”soar”',style: TextStyle(
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w900
+                                                    ),),
+
+                        Image.asset(
+                            'assets/images/Example.png'
+                        ),
                       ],
                     ),
                   ),
