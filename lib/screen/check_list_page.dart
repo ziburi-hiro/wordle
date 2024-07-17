@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:wordle/components/testBox.dart';
 import 'package:wordle/components/testbox_fivewords.dart';
@@ -52,24 +53,56 @@ class _CheckListPageState extends State<CheckListPage> with RouteAware{
             length: 2,
             child: Scaffold(
               appBar: AppBar(
-               title: const Text('CheckList'),
+               title:  Text('単語帳',style: GoogleFonts.yuseiMagic(
+                 fontSize: 22,
+                 fontWeight: FontWeight.bold,
+               ),),
                 centerTitle: true,
                 elevation: 0,
                 actions: [
-                  IconButton(
-                    onPressed: (){
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HelpPage()
-                      ));
-                    },
-                    icon: const Icon(Icons.help_outline),
+                  SizedBox(
+                    width: 50,
+                    height: 50,
+                    child: Stack(
+                      children: [
+                        IconButton(
+                          onPressed: (){
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HelpPage()
+                            ));
+                          },
+                          icon: const Icon(Icons.help_outline),
+                        ),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Text('Help',style: TextStyle(
+                              color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.black
+                          ),),
+                        ),
+                      ],
+                    ),
                   ),
-                  IconButton(
-                      onPressed: (){
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Settings()
-                        ));
-                      },
-                      icon: const Icon(Icons.settings)
-                  )
+
+                  SizedBox(
+                    width: 50,
+                    height: 50,
+                    child: Stack(
+                      children: [
+                        IconButton(
+                            onPressed: (){
+                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Settings()
+                              ));
+                            },
+                            icon: const Icon(Icons.settings)
+                        ),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Text('設定',style: TextStyle(
+                              color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.black
+                          ),),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
                 bottom: TabBar(
                   indicatorColor: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.grey,
@@ -166,7 +199,7 @@ class _CheckListPageState extends State<CheckListPage> with RouteAware{
                                 child: ElevatedButton(
                                   onPressed: (){
                                     if(checkList.isEmpty){
-                                      runQuickBox(context: context, message: 'No word in checklist!');
+                                      runQuickBox(context: context, message: 'テストができる単語がないよ');
                                     }else{
                                       showDialog(context: context, builder: (_) => const TestBox());
                                     }
@@ -174,11 +207,10 @@ class _CheckListPageState extends State<CheckListPage> with RouteAware{
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.green,
                                   ),
-                                  child: const Text('Lets Test!',
-                                    style: TextStyle(
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.bold,
-                                    ),),
+                                  child: Text('テスト開始',style: GoogleFonts.yuseiMagic(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold,
+                                  ),),
                                 ),
                               );
                             }
@@ -270,7 +302,7 @@ class _CheckListPageState extends State<CheckListPage> with RouteAware{
                               child: ElevatedButton(
                                 onPressed: (){
                                   if(checkListFiveWords.isEmpty){
-                                    runQuickBox(context: context, message: 'No word in checklist!');
+                                    runQuickBox(context: context, message: 'テストができる単語がないよ');
                                   }else{
                                     showDialog(context: context, builder: (_) => const TestBoxFiveWords());
                                   }
@@ -278,11 +310,10 @@ class _CheckListPageState extends State<CheckListPage> with RouteAware{
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.green,
                                 ),
-                                child: const Text('Lets Test!',
-                                  style: TextStyle(
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.bold,
-                                  ),),
+                                child: Text('テスト開始',style: GoogleFonts.yuseiMagic(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                ),),
                               ),
                             );
                           }

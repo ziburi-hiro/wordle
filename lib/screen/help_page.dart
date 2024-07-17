@@ -133,8 +133,15 @@ class _HelpPageState extends State<HelpPage> {
                           fontSize: 28.sp,
                           fontWeight: FontWeight.bold
                       ),),
-                      children: const [
-                        Text('wordrillの説明')
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                          child: Text('ゲーム終了時に”Add List to review”にチェックを入れた単語を復習できるよ\n'
+                              'たくさんプレイして自分だけの単語帳を作ろう!'
+                              '復習した単語はテストボタンで意味をテストしよう!',style: GoogleFonts.mPlusRounded1c(
+                            fontSize: 18,
+                          ),),
+                        )
                       ],
                     ),
                   ),
@@ -150,8 +157,14 @@ class _HelpPageState extends State<HelpPage> {
                           fontSize: 28.sp,
                           fontWeight: FontWeight.bold
                       ),),
-                      children: const [
-                        Text('wordrillの説明')
+                      children: [
+                        Text('ゲームの成績が表示されるよ\n'
+                            'Played：ゲームプレイ回数\n'
+                            'Win％：単語当て成功率\n'
+                            'CurrentStreak：連続成功回数\n'
+                            'MaxStreak：過去最高連続成功回数',style: GoogleFonts.mPlusRounded1c(
+                          fontSize: 18,
+                        ),)
                       ],
                     ),
                   ),
