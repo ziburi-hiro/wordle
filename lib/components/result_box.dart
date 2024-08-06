@@ -96,6 +96,7 @@ class _ResultBoxState extends State<ResultBox> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   FutureBuilder(
+
                       future: CheckListPreferences.getCheckList(),
                       builder: (context, snapshot) {
                         List<String> checkList = [];
