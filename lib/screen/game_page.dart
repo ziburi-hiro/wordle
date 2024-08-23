@@ -89,14 +89,14 @@ class _GamePageState extends State<GamePage> with RouteAware{
         leading: Consumer<Controller>(
             builder: (_, notifier, __) {
               if(notifier.notEnoughLetters){
-                runQuickBox(context: context, message: 'Not Enough Letters');
+                runQuickBox(context: context, message: '文字数が足りないよ');
               }
               if(notifier.gameCompleted){
                 if(notifier.gameWon){
                   if(notifier.currentRow == 5){
-                    runQuickBox(context: context, message: 'Phew!');
+                    runQuickBox(context: context, message: 'ギリギリ...');
                   }else{
-                    runQuickBox(context: context, message: 'Splendid!');
+                    runQuickBox(context: context, message: '素晴らしい!');
                   }
                 }else{
                   runQuickBox(context: context, message: notifier.correctWord.toLowerCase());
@@ -104,9 +104,9 @@ class _GamePageState extends State<GamePage> with RouteAware{
                 Future.delayed(const Duration(milliseconds: 2000), (){
                   if(mounted){
                     if(Provider.of<QuizProvider>(context,listen: false).quizMode){
-                      showDialog(context: context, builder: (_) => const QuizBox());
+                      showDialog(context: context,builder: (_) => const QuizBox());
                     }else{
-                      showDialog(context: context, builder: (_) => const ResultBox());
+                      showDialog(context: context,builder: (_) => const ResultBox());
                     }
                   }
                 });

@@ -91,9 +91,9 @@ flutter:
    - assets/images/Review.png
    - assets/images/Statics.png
    - assets/images/Example.png
-   - assets/images/Step1.gif
-   - assets/images/Step2.gif
-   - assets/images/Step3.gif
+   - assets/images/STEP1.gif
+   - assets/images/STEP2.gif
+   - assets/images/STEP3.gif
    - assets/images/help.json
    - assets/images/Great.json
    - assets/images/bad.json

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Step3 extends StatelessWidget {
   const Step3({
@@ -13,14 +14,14 @@ class Step3 extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const Text('Step 3',style: TextStyle(
+        Text('STEP3',style: GoogleFonts.yuseiMagic(
           fontSize: 22,
           fontWeight: FontWeight.bold,
         ),),
         Container(
-          height: size.height*0.51,
+          height: size.height*0.5,
           child: Image.asset(
-            'assets/images/Step3.gif',
+            'assets/images/STEP3.gif',
             fit: BoxFit.contain,
           ),
         ),

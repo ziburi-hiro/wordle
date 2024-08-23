@@ -85,14 +85,14 @@ class _FiveWordsWordleState extends State<FiveWordsWordle> with RouteAware{
         leading: Consumer<Controller>(
             builder: (_, notifier, __) {
               if(notifier.notEnoughLetters){
-                runQuickBox(context: context, message: 'Not Enough Letters');
+                runQuickBox(context: context, message: '文字数が足りないよ');
               }
               if(notifier.gameCompleted){
                 if(notifier.gameWon){
                   if(notifier.currentRow == 6){
-                    runQuickBox(context: context, message: 'Phew!');
+                    runQuickBox(context: context, message: 'ギリギリ...!');
                   }else{
-                    runQuickBox(context: context, message: 'Splendid!');
+                    runQuickBox(context: context, message: '素晴らしい!');
                   }
                 }else{
                   runQuickBox(context: context, message: notifier.correctWord);
