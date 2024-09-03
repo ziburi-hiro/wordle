@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:wordle/constants/answer_stages.dart';
 import 'package:wordle/data/key_map.dart';
+import 'package:wordle/main.dart';
 import 'package:wordle/providers/controller.dart';
 import 'package:wordle/screen/game_page.dart';
 import 'package:wordle/screen/home_page.dart';
@@ -23,26 +23,25 @@ class _ResultBoxState extends State<ResultBox> {
     final size = MediaQuery.of(context).size;
     return ScreenUtilInit(
       designSize: const Size(393, 852),
-      child: Dialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        insetPadding: EdgeInsets.fromLTRB(size.width * 0.05, size.height * 0.15, size.width * 0.05, size.height * 0.15),
-        child: Consumer<Controller>(
+      child: AlertDialog(
+        insetPadding: EdgeInsets.fromLTRB(size.width * 0.02, size.height * 0.05, size.width * 0.02, size.height * 0.05),
+        content: Consumer<Controller>(
           builder: (_, notifier, __) {
             return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-
-              const SizedBox(
-                height: 20,
+              IconButton(
+                  alignment: Alignment.centerRight,
+                  onPressed: (){
+                    Navigator.maybePop(context);
+                  },
+                  icon: const Icon(Icons.clear)
               ),
-
               Expanded(
-                  child: Text('結果',
+                  child: Text('RESULTS',
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.yuseiMagic(
-                      fontSize: 28.sp,
+                    style: TextStyle(
+                      fontSize: 30.sp,
                       fontWeight: FontWeight.w900
                     ),
                   )
@@ -52,47 +51,40 @@ class _ResultBoxState extends State<ResultBox> {
                 flex: 3,
                 child: Column(
                   children: [
-                    Text('正解の単語',
-                      style: GoogleFonts.yuseiMagic(
+                    Text('Correct Word',
+                      style: TextStyle(
                           fontSize: 20.sp,
                           fontWeight: FontWeight.bold
                       ),
                     ),
-
                     Text(notifier.correctWord.toLowerCase(),
-                      style: GoogleFonts.yuseiMagic(
+                      style: TextStyle(
                         fontSize: 22.sp,
                         fontWeight: FontWeight.bold
                     ),),
-
                     SizedBox(
                       height: 10.sp,
                     ),
-
-                    Text('単語の意味',
-                      style: GoogleFonts.yuseiMagic(
+                    Text('Mean',
+                      style: TextStyle(
                         fontSize: 20.sp,
                         fontWeight: FontWeight.bold
                     ),),
-
                     Text(notifier.meanList[0],
-                      style: GoogleFonts.yuseiMagic(
+                      style: TextStyle(
                         fontSize: 22.sp,
                         fontWeight: FontWeight.bold
                     ),),
-
                     SizedBox(
                       height: 10.sp,
                     ),
-
-                    Text('品詞',
-                      style: GoogleFonts.yuseiMagic(
+                    Text('Parts of Speech',
+                      style: TextStyle(
                           fontSize: 20.sp,
                           fontWeight: FontWeight.bold
                       ),),
-
                     Text(notifier.meanList[1],
-                      style: GoogleFonts.yuseiMagic(
+                      style: TextStyle(
                           fontSize: 22.sp,
                           fontWeight: FontWeight.bold
                       ),),
@@ -131,7 +123,7 @@ class _ResultBoxState extends State<ResultBox> {
                         );
                       }
                   ),
-                  Text('単語帳に追加する',style: GoogleFonts.yuseiMagic(
+                  Text(' Add List to review',style: TextStyle(
                       fontSize: 20.sp,
                       fontWeight: FontWeight.bold
                   ),)
@@ -141,32 +133,21 @@ class _ResultBoxState extends State<ResultBox> {
               FutureBuilder(
                 future: RulePreferences.getRuleCheckBox(),
                 builder: (context,snapshot){
-                  return Padding(
-                    padding: const EdgeInsets.only(left: 10.0,right: 10.0),
-                    child: SizedBox(
-                      height: size.height*0.05,
-                      width: size.width*0.4,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green,
-                          fixedSize: Size(size.width * 0.7, size.height * 0.06),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20)
-                          ),
-                        ),
-                        onPressed: (){
-                          keyMap.updateAll((key, value) => value = AnswerStage.notAnswered);
-                          notifier.gameReset();
-
-                          Navigator.of(context).pop();
-                          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => GamePage(snapshot.data!)));
-                        },
-                        child: Text('もう一度遊ぶ',style: GoogleFonts.yuseiMagic(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                        ),),
-                      ),
+                  return ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                      fixedSize: Size(size.width * 0.7, size.height * 0.06),
                     ),
+                    onPressed: (){
+                      keyMap.updateAll((key, value) => value = AnswerStage.notAnswered);
+                      notifier.gameReset();
+
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => GamePage(snapshot.data!)));
+                    },
+                    child: const Text('Replay',style: TextStyle(
+                      fontSize: 30,
+                    ),),
                   );
                 },
               ),
@@ -175,35 +156,21 @@ class _ResultBoxState extends State<ResultBox> {
                 height: 10.sp,
               ),
 
-              Padding(
-                padding: const EdgeInsets.only(left: 10.0,right: 10.0),
-                child: SizedBox(
-                  height: size.height*0.05,
-                  width: size.width*0.4,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
-                      fixedSize: Size(size.width * 0.7, size.height * 0.06),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)
-                      ),
-                    ),
-                    onPressed: (){
-                      keyMap.updateAll((key, value) => value = AnswerStage.notAnswered);
-                      notifier.gameReset();
-
-                      Navigator.of(context).pop();
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()));
-                    },
-                    child: Text('タイトルに戻る',style: GoogleFonts.yuseiMagic(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                    ),),
-                  ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                  fixedSize: Size(size.width * 0.7, size.height * 0.06),
                 ),
-              ),
-              const SizedBox(
-                height: 20,
+                onPressed: (){
+                  keyMap.updateAll((key, value) => value = AnswerStage.notAnswered);
+                  notifier.gameReset();
+
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()));
+                },
+                child: const Text('To Title',style: TextStyle(
+                  fontSize: 30,
+                ),),
               ),
             ],
             );

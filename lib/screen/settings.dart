@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:wordle/components/reset_statistics_box.dart';
 import 'package:wordle/providers/controller.dart';
@@ -17,11 +16,17 @@ class Settings extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text('設定',style: GoogleFonts.yuseiMagic(
-            fontWeight: FontWeight.bold
-        ),),
+        title: const Text('Settings'),
         centerTitle: true,
         elevation: 0,
+        actions: [
+          IconButton(
+              onPressed: (){
+                Navigator.maybePop(context);
+              },
+              icon: const Icon(Icons.clear)
+          )
+        ],
       ),
       body: ScreenUtilInit(
         designSize: const Size(393, 852),
@@ -33,9 +38,9 @@ class Settings extends StatelessWidget {
                 isSwitched = notifier.isDark;
 
                 return SwitchListTile(
-                  title: Text('ダークテーマ',style: GoogleFonts.yuseiMagic(
-                      fontSize: 20.sp,
-                      fontWeight: FontWeight.bold
+                  title: Text('Dark Theme',style: TextStyle(
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.bold,
                   ),),
                   value: isSwitched,
                   onChanged: (value){
@@ -61,9 +66,9 @@ class Settings extends StatelessWidget {
                     isSwitched = notifier.isDisplay;
 
                     return SwitchListTile(
-                      title: Text('ルールを表示させない',style: GoogleFonts.yuseiMagic(
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.bold
+                      title: Text('Not Display Rule',style: TextStyle(
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.bold,
                       ),),
                       value: isSwitched,
                       onChanged: (value){
@@ -97,9 +102,9 @@ class Settings extends StatelessWidget {
                         color: notifier.isDark ? Colors.white : Colors.grey,
                       )
                     ),
-                    child: Text('成績をリセット',style: GoogleFonts.yuseiMagic(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.bold
+                    child: Text('Reset Statistics',style: TextStyle(
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.bold,
                     ),),
                   );
                 },

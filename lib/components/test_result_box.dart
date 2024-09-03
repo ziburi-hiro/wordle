@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:wordle/providers/controller.dart';
 
@@ -18,11 +16,8 @@ class _TestResultBoxState extends State<TestResultBox> {
     final size = MediaQuery.of(context).size;
     return ScreenUtilInit(
       designSize: const Size(393, 852),
-      child: Dialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Consumer<Controller>(
+      child: AlertDialog(
+        content: Consumer<Controller>(
           builder: (_ , notifier, __) {
             return SizedBox(
               width: size.width*0.8,
@@ -32,90 +27,81 @@ class _TestResultBoxState extends State<TestResultBox> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: Text('単語テスト結果',style: GoogleFonts.yuseiMagic(
-                      fontSize: 30.sp,
+                    child: Text('Test Result',style: TextStyle(
+                      fontSize: 35.sp,
                       fontWeight: FontWeight.w900,
                     ),),
                   ),
 
                   Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: SizedBox(
-                      height: size.height*0.30,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          notifier.testCounter/notifier.tapButtonList.length > 0.6 ?
-                          Lottie.asset(
-                              'assets/images/Great.json',
-                              errorBuilder: (context, error, stackTrace) {
-                                return const Padding(
-                                  padding: EdgeInsets.all(10),
-                                  child: CircularProgressIndicator(),
-                                );
-                              }
-                          ) :
-                          Container(
-                            height: size.height*0.2,
-                            child: Lottie.asset(
-                                'assets/images/bad.json',
-                                errorBuilder: (context, error, stackTrace) {
-                                  return const Padding(
-                                    padding: EdgeInsets.all(10),
-                                    child: CircularProgressIndicator(),
-                                  );
-                                }
-                            ),
-                          ),
-
-                          FittedBox(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(top: 10.0.h, bottom: 10.h),
+                          child: FittedBox(
                             fit: BoxFit.fitWidth,
-                            child: Text('${(notifier.testCounter/notifier.tapButtonList.length*100).ceil().toString()}点',style: GoogleFonts.yuseiMagic(
-                                fontSize: 40.sp,
+                            child: Text('Your score is ...',style: TextStyle(
+                              fontSize: 30.sp,
+                              fontWeight: FontWeight.w900,
+                            ),),
+                          ),
+                        ),
+
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: FittedBox(
+                            fit: BoxFit.fitWidth,
+                            child: Text('${notifier.testCounter} out of ${notifier.tapButtonList.length}',style: TextStyle(
+                                fontSize: 30.sp,
                                 fontWeight: FontWeight.w900
                             ),),
                           ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 10.0.h, bottom: 10.h),
+                          child: FittedBox(
+                            fit: BoxFit.fitWidth,
+                            child: Text('questions correct!!',style: TextStyle(
+                                fontSize: 30.sp,
+                                fontWeight: FontWeight.w900
+                            ),),
+                          ),
+                        ),
 
-                          Text('正解数：${notifier.testCounter}問(全${notifier.tapButtonList.length}問)',style: GoogleFonts.yuseiMagic(
-
-                          ),),
-                        ],
-                      ),
-                    ),
-                  ),
-
-                  SizedBox(
-                    height: size.height*0.08,
-                    child: notifier.testCounter/notifier.tapButtonList.length > 0.6 ?
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: FittedBox(
-                        fit: BoxFit.fitWidth,
-                        child: Text('素晴らしい!',style: GoogleFonts.yuseiMagic(
-                          color: Colors.red,
-                          fontSize: 50.sp,
-                          fontWeight: FontWeight.w900,
-                        ),),
-                      ),
-                    ) :
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: FittedBox(
-                        fit: BoxFit.fitWidth,
-                        child: Text('もう少し...',style: GoogleFonts.yuseiMagic(
-                          color: Colors.red,
-                          fontSize: 50.sp,
-                          fontWeight: FontWeight.w900,
-                        ),),
-                      ),
+                        notifier.testCounter/notifier.tapButtonList.length > 0.6 ?
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: FittedBox(
+                            fit: BoxFit.fitWidth,
+                            child: Text('Great!!',style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 50.sp,
+                              fontWeight: FontWeight.w900,
+                            ),),
+                          ),
+                        ) :
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: FittedBox(
+                            fit: BoxFit.fitWidth,
+                            child: Text('Try Harder!!',style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 50.sp,
+                              fontWeight: FontWeight.w900,
+                            ),),
+                          ),
+                        )
+                      ],
                     ),
                   ),
 
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 20.0),
+                    padding: const EdgeInsets.all(5.0),
                     child: SizedBox(
                       width: size.width*0.7,
-                      height: size.height*0.07,
+                      height: size.height*0.08,
                       child: ElevatedButton(
                         onPressed: (){
                           notifier.testReset();
@@ -128,7 +114,7 @@ class _TestResultBoxState extends State<TestResultBox> {
                               borderRadius: BorderRadius.circular(20)
                           ),
                         ),
-                        child: Text('単語帳へ戻る',style: GoogleFonts.yuseiMagic(
+                        child: Text('Back to CheckList',style: TextStyle(
                           fontSize: 22.sp,
                           fontWeight: FontWeight.w900,
                         ),),

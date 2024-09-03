@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:wordle/constants/answer_stages.dart';
 import 'package:wordle/data/key_map.dart';
@@ -25,101 +24,67 @@ class _QuizBoxFiveWordsState extends State<QuizBoxFiveWords> {
 
     return ScreenUtilInit(
       designSize: const Size(393, 852),
-      child: Dialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Consumer<Controller>(
+      child: AlertDialog(
+        content: Consumer<Controller>(
           builder: (_ , notifier, __){
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text('クイズ',
+                IconButton(
+                    alignment: Alignment.centerRight,
+                    onPressed: (){
+                      Navigator.maybePop(context);
+                    },
+                    icon: const Icon(Icons.clear)
+                ),
+
+                Text('QUIZ',
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.yuseiMagic(
-                    fontSize: 28.sp,
-                    fontWeight: FontWeight.w900,
+                  style: TextStyle(
+                      fontSize: 26.sp,
+                      fontWeight: FontWeight.w900
                   ),
                 ),
 
                 Padding(
                   padding: EdgeInsets.only(top: 10.h,bottom: 10.h),
-                  child: Text('この単語の意味は何？',
+                  child: Text('What is this word mean?',
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.yuseiMagic(
-                      fontSize: 22.sp,
-                      fontWeight: FontWeight.w900,
+                    style: TextStyle(
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w900
                     ),
                   ),
                 ),
 
-                SizedBox(
-                  height: size.height*0.2,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Text('"${notifier.correctWord.toLowerCase()}"',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 30.sp,
-                            fontWeight: FontWeight.w900
-                        ),
-                      ),
-
-                      Visibility(
-                        visible: notifier.answeredCorrect,
-                        child: Opacity(
-                          opacity: 0.6,
-                          child: Text('○',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 150.sp,
-                              fontWeight: FontWeight.w900,
-                              color: Colors.green,
-                            ),),
-                        ),
-                      ),
-
-                      Visibility(
-                        visible: notifier.answeredCorrect,
-                        child: const Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Text('Good!',style: TextStyle(
-                              fontSize: 40,
-                              fontWeight: FontWeight.w900,
-                              color: Colors.green
-                          ),),
-                        ),
-                      ),
-
-                      Visibility(
-                        visible: notifier.answeredFalse,
-                        child: Opacity(
-                          opacity: 0.6,
-                          child: Text('×',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 150.sp,
-                              fontWeight: FontWeight.w900,
-                              color: Colors.red,
-                            ),),
-                        ),
-                      ),
-
-                      Visibility(
-                        visible: notifier.answeredFalse,
-                        child: const Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Text('Bad..',style: TextStyle(
-                              fontSize: 40,
-                              fontWeight: FontWeight.w900,
-                              color: Colors.redAccent
-                          ),),
-                        ),
-                      ),
-
-                    ],
+                Text('"${notifier.correctWord.toLowerCase()}"',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 21.sp,
+                      fontWeight: FontWeight.w900
                   ),
+                ),
+
+                Visibility(
+                  visible: notifier.answeredCorrect,
+                  child: Text('○',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 40.sp,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.green,
+                    ),),
+                ),
+
+                Visibility(
+                  visible: notifier.answeredFalse,
+                  child: Text('×',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 40.sp,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.red,
+                    ),),
                 ),
 
                 Padding(
@@ -586,7 +551,7 @@ class _QuizBoxFiveWordsState extends State<QuizBoxFiveWords> {
                           );
                         }
                     ),
-                    Text('単語帳に追加する',style: GoogleFonts.yuseiMagic(
+                    Text(' Add List to review',style: TextStyle(
                         fontSize: 20.sp,
                         fontWeight: FontWeight.bold
                     ),)
@@ -615,9 +580,8 @@ class _QuizBoxFiveWordsState extends State<QuizBoxFiveWords> {
                               Navigator.of(context).pop();
                               Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>  FiveWordsWordle(snapshot.data!)));
                             },
-                            child: Text('もう一度遊ぶ',style: GoogleFonts.yuseiMagic(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
+                            child: const Text('Replay',style: TextStyle(
+                              fontSize: 30,
                             ),),
                           );
                         },
@@ -642,15 +606,10 @@ class _QuizBoxFiveWordsState extends State<QuizBoxFiveWords> {
                           Navigator.of(context).pop();
                           Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()));
                         },
-                        child: Text('タイトルに戻る',style: GoogleFonts.yuseiMagic(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
+                        child: const Text('To Title',style: TextStyle(
+                          fontSize: 30,
                         ),),
                       ),
-
-                      const SizedBox(
-                        height: 20,
-                      )
                     ],
                   ),
                 ),

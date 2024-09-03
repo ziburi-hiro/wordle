@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:wordle/components/stats_box.dart';
 import 'package:wordle/components/stats_chart.dart';
 import 'package:wordle/components/stats_chart_fivewords.dart';
-import 'package:wordle/constants/colors.dart';
 import 'package:wordle/providers/theme_provider.dart';
 import 'package:wordle/screen/help_page.dart';
 import 'package:wordle/screen/settings.dart';
@@ -21,63 +19,30 @@ class StaticsPage extends StatefulWidget {
 class _StaticsPageState extends State<StaticsPage> {
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
     return Consumer<ThemeProvider>(
       builder: (_, notifier, __) {
         return DefaultTabController(
           length: 2,
           child: Scaffold(
             appBar: AppBar(
-              title: Text('成績',style: GoogleFonts.yuseiMagic(
-                fontSize: 22,
-                  fontWeight: FontWeight.bold,
-              ),),
+              title: const Text('STATICS'),
               centerTitle: true,
               elevation: 0,
               actions: [
-                SizedBox(
-                  width: 50,
-                  height: 50,
-                  child: Stack(
-                    children: [
-                      IconButton(
-                        onPressed: (){
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HelpPage()
-                          ));
-                        },
-                        icon: const Icon(Icons.help_outline),
-                      ),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Text('Help',style: TextStyle(
-                            color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.black
-                        ),),
-                      ),
-                    ],
-                  ),
+                IconButton(
+                  onPressed: (){
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HelpPage()
+                    ));
+                  },
+                  icon: const Icon(Icons.help_outline),
                 ),
-
-                SizedBox(
-                  width: 50,
-                  height: 50,
-                  child: Stack(
-                    children: [
-                      IconButton(
-                          onPressed: (){
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Settings()
-                            ));
-                          },
-                          icon: const Icon(Icons.settings)
-                      ),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Text('設定',style: TextStyle(
-                            color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.black
-                        ),),
-                      ),
-                    ],
-                  ),
-                ),
+                IconButton(
+                    onPressed: (){
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Settings()
+                      ));
+                    },
+                    icon: const Icon(Icons.settings)
+                )
               ],
               bottom: TabBar(
                 indicatorColor: notifier.isDark ? Colors.white : Colors.grey,
@@ -102,124 +67,12 @@ class _StaticsPageState extends State<StaticsPage> {
                             if(snapshot.hasData){
                             results = snapshot.data as List<String>;
                           }
-                          return Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(top: 8.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Container(
-                                       height: screenSize.height*0.1,
-                                       width: screenSize.width*0.46,
-                                       decoration: BoxDecoration(
-                                         border: Border.all(
-                                           color: correctGreen
-                                         ),
-                                         borderRadius: BorderRadius.circular(10),
-                                       ),
-                                       child: Column(
-                                         mainAxisAlignment: MainAxisAlignment.center,
-                                         children: [
-                                           Text('プレイ回数',style: GoogleFonts.yuseiMagic(
-                                               fontSize: 22,
-                                               fontWeight: FontWeight.bold,
-                                               color: Colors.black
-                                           ),),
-                                           Text('${int.parse(results[0])}回',style: GoogleFonts.yuseiMagic(
-                                               fontSize: 22,
-                                               fontWeight: FontWeight.bold,
-                                               color: Colors.black
-                                           ),),
-                                         ],
-                                       ),
-                                     ),
-                                    Container(
-                                      height: screenSize.height*0.1,
-                                      width: screenSize.width*0.46,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: containsYellow
-                                        ),
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text('勝率',style: GoogleFonts.yuseiMagic(
-                                              fontSize: 22,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black
-                                          ),),
-                                          Text('${int.parse(results[2])}%',style: GoogleFonts.yuseiMagic(
-                                              fontSize: 22,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black
-                                          ),),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 8.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Container(
-                                      height: screenSize.height*0.1,
-                                      width: screenSize.width*0.46,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: containsYellow
-                                        ),
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text('連続成功回数',style: GoogleFonts.yuseiMagic(
-                                              fontSize: 22,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black
-                                          ),),
-                                          Text('${int.parse(results[3])}回',style: GoogleFonts.yuseiMagic(
-                                              fontSize: 22,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black
-                                          ),),
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      height: screenSize.height*0.1,
-                                      width: screenSize.width*0.46,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: correctGreen
-                                        ),
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text('最高連続成功回数',style: GoogleFonts.yuseiMagic(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black
-                                          ),),
-                                          Text('${int.parse(results[4])}回',style: GoogleFonts.yuseiMagic(
-                                              fontSize: 22,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black
-                                          ),),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                          return Row(
+                           children: [
+                              StatsTile(heading: 'Played',value: int.parse(results[0]),),
+                              StatsTile(heading: 'Win %',value: int.parse(results[2]),),
+                              StatsTile(heading: 'Current\nStreak',value: int.parse(results[3]),),
+                              StatsTile(heading: 'Max\nStreak',value: int.parse(results[4]),),
                             ],
                           );
                         },
@@ -250,124 +103,12 @@ class _StaticsPageState extends State<StaticsPage> {
                           if(snapshot.hasData){
                             results = snapshot.data as List<String>;
                           }
-                          return Column(
+                          return Row(
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.only(top: 8.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Container(
-                                      height: screenSize.height*0.1,
-                                      width: screenSize.width*0.46,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: correctGreen
-                                        ),
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text('プレイ回数',style: GoogleFonts.yuseiMagic(
-                                              fontSize: 22,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black
-                                          ),),
-                                          Text('${int.parse(results[0])}回',style: GoogleFonts.yuseiMagic(
-                                              fontSize: 22,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black
-                                          ),),
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      height: screenSize.height*0.1,
-                                      width: screenSize.width*0.46,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: containsYellow
-                                        ),
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text('勝率',style: GoogleFonts.yuseiMagic(
-                                              fontSize: 22,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black
-                                          ),),
-                                          Text('${int.parse(results[2])}%',style: GoogleFonts.yuseiMagic(
-                                              fontSize: 22,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black
-                                          ),),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 8.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Container(
-                                      height: screenSize.height*0.1,
-                                      width: screenSize.width*0.46,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: containsYellow
-                                        ),
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text('連続成功回数',style: GoogleFonts.yuseiMagic(
-                                              fontSize: 22,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black
-                                          ),),
-                                          Text('${int.parse(results[3])}回',style: GoogleFonts.yuseiMagic(
-                                              fontSize: 22,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black
-                                          ),),
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      height: screenSize.height*0.1,
-                                      width: screenSize.width*0.46,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: correctGreen
-                                        ),
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text('最高連続成功回数',style: GoogleFonts.yuseiMagic(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black
-                                          ),),
-                                          Text('${int.parse(results[4])}回',style: GoogleFonts.yuseiMagic(
-                                              fontSize: 22,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black
-                                          ),),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                              StatsTile(heading: 'Played',value: int.parse(results[0]),),
+                              StatsTile(heading: 'Win %',value: int.parse(results[2]),),
+                              StatsTile(heading: 'Current\nStreak',value: int.parse(results[3]),),
+                              StatsTile(heading: 'Max\nStreak',value: int.parse(results[4]),),
                             ],
                           );
                         },

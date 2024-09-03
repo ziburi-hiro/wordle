@@ -1,6 +1,5 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:wordle/components/step1_widget.dart';
 import 'package:wordle/components/step2_widget.dart';
@@ -22,11 +21,8 @@ class _RuleBoxState extends State<RuleBox> {
     final size = MediaQuery.of(context).size;
     List<Widget> list = [Step1(size: size),Step2(size: size),Step3(size: size)];
 
-    return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: SizedBox(
+    return AlertDialog(
+      content: SizedBox(
         width: size.width*0.9,
         height: size.height*0.7,
         child: FutureBuilder(
@@ -34,7 +30,7 @@ class _RuleBoxState extends State<RuleBox> {
           builder: (context,snapshot){
             return Column(
               children: [
-                Text('ゲームルール',style: GoogleFonts.yuseiMagic(
+                const Text('Game Rule',style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold
                 ),),
@@ -93,7 +89,7 @@ class _RuleBoxState extends State<RuleBox> {
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0),
                   child: Container(
-                    width: size.width*0.6,
+                    width: size.width*0.5,
                     height: size.height*0.05,
                     child: ElevatedButton(
                       onPressed: (){
@@ -105,7 +101,7 @@ class _RuleBoxState extends State<RuleBox> {
                         ),
                         backgroundColor: Colors.green,
                       ),
-                      child: Text('理解できた!',style: GoogleFonts.yuseiMagic(
+                      child: const Text('I got it',style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),),

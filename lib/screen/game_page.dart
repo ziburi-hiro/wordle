@@ -11,7 +11,6 @@ import 'package:wordle/constants/words.dart';
 import 'package:wordle/main.dart';
 import 'package:wordle/providers/controller.dart';
 import 'package:wordle/providers/quiz_provider.dart';
-import 'package:wordle/providers/theme_provider.dart';
 import 'package:wordle/screen/help_page.dart';
 import 'package:wordle/screen/settings.dart';
 import 'package:wordle/utils/quick_box.dart';
@@ -89,14 +88,14 @@ class _GamePageState extends State<GamePage> with RouteAware{
         leading: Consumer<Controller>(
             builder: (_, notifier, __) {
               if(notifier.notEnoughLetters){
-                runQuickBox(context: context, message: '文字数が足りないよ');
+                runQuickBox(context: context, message: 'Not Enough Letters');
               }
               if(notifier.gameCompleted){
                 if(notifier.gameWon){
                   if(notifier.currentRow == 5){
-                    runQuickBox(context: context, message: 'ギリギリ...');
+                    runQuickBox(context: context, message: 'Phew!');
                   }else{
-                    runQuickBox(context: context, message: '素晴らしい!');
+                    runQuickBox(context: context, message: 'Splendid!');
                   }
                 }else{
                   runQuickBox(context: context, message: notifier.correctWord.toLowerCase());
@@ -104,9 +103,9 @@ class _GamePageState extends State<GamePage> with RouteAware{
                 Future.delayed(const Duration(milliseconds: 2000), (){
                   if(mounted){
                     if(Provider.of<QuizProvider>(context,listen: false).quizMode){
-                      showDialog(context: context,builder: (_) => const QuizBox());
+                      showDialog(context: context, builder: (_) => const QuizBox());
                     }else{
-                      showDialog(context: context,builder: (_) => const ResultBox());
+                      showDialog(context: context, builder: (_) => const ResultBox());
                     }
                   }
                 });
@@ -123,57 +122,28 @@ class _GamePageState extends State<GamePage> with RouteAware{
                       showDialog(context: context, builder: (_) => const TitleBackBox());
                     }
                   },
-                  icon: notifier.gameCompleted ? const Icon(Icons.description) : const Icon(Icons.arrow_back)
+                  icon: notifier.gameCompleted ? const Icon(Icons.description) : const Icon(Icons.home)
               );
             }
         ),
         actions: [
-          SizedBox(
-            width: 50,
-            height: 50,
-            child: Stack(
-              children: [
-                IconButton(
-                  onPressed: (){
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HelpPage()
-                    ));
-                  },
-                  icon: const Icon(Icons.help_outline),
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Text('Help',style: TextStyle(
-                      color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.black
-                  ),),
-                ),
-              ],
-            ),
+          IconButton(
+            onPressed: (){
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HelpPage()
+              ));
+            },
+            icon: const Icon(Icons.help_outline),
           ),
 
-          SizedBox(
-            width: 50,
-            height: 50,
-            child: Stack(
-              children: [
-                IconButton(
-                    onPressed: (){
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Settings()
-                      ));
-                    },
-                    icon: const Icon(Icons.settings)
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Text('設定',style: TextStyle(
-                      color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.black
-                  ),),
-                ),
-              ],
-            ),
-          ),
+          IconButton(
+              onPressed: (){
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Settings()
+                ));
+              },
+              icon: const Icon(Icons.settings)
+          )
         ],
       ),
-
       body: const Column(
         children: [
           Divider(
@@ -181,10 +151,13 @@ class _GamePageState extends State<GamePage> with RouteAware{
             thickness: 2,
           ),
 
-          Grid(itemCount: 20, space: 3, axisCount: 4, mode: 'FourWords',),
+          Expanded(
+            flex: 7,
+              child: Grid(itemCount: 20, space: 3, axisCount: 4, mode: 'FourWords',)
+          ),
 
           Expanded(
-            flex: 3,
+            flex: 4,
               child: Column(
                 children: [
                   KeyboardRow(min: 1, max: 10, length: 4,),
