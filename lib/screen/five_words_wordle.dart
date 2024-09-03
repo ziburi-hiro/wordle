@@ -11,6 +11,7 @@ import 'package:wordle/constants/five_words.dart';
 import 'package:wordle/main.dart';
 import 'package:wordle/providers/controller.dart';
 import 'package:wordle/providers/quiz_provider.dart';
+import 'package:wordle/providers/theme_provider.dart';
 import 'package:wordle/screen/help_page.dart';
 import 'package:wordle/screen/settings.dart';
 import 'package:wordle/utils/quick_box.dart';
@@ -84,14 +85,14 @@ class _FiveWordsWordleState extends State<FiveWordsWordle> with RouteAware{
         leading: Consumer<Controller>(
             builder: (_, notifier, __) {
               if(notifier.notEnoughLetters){
-                runQuickBox(context: context, message: 'Not Enough Letters');
+                runQuickBox(context: context, message: '文字数が足りないよ');
               }
               if(notifier.gameCompleted){
                 if(notifier.gameWon){
                   if(notifier.currentRow == 6){
-                    runQuickBox(context: context, message: 'Phew!');
+                    runQuickBox(context: context, message: 'ギリギリ...!');
                   }else{
-                    runQuickBox(context: context, message: 'Splendid!');
+                    runQuickBox(context: context, message: '素晴らしい!');
                   }
                 }else{
                   runQuickBox(context: context, message: notifier.correctWord);
@@ -118,25 +119,54 @@ class _FiveWordsWordleState extends State<FiveWordsWordle> with RouteAware{
                       showDialog(context: context, builder: (_) => const TitleBackBox());
                     }
                   },
-                  icon: notifier.gameCompleted ? const Icon(Icons.description) : const Icon(Icons.home)
+                  icon: notifier.gameCompleted ? const Icon(Icons.description) : const Icon(Icons.arrow_back)
               );
             }
         ),
         actions: [
-          IconButton(
-            onPressed: (){
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HelpPage()
-              ));
-            },
-            icon: const Icon(Icons.help_outline),
+          SizedBox(
+            width: 50,
+            height: 50,
+            child: Stack(
+              children: [
+                IconButton(
+                  onPressed: (){
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HelpPage()
+                    ));
+                  },
+                  icon: const Icon(Icons.help_outline),
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Text('Help',style: TextStyle(
+                      color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.black
+                  ),),
+                ),
+              ],
+            ),
           ),
-          IconButton(
-              onPressed: (){
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Settings()
-                ));
-              },
-              icon: const Icon(Icons.settings)
-          )
+
+          SizedBox(
+            width: 50,
+            height: 50,
+            child: Stack(
+              children: [
+                IconButton(
+                    onPressed: (){
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Settings()
+                      ));
+                    },
+                    icon: const Icon(Icons.settings)
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Text('設定',style: TextStyle(
+                      color: Provider.of<ThemeProvider>(context, listen: false).isDark ? Colors.white : Colors.black
+                  ),),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
       body: const Column(

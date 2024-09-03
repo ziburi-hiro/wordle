@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:wordle/constants/answer_stages.dart';
 import 'package:wordle/data/key_map.dart';
@@ -22,25 +23,25 @@ class _ResultBoxFiveWordsState extends State<ResultBoxFiveWords> {
     final size = MediaQuery.of(context).size;
     return ScreenUtilInit(
       designSize: const Size(393, 852),
-      child: AlertDialog(
-        insetPadding: EdgeInsets.fromLTRB(size.width * 0.02, size.height * 0.05, size.width * 0.02, size.height * 0.05),
-        content: Consumer<Controller>(
+      child: Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        insetPadding: EdgeInsets.fromLTRB(size.width * 0.05, size.height * 0.15, size.width * 0.05, size.height * 0.15),
+        child: Consumer<Controller>(
           builder: (_, notifier, __) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                IconButton(
-                    alignment: Alignment.centerRight,
-                    onPressed: (){
-                      Navigator.maybePop(context);
-                    },
-                    icon: const Icon(Icons.clear)
+                const SizedBox(
+                  height: 20,
                 ),
+
                 Expanded(
-                    child: Text('RESULTS',
+                    child: Text('結果',
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 30.sp,
+                      style: GoogleFonts.yuseiMagic(
+                          fontSize: 28.sp,
                           fontWeight: FontWeight.w900
                       ),
                     )
@@ -50,40 +51,47 @@ class _ResultBoxFiveWordsState extends State<ResultBoxFiveWords> {
                   flex: 3,
                   child: Column(
                     children: [
-                      Text('Correct Word',
-                        style: TextStyle(
+                      Text('正解の単語',
+                        style: GoogleFonts.yuseiMagic(
                             fontSize: 20.sp,
                             fontWeight: FontWeight.bold
                         ),
                       ),
+
                       Text(notifier.correctWord.toLowerCase(),
-                        style: TextStyle(
+                        style: GoogleFonts.yuseiMagic(
                             fontSize: 22.sp,
                             fontWeight: FontWeight.bold
                         ),),
+
                       SizedBox(
                         height: 10.sp,
                       ),
-                      Text('Mean',
-                        style: TextStyle(
+
+                      Text('単語の意味',
+                        style: GoogleFonts.yuseiMagic(
                             fontSize: 20.sp,
                             fontWeight: FontWeight.bold
                         ),),
+
                       Text(notifier.meanList_5words[0],
-                        style: TextStyle(
+                        style: GoogleFonts.yuseiMagic(
                             fontSize: 22.sp,
                             fontWeight: FontWeight.bold
                         ),),
+
                       SizedBox(
                         height: 10.sp,
                       ),
-                      Text('Parts of Speech',
-                        style: TextStyle(
+
+                      Text('品詞',
+                        style: GoogleFonts.yuseiMagic(
                             fontSize: 20.sp,
                             fontWeight: FontWeight.bold
                         ),),
+
                       Text(notifier.meanList_5words[1],
-                        style: TextStyle(
+                        style: GoogleFonts.yuseiMagic(
                             fontSize: 22.sp,
                             fontWeight: FontWeight.bold
                         ),),
@@ -122,7 +130,7 @@ class _ResultBoxFiveWordsState extends State<ResultBoxFiveWords> {
                           );
                         }
                     ),
-                    Text('Add List to review',style: TextStyle(
+                    Text('単語帳に追加する',style: GoogleFonts.yuseiMagic(
                         fontSize: 20.sp,
                         fontWeight: FontWeight.bold
                     ),)
@@ -132,21 +140,32 @@ class _ResultBoxFiveWordsState extends State<ResultBoxFiveWords> {
                 FutureBuilder(
                   future: RulePreferences.getRuleCheckBox(),
                   builder: (context,snapshot){
-                    return ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
-                        fixedSize: Size(size.width * 0.7, size.height * 0.06),
-                      ),
-                      onPressed: (){
-                        keyMap.updateAll((key, value) => value = AnswerStage.notAnswered);
-                        notifier.gameReset();
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 10.0,right: 10.0),
+                      child: SizedBox(
+                        height: size.height*0.05,
+                        width: size.width*0.4,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green,
+                            fixedSize: Size(size.width * 0.7, size.height * 0.06),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20)
+                            ),
+                          ),
+                          onPressed: (){
+                            keyMap.updateAll((key, value) => value = AnswerStage.notAnswered);
+                            notifier.gameReset();
 
-                        Navigator.of(context).pop();
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => FiveWordsWordle(snapshot.data!)));
-                      },
-                      child: const Text('Replay',style: TextStyle(
-                        fontSize: 30,
-                      ),),
+                            Navigator.of(context).pop();
+                            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => FiveWordsWordle(snapshot.data!)));
+                          },
+                          child: Text('もう一度遊ぶ',style: GoogleFonts.yuseiMagic(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),),
+                        ),
+                      ),
                     );
                   },
                 ),
@@ -155,21 +174,35 @@ class _ResultBoxFiveWordsState extends State<ResultBoxFiveWords> {
                   height: 10.sp,
                 ),
 
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
-                    fixedSize: Size(size.width * 0.7, size.height * 0.06),
-                  ),
-                  onPressed: (){
-                    keyMap.updateAll((key, value) => value = AnswerStage.notAnswered);
-                    notifier.gameReset();
+                Padding(
+                  padding: const EdgeInsets.only(left: 10.0,right: 10.0),
+                  child: SizedBox(
+                    height: size.height*0.05,
+                    width: size.width*0.4,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green,
+                        fixedSize: Size(size.width * 0.7, size.height * 0.06),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)
+                        ),
+                      ),
+                      onPressed: (){
+                        keyMap.updateAll((key, value) => value = AnswerStage.notAnswered);
+                        notifier.gameReset();
 
-                    Navigator.of(context).pop();
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()));
-                  },
-                  child: const Text('To Title',style: TextStyle(
-                    fontSize: 30,
-                  ),),
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()));
+                      },
+                      child: Text('タイトルに戻る',style: GoogleFonts.yuseiMagic(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                      ),),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
                 ),
               ],
             );

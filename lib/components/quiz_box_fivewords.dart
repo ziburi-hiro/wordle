@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:wordle/constants/answer_stages.dart';
 import 'package:wordle/data/key_map.dart';
@@ -24,67 +25,101 @@ class _QuizBoxFiveWordsState extends State<QuizBoxFiveWords> {
 
     return ScreenUtilInit(
       designSize: const Size(393, 852),
-      child: AlertDialog(
-        content: Consumer<Controller>(
+      child: Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Consumer<Controller>(
           builder: (_ , notifier, __){
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                IconButton(
-                    alignment: Alignment.centerRight,
-                    onPressed: (){
-                      Navigator.maybePop(context);
-                    },
-                    icon: const Icon(Icons.clear)
-                ),
-
-                Text('QUIZ',
+                Text('クイズ',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 26.sp,
-                      fontWeight: FontWeight.w900
+                  style: GoogleFonts.yuseiMagic(
+                    fontSize: 28.sp,
+                    fontWeight: FontWeight.w900,
                   ),
                 ),
 
                 Padding(
                   padding: EdgeInsets.only(top: 10.h,bottom: 10.h),
-                  child: Text('What is this word mean?',
+                  child: Text('この単語の意味は何？',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.w900
+                    style: GoogleFonts.yuseiMagic(
+                      fontSize: 22.sp,
+                      fontWeight: FontWeight.w900,
                     ),
                   ),
                 ),
 
-                Text('"${notifier.correctWord.toLowerCase()}"',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 21.sp,
-                      fontWeight: FontWeight.w900
+                SizedBox(
+                  height: size.height*0.2,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Text('"${notifier.correctWord.toLowerCase()}"',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 30.sp,
+                            fontWeight: FontWeight.w900
+                        ),
+                      ),
+
+                      Visibility(
+                        visible: notifier.answeredCorrect,
+                        child: Opacity(
+                          opacity: 0.6,
+                          child: Text('○',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 150.sp,
+                              fontWeight: FontWeight.w900,
+                              color: Colors.green,
+                            ),),
+                        ),
+                      ),
+
+                      Visibility(
+                        visible: notifier.answeredCorrect,
+                        child: const Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Text('Good!',style: TextStyle(
+                              fontSize: 40,
+                              fontWeight: FontWeight.w900,
+                              color: Colors.green
+                          ),),
+                        ),
+                      ),
+
+                      Visibility(
+                        visible: notifier.answeredFalse,
+                        child: Opacity(
+                          opacity: 0.6,
+                          child: Text('×',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 150.sp,
+                              fontWeight: FontWeight.w900,
+                              color: Colors.red,
+                            ),),
+                        ),
+                      ),
+
+                      Visibility(
+                        visible: notifier.answeredFalse,
+                        child: const Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Text('Bad..',style: TextStyle(
+                              fontSize: 40,
+                              fontWeight: FontWeight.w900,
+                              color: Colors.redAccent
+                          ),),
+                        ),
+                      ),
+
+                    ],
                   ),
-                ),
-
-                Visibility(
-                  visible: notifier.answeredCorrect,
-                  child: Text('○',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 40.sp,
-                      fontWeight: FontWeight.w900,
-                      color: Colors.green,
-                    ),),
-                ),
-
-                Visibility(
-                  visible: notifier.answeredFalse,
-                  child: Text('×',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 40.sp,
-                      fontWeight: FontWeight.w900,
-                      color: Colors.red,
-                    ),),
                 ),
 
                 Padding(
@@ -551,7 +586,7 @@ class _QuizBoxFiveWordsState extends State<QuizBoxFiveWords> {
                           );
                         }
                     ),
-                    Text(' Add List to review',style: TextStyle(
+                    Text('単語帳に追加する',style: GoogleFonts.yuseiMagic(
                         fontSize: 20.sp,
                         fontWeight: FontWeight.bold
                     ),)
@@ -580,8 +615,9 @@ class _QuizBoxFiveWordsState extends State<QuizBoxFiveWords> {
                               Navigator.of(context).pop();
                               Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>  FiveWordsWordle(snapshot.data!)));
                             },
-                            child: const Text('Replay',style: TextStyle(
-                              fontSize: 30,
+                            child: Text('もう一度遊ぶ',style: GoogleFonts.yuseiMagic(
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
                             ),),
                           );
                         },
@@ -606,10 +642,15 @@ class _QuizBoxFiveWordsState extends State<QuizBoxFiveWords> {
                           Navigator.of(context).pop();
                           Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()));
                         },
-                        child: const Text('To Title',style: TextStyle(
-                          fontSize: 30,
+                        child: Text('タイトルに戻る',style: GoogleFonts.yuseiMagic(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
                         ),),
                       ),
+
+                      const SizedBox(
+                        height: 20,
+                      )
                     ],
                   ),
                 ),
